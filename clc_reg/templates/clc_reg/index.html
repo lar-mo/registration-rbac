@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register/Login - CLC Reg</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Roboto,Montserrat,Red+Hat+Text&display=swap" rel="stylesheet"> -->
+    <style media="screen" type="text/css">
+
+      html, body, #bg_blur {
+        /* background: linear-gradient(0.25turn, #5CDB95, #379683); */
+        /* background: linear-gradient(0.25turn, #379683, #5CDB95); */
+        /* background-image: url('https://lar-mo.com/images/garage_interior5darker.jpg?'); */
+        background-attachment: fixed;
+        background-size: cover;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        font-size: 0.95em;
+        /* font-family: 'Roboto', sans-serif; */
+      }
+
+    </style>
+  </head>
+  <body>
+
+      <div id="main"> <!-- start of 'main'-->
+        {% if message == "fail" %}
+        <div style="background-color:red;color:white;">Your username and password did not match</div>
+        {% endif %}
+        <div id="container">
+          <h3>Login</h3>
+          <form action="{% url 'clc_reg:login_user' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{next}}"/>
+            <input type="text" name="username" placeholder="username" required/>
+            <input type="password" name="password" placeholder="password" required/>
+            <div class="status_block"><button type="submit">Login</button></div>
+          </form>
+          <div id="spacer"><p>&nbsp;</p></div>
+          <div id="spacer"><p>&nbsp;</p></div>
+          <div id="spacer"><p>&nbsp;</p></div>
+          <div id="spacer"><p>&nbsp;</p></div>
+          <div id="spacer"><p>&nbsp;</p></div>
+          <div id="spacer"><p>&nbsp;</p></div>
+          <div id="spacer"><p>&nbsp;</p></div>
+          <div id="spacer"><p>&nbsp;</p></div>
+          <div id="spacer"><p>&nbsp;</p></div>
+          <div id="spacer"><p>&nbsp;</p></div>
+          <h3><a name="register_section">Register</a></h3>
+          <form action="" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{next}}"/>
+            <input type="text" name="username" placeholder="username" required pattern="\w{3,15}" title="username must be between 3 and 15 characters, all lowercase"/>
+            <input type="text" name="email" placeholder="email" required pattern="\w+@\w+\.\w+" title="please enter a properly formatted email address"/>
+            <input type="password" id="input_password" name="password" placeholder="password"/>
+            <input type="password" id="input_password2" name="password2" placeholder="retype password"/>
+            <div class="status_block"><button type="submit" id="bt_register">Register</button></div>
+          </form>
+        </div> <!-- end of 'container'-->
+        <script type="text/javascript">
+          bt_register = document.querySelector('#bt_register')
+          input_password = document.querySelector('#input_password')
+          input_password2 = document.querySelector('#input_password2')
+
+          bt_register.onclick = function(evt) {
+            if (input_password.value != input_password2.value) {
+              alert('those passwords do not match')
+              evt.preventDefault()
+            }
+          }
+        </script>
+      </div> <!-- end of 'main'-->
+      <div id="spacer"><p>&nbsp;</p></div>
+      <div id="spacer"><p>&nbsp;</p></div>
+      <div id="spacer"><p>&nbsp;</p></div>
+      <div id="spacer"><p>&nbsp;</p></div>
+
+    </body>
+  </html>
