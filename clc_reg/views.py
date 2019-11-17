@@ -19,6 +19,9 @@ def index(request):
     }
     return render(request, 'clc_reg/index.html', context)
 
+def home(request):
+    return HttpResponse("home page")
+
 def login_user(request):
     username = request.POST['username']
     password = request.POST['password']
@@ -45,5 +48,5 @@ def register_user(request):
     login(request, user)
 
 @login_required
-def special_page(request):
-    return render(request, 'clc_reg/special_page.html')
+def special_pages(request):
+    return render(request, 'clc_reg/special_pages.html')
