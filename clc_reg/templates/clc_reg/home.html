@@ -2,15 +2,15 @@
 
 {% block content %}
 
+<h1>Unsecured page, anonymous ok</h1>
+
   {% if user.is_authenticated %}
-  <h1>Hello, {{ user.username }}</h1>
+  <h2>Hello, {{ user.username }}</h2>
   <h3><a href="{% url 'clc_reg:logout_user' %}">Logout</a></h3>
-  <h4><a href="{% url 'clc_reg:special_page' %}">Secured Page</a></h4>
+  <h4>Go to: <a href="{% url 'clc_reg:special_page' %}">Secured Page</a></h4>
   {% else %}
-  <h1>Hello, friend</h1>
+  <h2>Hello, friend</h2>
   <h3><a href="{% url 'clc_reg:index' %}?next=/home/">Login</a></h3>
   {% endif %}
-
-  <h5>Home page - unsecured page</h5>
 
 {% endblock %}

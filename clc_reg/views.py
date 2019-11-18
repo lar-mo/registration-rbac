@@ -28,8 +28,7 @@ def login_user(request):
     username = request.POST['username']
     password = request.POST['password']
     next = request.POST['next']
-    user = authenticate(username=username, password=password)
-
+    user = authenticate(request, username=username, password=password)
     if user is not None:
         if user.is_active:
             login(request, user)
@@ -42,8 +41,9 @@ def login_user(request):
         return HttpResponseRedirect(reverse('clc_reg:index')+'?message=fail')
 
 ###
-### THIS CODE DOESN'T WORK
-### when is_active = False, then 'if user is not None' returns False (line 48)
+### THIS CODE DOESN'T WORK (and I don't think it will.)
+### https://stackoverflow.com/questions/29742845/django-how-do-i-use-is-active-of-auth-user-table
+### when is_active = False, then 'if user is not None' returns False (line 49)
 ###
     # if user is not None:  #to check whether user is available or not?
     #     # the password verified for the user
