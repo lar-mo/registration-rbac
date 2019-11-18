@@ -5,6 +5,9 @@
 <h1>Unsecured page, anonymous ok</h1>
 
   {% if user.is_authenticated %}
+  {% if message == "pending" %}
+    <div style="background-color:orange;color:white;">You need to confirm your account.</div>
+  {% endif %}
   <h2>Hello, {{ user.username }}</h2>
   <h3><a href="{% url 'clc_reg:logout_user' %}">Logout</a></h3>
   <h4>Go to: <a href="{% url 'clc_reg:special_page' %}">Secured Page</a></h4>

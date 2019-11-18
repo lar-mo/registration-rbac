@@ -26,7 +26,13 @@ def index(request):
     return render(request, 'clc_reg/index.html', context)
 
 def home(request):
-    return render(request, 'clc_reg/home.html')
+    message = request.GET.get('message', '')
+    next = request.GET.get('next', '')
+    context = {
+        'message': message,
+        'next': next
+    }
+    return render(request, 'clc_reg/home.html', context)
 
 def login_user(request):
     username = request.POST['username']
@@ -77,10 +83,20 @@ def register_user(request):
         return HttpResponseRedirect(next)
     return HttpResponseRedirect(reverse('clc_reg:home'))
 
-@login_required
+# @login_required
 def special_page(request):
-    print(secrets.token_hex(16))
-    return render(request, 'clc_reg/special_page.html')
+    # lookup VerifyRegistration by user.id
+    # user = request.user.id
+    confirmed = VerifyRegistration.objects.get(user_id=request.user.id)
+    # if confirmed.confirmed (boolean) = true (1)
+    if confirmed.confirmed:
+        # then go to special page
+        return render(request, 'clc_reg/special_page.html')
+        # return HttpResponse("confirmed: true")
+    else:
+    # else go to index?message=pending
+        return HttpResponseRedirect(reverse('clc_reg:home')+'?message=pending')
+        # return HttpResponse("pending")
 
 def logout_user(request):
     logout(request)
