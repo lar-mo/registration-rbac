@@ -73,7 +73,6 @@ def register_user(request):
 
     user = User.objects.create_user(username, email, password)
     login(request, user)
-    print(user.id)
 
     expiry = timezone.now() + timezone.timedelta(days=3)
     clc_link = VerifyRegistration(confirmation_code=secrets.token_hex(16), expiration=expiry, confirmed=False, user_id=user.id)
@@ -83,21 +82,32 @@ def register_user(request):
         return HttpResponseRedirect(next)
     return HttpResponseRedirect(reverse('clc_reg:home'))
 
-# @login_required
+@login_required
 def special_page(request):
-    # lookup VerifyRegistration by user.id
-    # user = request.user.id
-    confirmed = VerifyRegistration.objects.get(user_id=request.user.id)
-    # if confirmed.confirmed (boolean) = true (1)
-    if confirmed.confirmed:
-        # then go to special page
-        return render(request, 'clc_reg/special_page.html')
-        # return HttpResponse("confirmed: true")
-    else:
-    # else go to index?message=pending
+    confirmed = VerifyRegistration.objects.get(user_id=request.user.id) # lookup VerifyRegistration by user.id
+    if confirmed.confirmed:                                     # if confirmed.confirmed (boolean) = true (1)
+        return render(request, 'clc_reg/special_page.html')     # then go to login-required page
+    else:                                                       # else go to index?message=pending
         return HttpResponseRedirect(reverse('clc_reg:home')+'?message=pending')
-        # return HttpResponse("pending")
 
 def logout_user(request):
     logout(request)
     return HttpResponseRedirect(reverse('clc_reg:index')+'?message=logout')
+
+@login_required
+def confirmation_page(request):
+    clc_code = request.GET.get('clc_code', '')
+    message = request.GET.get('message', '')
+    context = {'message': message}
+    print(request.user.id)
+    # lookup all code associated with user_id
+    valid_codes = VerifyRegistration.objects.get(user_id=request.user.id)
+    print(valid_codes)
+    # compare code from url vs in the database for user_id
+    # if it is valid (string match and not expired)
+    # if code in URL matches one of the codes in 'valid codes' array, set "confirmed" = True
+    
+
+    # then, tell user their confirmed.
+    # return render(request, 'clc_reg/index.html', context)
+    return HttpResponse("Hello world!")
