@@ -1,1 +1,16 @@
-<h3>home page</h3>
+{% extends 'clc_reg/base.html' %}
+
+{% block content %}
+
+  {% if user.is_authenticated %}
+  <h1>Hello, {{ user.username }}</h1>
+  <h3><a href="{% url 'clc_reg:logout_user' %}">Logout</a></h3>
+  <h4><a href="{% url 'clc_reg:special_page' %}">Secured Page</a></h4>
+  {% else %}
+  <h1>Hello, friend</h1>
+  <h3><a href="{% url 'clc_reg:index' %}?next=/home/">Login</a></h3>
+  {% endif %}
+
+  <h5>Home page - unsecured page</h5>
+
+{% endblock %}

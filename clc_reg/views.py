@@ -10,17 +10,27 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import check_password
 
 def index(request):
-    # return render(request, 'clc_reg/index.html')
-    message = request.GET.get('message', '')
-    next = request.GET.get('next', '')
-    context = {
-        'message': message,
-        'next': next
-    }
+    if request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('clc_reg:home'))
+    else:
+        message = request.GET.get('message', '')
+        next = request.GET.get('next', '')
+        context = {
+            'message': message,
+            'next': next
+        }
     return render(request, 'clc_reg/index.html', context)
+    # message = request.GET.get('message', '')
+    # next = request.GET.get('next', '')
+    # context = {
+    #     'message': message,
+    #     'next': next
+    # }
+    # return render(request, 'clc_reg/index.html', context)
 
 def home(request):
-    return HttpResponse("home page")
+    context = {'foo': 'bar'}
+    return render(request, 'clc_reg/home.html', context)
 
 def login_user(request):
     username = request.POST['username']
@@ -48,5 +58,9 @@ def register_user(request):
     login(request, user)
 
 @login_required
-def special_pages(request):
-    return render(request, 'clc_reg/special_pages.html')
+def special_page(request):
+    return render(request, 'clc_reg/special_page.html')
+
+def logout_user(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('clc_reg:index')+'?message=logout')

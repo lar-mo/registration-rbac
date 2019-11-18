@@ -13,9 +13,12 @@ urlpatterns = [
     path('login_user/', views.login_user, name='login_user'),
 
     # protected page
-    path('special_pages/', views.special_pages, name='special_pages'),
+    path('special_page/', views.special_page, name='special_page'),
 
     # home page
     path('home/', views.home, name='home'),
+
+    # logout a user
+    path('logout_user/', views.logout_user, name='logout_user'),
 
 ]
