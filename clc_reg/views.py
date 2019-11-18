@@ -20,33 +20,40 @@ def index(request):
             'next': next
         }
     return render(request, 'clc_reg/index.html', context)
-    # message = request.GET.get('message', '')
-    # next = request.GET.get('next', '')
-    # context = {
-    #     'message': message,
-    #     'next': next
-    # }
-    # return render(request, 'clc_reg/index.html', context)
 
 def home(request):
-    context = {'foo': 'bar'}
-    return render(request, 'clc_reg/home.html', context)
+    return render(request, 'clc_reg/home.html')
 
 def login_user(request):
     username = request.POST['username']
     password = request.POST['password']
     next = request.POST['next']
-    user = authenticate(request, username=username, password=password)
+    user = authenticate(username=username, password=password)
 
     if user is not None:
-        login(request, user)
+        if user.is_active:
+            login(request, user)
+            if next != '':
+                return HttpResponseRedirect(next)
+            return HttpResponseRedirect(reverse('clc_reg:special_page'))
+    else:
         if next != '':
-            return HttpResponseRedirect(next)
-        return HttpResponseRedirect(reverse('clc_reg:special_page'))
+            return HttpResponseRedirect(reverse('clc_reg:index')+'?message=fail&next='+next)
+        return HttpResponseRedirect(reverse('clc_reg:index')+'?message=fail2')
 
-    if next != '':
-        return HttpResponseRedirect(reverse('clc_reg:index')+'?message=fail&next='+next)
-    return HttpResponseRedirect(reverse('clc_reg:index')+'?message=fail')
+###
+### THIS CODE DOESN'T WORK
+### when is_active = False, then 'if user is not None' returns False (line 48)
+###
+    # if user is not None:  #to check whether user is available or not?
+    #     # the password verified for the user
+    #     if user.is_active:
+    #         return HttpResponse("User is valid, active and authenticated")
+    #     else:
+    #         return HttpResponse("The password is valid, but the account has been disabled!")
+    # else:
+    #     # the authentication system was unable to verify the username and password
+    #     return HttpResponse("The username and password were incorrect.")
 
 def register_user(request):
     username = request.POST['username']
@@ -56,6 +63,10 @@ def register_user(request):
 
     user = User.objects.create_user(username, email, password)
     login(request, user)
+
+    if next != '':
+        return HttpResponseRedirect(next)
+    return HttpResponseRedirect(reverse('clc_reg:home'))
 
 @login_required
 def special_page(request):

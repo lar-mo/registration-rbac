@@ -12,6 +12,9 @@ urlpatterns = [
     # just handles the login process, register_login renders the template
     path('login_user/', views.login_user, name='login_user'),
 
+    # just handles the registration process, register_login renders the template
+    path('register_user/', views.register_user, name='register_user'),
+
     # protected page
     path('special_page/', views.special_page, name='special_page'),
 
