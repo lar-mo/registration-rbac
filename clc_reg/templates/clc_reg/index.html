@@ -3,16 +3,13 @@
 {% block content %}
 
   {% if user.is_authenticated %}
-  <div style="background-color:blue;color:white;">You're already logged in.</div>
-  {% endif %}
-  {% if message == "fail" %}
-  <div style="background-color:red;color:white;">Your username and password did not match.</div>
-  {% endif %}
-  {% if message == "logout" %}
-  <div style="background-color:blue;color:white;">You've been logged out.</div>
-  {% endif %}
-  {% if message == "inactive" %}
-  <div style="background-color:orange;color:white;">You need to confirm your account.</div>
+    <div style="background-color:blue;color:white;">You're already logged in.</div>
+  {% elif message == "fail" %}
+    <div style="background-color:red;color:white;">Your username and password did not match.</div>
+  {% elif message == "logout" %}
+    <div style="background-color:blue;color:white;">You've been logged out.</div>
+  {% elif message == "inactive" %}
+    <div style="background-color:orange;color:white;">You need to confirm your account.</div>
   {% endif %}
   <div id="container">
     <h3>Login</h3>
@@ -23,16 +20,7 @@
       <input type="password" name="password" placeholder="password" required/>
       <div class="status_block"><button type="submit">Login</button></div>
     </form>
-    <div id="spacer"><p>&nbsp;</p></div>
-    <div id="spacer"><p>&nbsp;</p></div>
-    <div id="spacer"><p>&nbsp;</p></div>
-    <div id="spacer"><p>&nbsp;</p></div>
-    <div id="spacer"><p>&nbsp;</p></div>
-    <div id="spacer"><p>&nbsp;</p></div>
-    <div id="spacer"><p>&nbsp;</p></div>
-    <div id="spacer"><p>&nbsp;</p></div>
-    <div id="spacer"><p>&nbsp;</p></div>
-    <div id="spacer"><p>&nbsp;</p></div>
+
     <h3><a name="register_section">Register</a></h3>
     <form action="{% url 'clc_reg:register_user' %}" method="post">
       {% csrf_token %}

@@ -9,6 +9,10 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import check_password
 
+from .models import VerifyRegistration
+
+import secrets
+
 def index(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect(reverse('clc_reg:home'))
@@ -63,6 +67,11 @@ def register_user(request):
 
     user = User.objects.create_user(username, email, password)
     login(request, user)
+    print(user.id)
+
+    expiry = timezone.now() + timezone.timedelta(days=3)
+    clc_link = VerifyRegistration(confirmation_code=secrets.token_hex(16), expiration=expiry, confirmed=False, user_id=user.id)
+    clc_link.save()
 
     if next != '':
         return HttpResponseRedirect(next)
@@ -70,6 +79,7 @@ def register_user(request):
 
 @login_required
 def special_page(request):
+    print(secrets.token_hex(16))
     return render(request, 'clc_reg/special_page.html')
 
 def logout_user(request):
