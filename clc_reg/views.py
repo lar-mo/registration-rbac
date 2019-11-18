@@ -39,7 +39,7 @@ def login_user(request):
     else:
         if next != '':
             return HttpResponseRedirect(reverse('clc_reg:index')+'?message=fail&next='+next)
-        return HttpResponseRedirect(reverse('clc_reg:index')+'?message=fail2')
+        return HttpResponseRedirect(reverse('clc_reg:index')+'?message=fail')
 
 ###
 ### THIS CODE DOESN'T WORK
