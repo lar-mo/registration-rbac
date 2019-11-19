@@ -4,7 +4,7 @@
 
   {% if user.is_authenticated %}
     <div style="background-color:blue;color:white;">You're already logged in.</div>
-  {% elif message == "fail" %}
+  {% elif message == "error" %}
     <div style="background-color:red;color:white;">Your username and password did not match.</div>
   {% elif message == "logout" %}
     <div style="background-color:blue;color:white;">You've been logged out.</div>

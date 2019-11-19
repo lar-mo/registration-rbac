@@ -47,13 +47,13 @@ def login_user(request):
             return HttpResponseRedirect(reverse('clc_reg:special_page'))
     else:
         if next != '':
-            return HttpResponseRedirect(reverse('clc_reg:index')+'?message=fail&next='+next)
-        return HttpResponseRedirect(reverse('clc_reg:index')+'?message=fail')
+            return HttpResponseRedirect(reverse('clc_reg:index')+'?message=error&next='+next)
+        return HttpResponseRedirect(reverse('clc_reg:index')+'?message=error')
 
 ###
-### THIS CODE DOESN'T WORK (and I don't think it will.)
-### https://stackoverflow.com/questions/29742845/django-how-do-i-use-is-active-of-auth-user-table
-### when is_active = False, then 'if user is not None' returns False (line 49)
+### THIS CODE DOESN'T WORK (reason: unk, perhaps due to deprecated feature)
+### When is_active = False, (line 49) 'if user is not None' returns None, expected: <username>
+### Code: https://stackoverflow.com/questions/29742845/django-how-do-i-use-is-active-of-auth-user-table
 ###
     # if user is not None:  #to check whether user is available or not?
     #     # the password verified for the user
@@ -66,6 +66,7 @@ def login_user(request):
     #     return HttpResponse("The username and password were incorrect.")
 
 def register_user(request):
+    # fix error when you try to register with same username
     username = request.POST['username']
     email = request.POST['email']
     password = request.POST['password']
@@ -73,16 +74,29 @@ def register_user(request):
 
     user = User.objects.create_user(username, email, password)
     login(request, user)
+    create_key(request)
 
-    expiry = timezone.now() + timezone.timedelta(days=3)
-    clc_link = VerifyRegistration(confirmation_code=secrets.token_hex(16), expiration=expiry, confirmed=False, user_id=user.id)
-    clc_link.save()
+    # send email with clc_link
 
     if next != '':
         return HttpResponseRedirect(next)
     return HttpResponseRedirect(reverse('clc_reg:home'))
 
-@login_required
+def create_key(request):
+    expiry = timezone.now() + timezone.timedelta(days=3)
+    clc_link = VerifyRegistration(confirmation_code=secrets.token_hex(16), expiration=expiry, confirmed=False, user_id=request.user.id)
+    clc_link.save()
+
+def send_new_key(request):
+    # delete previous key
+    create_key(request)
+
+    # send email with new clc_link
+
+    return HttpResponseRedirect(reverse('clc_reg:home'))
+
+# @login_required # this is optional
+# need to account for multiple keys for the user.
 def special_page(request):
     confirmed = VerifyRegistration.objects.get(user_id=request.user.id) # lookup VerifyRegistration by user.id
     if confirmed.confirmed:                                     # if confirmed.confirmed (boolean) = true (1)
@@ -94,7 +108,7 @@ def logout_user(request):
     logout(request)
     return HttpResponseRedirect(reverse('clc_reg:index')+'?message=logout')
 
-@login_required
+# @login_required
 def confirmation(request):
     clc_code = request.GET.get('clc_code', '')
     message = request.GET.get('message', '')

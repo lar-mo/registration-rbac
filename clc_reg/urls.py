@@ -3,28 +3,33 @@ from django.urls import path
 from . import views
 
 app_name = 'clc_reg'
+
 urlpatterns = [
+    # Display index page (login / registration)
     path('', views.index, name='index'),
 
-    # just handles the registration process, register_login renders the template
-    path('register_user/', views.register_user, name='register_user'),
-
-    # just handles the login process, register_login renders the template
+    # Handles the login process, register_login renders the template
     path('login_user/', views.login_user, name='login_user'),
 
-    # just handles the registration process, register_login renders the template
+    # Handles the registration process, register_login renders the template
     path('register_user/', views.register_user, name='register_user'),
 
-    # protected page
+    # Display protected page
     path('special_page/', views.special_page, name='special_page'),
 
-    # home page
+    # Display home page
     path('home/', views.home, name='home'),
 
-    # logout a user
+    # Handles logging out a user
     path('logout_user/', views.logout_user, name='logout_user'),
 
-    # handles validation of clc link
+    # Handles validation of clc link
     path('confirmation/', views.confirmation, name='confirmation'),
+
+    # Handles creation of clc link
+    path('create_key/', views.create_key, name='create_key'),
+
+    # Handles creation of new clc link
+    path('send_new_key/', views.send_new_key, name='send_new_key'),
 
 ]

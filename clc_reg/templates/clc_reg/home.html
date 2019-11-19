@@ -2,22 +2,22 @@
 
 {% block content %}
 
-<h1>Unsecured page, anonymous ok</h1>
-
   {% if user.is_authenticated %}
   {% if message == "pending" %}
-    <div style="background-color:orange;color:white;">You need to confirm your account.</div>
+    <div style="background-color:orange;color:white;">You need to confirm your account. <a href="{% url 'clc_reg:send_new_key' %}">Send new key</a></div>
   {% elif message == "verified" %}
   <div style="background-color:green;color:white;">Your account is confirmed.</div>
   {% elif message == "error" %}
   <div style="background-color:red;color:white;">There was a problem confirming your account.</div>
   {% elif message == "confirmed" %}
-  <div style="background-color:blue;color:white;">Your account is already confirmed.</div>    
+  <div style="background-color:blue;color:white;">Your account is already confirmed.</div>
   {% endif %}
+  <h1>Unsecured page, anonymous ok</h1>
   <h2>Hello, {{ user.username }}</h2>
   <h3><a href="{% url 'clc_reg:logout_user' %}">Logout</a></h3>
   <h4>Go to: <a href="{% url 'clc_reg:special_page' %}">Secured Page</a></h4>
   {% else %}
+  <h1>Unsecured page, anonymous ok</h1>
   <h2>Hello, friend</h2>
   <h3><a href="{% url 'clc_reg:index' %}?next=/home/">Login</a></h3>
   {% endif %}
