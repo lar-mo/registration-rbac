@@ -93,8 +93,17 @@ def send_new_key(request):
     old_key.delete()
     # create new key
     create_key(request)
-
+    new_key = VerifyRegistration.objects.get(user_id=request.user.id)
     # send email with new clc_link
+    subject = 'Confirm you account'
+    msg_plain = render_to_string('clc_reg/email.txt', {'page': 'send_new_key', 'clc_code': new_key.confirmation_code})
+    sender = 'Postmaster <postmaster@community-lending-library.org>'
+    recipient = [request.user.email]
+    msg_html = render_to_string('clc_reg/email.html', {'page': 'send_new_key', 'clc_code': new_key.confirmation_code})
+    try:
+        send_mail(subject, msg_plain, sender, recipient, fail_silently=False, html_message=msg_html)
+    except:
+        print('!!! There was an error sending an email! !!!')
 
     return HttpResponseRedirect(reverse('clc_reg:home')+'?message=resent')
 

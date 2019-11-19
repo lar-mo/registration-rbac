@@ -8,7 +8,7 @@
   {% elif message == "verified" %}
   <div style="background-color:green;color:white;">Your account is confirmed.</div>
   {% elif message == "error" %}
-  <div style="background-color:red;color:white;">There was a problem confirming your account.</div>
+  <div style="background-color:red;color:white;">There was a problem confirming your account. <a href="{% url 'clc_reg:send_new_key' %}">Send new key</a></div>
   {% elif message == "confirmed" %}
   <div style="background-color:blue;color:white;">Your account is already confirmed.</div>
   {% elif message == "resent" %}

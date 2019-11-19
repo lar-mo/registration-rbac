@@ -1,0 +1,9 @@
+{% if page == 'send_new_key' %}
+  <h2>Hello, {{request.user.username|title}}</h2>
+  <h3>Click this link to confirm your account:</h3>
+  <h4>
+    <ul>
+      <li><a href="http://localhost:8000/confirmation/?clc_code={{clc_code}}">http://localhost:8000/confirmation/?clc_code={{clc_code}}</a></li>
+    </ul>
+  </h4>
+{% endif %}

@@ -1,0 +1,6 @@
+{% if page == 'send_new_key' %}
+  Hello {{username|title}},
+  Cut'n'paste this link to confirm your account:
+
+  http://localhost:8000/confirmation/?clc_code={{clc_code}}
+{% endif %}
