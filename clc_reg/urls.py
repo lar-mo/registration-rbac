@@ -24,7 +24,7 @@ urlpatterns = [
     # logout a user
     path('logout_user/', views.logout_user, name='logout_user'),
 
-    # page to set confirmed flag to True
-    path('confirmation_page/', views.confirmation_page, name='confirmation_page'),
+    # handles validation of clc link
+    path('confirmation/', views.confirmation, name='confirmation'),
 
 ]

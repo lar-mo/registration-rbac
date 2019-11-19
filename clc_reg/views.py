@@ -95,19 +95,23 @@ def logout_user(request):
     return HttpResponseRedirect(reverse('clc_reg:index')+'?message=logout')
 
 @login_required
-def confirmation_page(request):
+def confirmation(request):
     clc_code = request.GET.get('clc_code', '')
     message = request.GET.get('message', '')
     context = {'message': message}
-    print(request.user.id)
     # lookup all code associated with user_id
     valid_codes = VerifyRegistration.objects.get(user_id=request.user.id)
-    print(valid_codes)
     # compare code from url vs in the database for user_id
     # if it is valid (string match and not expired)
-    # if code in URL matches one of the codes in 'valid codes' array, set "confirmed" = True
-    
-
-    # then, tell user their confirmed.
-    # return render(request, 'clc_reg/index.html', context)
-    return HttpResponse("Hello world!")
+    if valid_codes.confirmation_code == clc_code:
+        if valid_codes.confirmed == False:
+            # if code in URL matches one of the codes in 'valid codes' array, set "confirmed" = True
+            valid_codes.confirmed = True
+            valid_codes.save()
+            # then, redirect to home page and tell user they're confirmed
+            return HttpResponseRedirect(reverse('clc_reg:home')+'?message=verified')
+        else:
+            return HttpResponseRedirect(reverse('clc_reg:home')+'?message=confirmed')
+    else:
+        # else, redirect to home page and tell user there was a problem
+        return HttpResponseRedirect(reverse('clc_reg:home')+'?message=error')
