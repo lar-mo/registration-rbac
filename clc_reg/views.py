@@ -89,11 +89,14 @@ def create_key(request):
 
 def send_new_key(request):
     # delete previous key
+    old_key = VerifyRegistration.objects.get(user_id=request.user.id)
+    old_key.delete()
+    # create new key
     create_key(request)
 
     # send email with new clc_link
 
-    return HttpResponseRedirect(reverse('clc_reg:home'))
+    return HttpResponseRedirect(reverse('clc_reg:home')+'?message=resent')
 
 # @login_required # this is optional
 # need to account for multiple keys for the user.

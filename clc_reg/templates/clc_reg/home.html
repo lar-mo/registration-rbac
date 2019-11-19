@@ -11,6 +11,8 @@
   <div style="background-color:red;color:white;">There was a problem confirming your account.</div>
   {% elif message == "confirmed" %}
   <div style="background-color:blue;color:white;">Your account is already confirmed.</div>
+  {% elif message == "resent" %}
+  <div style="background-color:blue;color:white;">Your new code was sent.</div>
   {% endif %}
   <h1>Unsecured page, anonymous ok</h1>
   <h2>Hello, {{ user.username }}</h2>
