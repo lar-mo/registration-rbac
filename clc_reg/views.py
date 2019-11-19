@@ -111,6 +111,7 @@ def confirmation(request):
             # then, redirect to home page and tell user they're confirmed
             return HttpResponseRedirect(reverse('clc_reg:home')+'?message=verified')
         else:
+            # if confirmed=True, redirecdt to home page and tell user account is already verified
             return HttpResponseRedirect(reverse('clc_reg:home')+'?message=confirmed')
     else:
         # else, redirect to home page and tell user there was a problem
