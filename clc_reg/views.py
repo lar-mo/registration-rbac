@@ -138,17 +138,21 @@ def confirmation(request):
     # lookup all code associated with user_id
     valid_code = VerifyRegistration.objects.get(user_id=request.user.id)
     # compare code from url vs in the database for user_id
-    # if it is valid (string match and not expired)
-    if valid_code.confirmation_code == clc_code:
-        if valid_code.confirmed == False:
-            # if code in URL matches one of the codes in 'valid codes' array, set "confirmed" = True
-            valid_code.confirmed = True
-            valid_code.save()
-            # then, redirect to home page and tell user they're confirmed
-            return HttpResponseRedirect(reverse('clc_reg:home')+'?message=verified')
+    # if it is valid (not expired and string match, or already used))
+    if valid_code.expiration >= timezone.now():
+        if valid_code.confirmation_code == clc_code:
+            if valid_code.confirmed == False:
+                # if code in URL matches one of the codes in 'valid codes' array, set "confirmed" = True
+                valid_code.confirmed = True
+                valid_code.save()
+                # then, redirect to home page and tell user they're confirmed
+                return HttpResponseRedirect(reverse('clc_reg:home')+'?message=verified')
+            else:
+                # if confirmed=True, redirect to home page and tell user account is already verified
+                return HttpResponseRedirect(reverse('clc_reg:home')+'?message=confirmed')
         else:
-            # if confirmed=True, redirecdt to home page and tell user account is already verified
-            return HttpResponseRedirect(reverse('clc_reg:home')+'?message=confirmed')
+            # else, redirect to home page and tell user there was a problem
+            return HttpResponseRedirect(reverse('clc_reg:home')+'?message=error')
     else:
-        # else, redirect to home page and tell user there was a problem
-        return HttpResponseRedirect(reverse('clc_reg:home')+'?message=error')
+        # if valid_code is expired, redirect to home page and tell user account is expired
+        return HttpResponseRedirect(reverse('clc_reg:home')+'?message=expired')
