@@ -75,8 +75,18 @@ def register_user(request):
     user = User.objects.create_user(username, email, password)
     login(request, user)
     create_key(request)
+    clc_key = VerifyRegistration.objects.get(user_id=request.user.id)
 
     # send email with clc_link
+    subject = 'Confirm you account'
+    msg_plain = render_to_string('clc_reg/email.txt', {'page': 'send_new_key', 'clc_code': clc_key.confirmation_code})
+    sender = 'Postmaster <postmaster@community-lending-library.org>'
+    recipient = [request.user.email]
+    msg_html = render_to_string('clc_reg/email.html', {'page': 'send_new_key', 'clc_code': clc_key.confirmation_code})
+    try:
+        send_mail(subject, msg_plain, sender, recipient, fail_silently=False, html_message=msg_html)
+    except:
+        print('!!! There was an error sending an email! !!!')
 
     if next != '':
         return HttpResponseRedirect(next)
@@ -126,14 +136,14 @@ def confirmation(request):
     message = request.GET.get('message', '')
     context = {'message': message}
     # lookup all code associated with user_id
-    valid_codes = VerifyRegistration.objects.get(user_id=request.user.id)
+    valid_code = VerifyRegistration.objects.get(user_id=request.user.id)
     # compare code from url vs in the database for user_id
     # if it is valid (string match and not expired)
-    if valid_codes.confirmation_code == clc_code:
-        if valid_codes.confirmed == False:
+    if valid_code.confirmation_code == clc_code:
+        if valid_code.confirmed == False:
             # if code in URL matches one of the codes in 'valid codes' array, set "confirmed" = True
-            valid_codes.confirmed = True
-            valid_codes.save()
+            valid_code.confirmed = True
+            valid_code.save()
             # then, redirect to home page and tell user they're confirmed
             return HttpResponseRedirect(reverse('clc_reg:home')+'?message=verified')
         else:
