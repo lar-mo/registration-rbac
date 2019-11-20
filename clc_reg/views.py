@@ -52,7 +52,7 @@ def login_user(request):
 
 ###
 ### THIS CODE DOESN'T WORK (reason: unk, perhaps due to deprecated feature)
-### When is_active = False, (line 49) 'if user is not None' returns None, expected: <username>
+### When is_active = False, (line 49) 'if user is not None' returns False, expected: True
 ### Code: https://stackoverflow.com/questions/29742845/django-how-do-i-use-is-active-of-auth-user-table
 ###
     # if user is not None:  #to check whether user is available or not?
