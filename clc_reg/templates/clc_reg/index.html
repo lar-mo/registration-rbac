@@ -19,7 +19,7 @@
       <div class="status_block"><button type="submit">Login</button></div>
     </form>
 
-    <h3><a name="register_section">Register</a></h3>
+    <h3>Register</h3>
     <form action="{% url 'clc_reg:register_user' %}" method="post">
       {% csrf_token %}
       <input type="hidden" name="next" value="{{next}}"/>
@@ -30,6 +30,11 @@
       <div class="status_block"><button type="submit" id="bt_register">Register</button></div>
     </form>
   </div> <!-- end of 'container'-->
+  <div id="link_to_home">
+    <div>
+      <a href="{% url 'clc_reg:home' %}">Homepage</a>
+    </div>
+  </div>
   <script type="text/javascript">
     bt_register = document.querySelector('#bt_register')
     input_password = document.querySelector('#input_password')
