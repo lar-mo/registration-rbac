@@ -117,8 +117,7 @@ def send_new_key(request):
 
     return HttpResponseRedirect(reverse('clc_reg:index')+'?message=resent')
 
-# @login_required # this is optional
-# need to account for multiple keys for the user.
+@login_required
 def special_page(request):
     confirmed = VerifyRegistration.objects.get(user_id=request.user.id) # lookup VerifyRegistration by user.id
     if confirmed.confirmed:                                     # if confirmed.confirmed (boolean) = true (1)
@@ -130,7 +129,7 @@ def logout_user(request):
     logout(request)
     return HttpResponseRedirect(reverse('clc_reg:index')+'?message=logout')
 
-# @login_required
+@login_required(login_url='/register_login/')
 def confirmation(request):
     clc_code = request.GET.get('clc_code', '')
     message = request.GET.get('message', '')
