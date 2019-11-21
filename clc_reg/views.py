@@ -139,8 +139,8 @@ def confirmation(request):
     valid_code = VerifyRegistration.objects.get(user_id=request.user.id)
     # compare code from url vs in the database for user_id
     # if it is valid (not expired and string match, or already used))
-    if valid_code.expiration >= timezone.now():
-        if valid_code.confirmation_code == clc_code:
+    if valid_code.confirmation_code == clc_code:
+        if valid_code.expiration >= timezone.now():
             if valid_code.confirmed == False:
                 # if code in URL matches one of the codes in 'valid codes' array, set "confirmed" = True
                 valid_code.confirmed = True
@@ -151,8 +151,8 @@ def confirmation(request):
                 # if confirmed=True, redirect to home page and tell user account is already verified
                 return HttpResponseRedirect(reverse('clc_reg:index')+'?message=confirmed')
         else:
-            # else, redirect to home page and tell user there was a problem
-            return HttpResponseRedirect(reverse('clc_reg:index')+'?message=error')
+            # if valid_code is expired, redirect to home page and tell user account is expired
+            return HttpResponseRedirect(reverse('clc_reg:index')+'?message=expired')
     else:
-        # if valid_code is expired, redirect to home page and tell user account is expired
-        return HttpResponseRedirect(reverse('clc_reg:index')+'?message=expired')
+        # else, redirect to home page and tell user there was a problem
+        return HttpResponseRedirect(reverse('clc_reg:index')+'?message=error')
