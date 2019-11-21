@@ -137,7 +137,7 @@ def confirmation(request):
     # lookup all code associated with user_id
     valid_code = VerifyRegistration.objects.get(user_id=request.user.id)
     # compare code from url vs in the database for user_id
-    # if it is valid (not expired and string match, or already used))
+    # if it is valid (strings match, not expried, and not already used))
     if valid_code.confirmation_code == clc_code:
         if valid_code.expiration >= timezone.now():
             if valid_code.confirmed == False:
