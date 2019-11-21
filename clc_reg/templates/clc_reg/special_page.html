@@ -2,14 +2,11 @@
 
 {% block content %}
 
+  <div class="navbar">
+    <a href="{% url 'clc_reg:logout_user' %}">Logout</a>
+  </div>
   <h1>Secured page, verified account required</h1>
   <h2>Hello, {{ user.username }}</h2>
-  {% if user.is_authenticated %}
-    {% if message == "confirmed" %}
-      <div style="background-color:blue;color:white;">You account is now confirmed.</div>
-    {% endif %}
-    <h3><a href="{% url 'clc_reg:logout_user' %}">Logout</a></h3>
-    <h4>Go to: <a href="{% url 'clc_reg:index' %}">Unsecured Page</a></h4>
-  {% endif %}
+  <h3>Go to: <a href="{% url 'clc_reg:index' %}">Unsecured Page</a></h3>
 
 {% endblock %}

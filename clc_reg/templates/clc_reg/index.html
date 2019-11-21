@@ -1,6 +1,7 @@
 {% extends 'clc_reg/base.html' %}
 
 {% block content %}
+
   <div class="navbar">
     {% if user.is_authenticated %}
       <a href="{% url 'clc_reg:logout_user' %}">Logout</a>
