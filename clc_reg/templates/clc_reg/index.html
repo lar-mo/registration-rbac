@@ -1,51 +1,36 @@
 {% extends 'clc_reg/base.html' %}
 
 {% block content %}
-
-  {% if user.is_authenticated %}
-    <div style="background-color:blue;color:white;">You're already logged in.</div>
-  {% elif message == "error" %}
-    <div style="background-color:red;color:white;">Your username and password did not match.</div>
-  {% elif message == "logout" %}
-    <div style="background-color:blue;color:white;">You've been logged out.</div>
-  {% endif %}
-  <div id="container">
-    <h3>Login</h3>
-    <form action="{% url 'clc_reg:login_user' %}" method="post">
-      {% csrf_token %}
-      <input type="hidden" name="next" value="{{next}}"/>
-      <input type="text" name="username" placeholder="username" required/>
-      <input type="password" name="password" placeholder="password" required/>
-      <div class="status_block"><button type="submit">Login</button></div>
-    </form>
-
-    <h3>Register</h3>
-    <form action="{% url 'clc_reg:register_user' %}" method="post">
-      {% csrf_token %}
-      <input type="hidden" name="next" value="{{next}}"/>
-      <input type="text" name="username" placeholder="username" required pattern="\w{3,15}" title="username must be between 3 and 15 characters, all lowercase"/>
-      <input type="text" name="email" placeholder="email" required pattern="\w+@\w+\.\w+" title="please enter a properly formatted email address"/>
-      <input type="password" id="input_password" name="password" placeholder="password"/>
-      <input type="password" id="input_password2" name="password2" placeholder="retype password"/>
-      <div class="status_block"><button type="submit" id="bt_register">Register</button></div>
-    </form>
-  </div> <!-- end of 'container'-->
-  <div id="link_to_home">
-    <div>
-      <a href="{% url 'clc_reg:home' %}">Homepage</a>
-    </div>
+  <div class="navbar">
+    {% if user.is_authenticated %}
+      <a href="{% url 'clc_reg:logout_user' %}">Logout</a>
+    {% else %}
+      <a href="{% url 'clc_reg:register_login' %}?next=/">Register or Login</a>
+    {% endif %}
   </div>
-  <script type="text/javascript">
-    bt_register = document.querySelector('#bt_register')
-    input_password = document.querySelector('#input_password')
-    input_password2 = document.querySelector('#input_password2')
-
-    bt_register.onclick = function(evt) {
-      if (input_password.value != input_password2.value) {
-        alert('those passwords do not match')
-        evt.preventDefault()
-      }
-    }
-  </script>
+  {% if user.is_authenticated %}
+    {% if message == "pending" %}
+      <div style="background-color:orange;color:white;">You need to confirm your account. <a href="{% url 'clc_reg:send_new_key' %}">Send new key</a></div>
+    {% elif message == "verified" %}
+      <div style="background-color:green;color:white;">Your account is confirmed.</div>
+    {% elif message == "expired" %}
+      <div style="background-color:red;color:white;">Your confirmation code is expired. <a href="{% url 'clc_reg:send_new_key' %}">Send new key</a></div>
+    {% elif message == "error" %}
+      <div style="background-color:red;color:white;">There was a problem confirming your account. <a href="{% url 'clc_reg:send_new_key' %}">Send new key</a></div>
+    {% elif message == "confirmed" %}
+      <div style="background-color:blue;color:white;">Your account is already confirmed.</div>
+    {% elif message == "resent" %}
+      <div style="background-color:blue;color:white;">Your new code was sent.</div>
+    {% endif %}
+    <h1>Unsecured page, anonymous ok</h1>
+    <h2>Hello, {{ user.username }}</h2>
+    <h3>Go to: <a href="{% url 'clc_reg:special_page' %}">Secured Page</a></h3>
+  {% else %}
+    {% if message == "logout" %}
+      <div style="background-color:blue;color:white;">You've been logged out.</div>
+    {% endif %}
+    <h1>Unsecured page, anonymous ok</h1>
+    <h2>Hello, friend</h2>
+  {% endif %}
 
 {% endblock %}

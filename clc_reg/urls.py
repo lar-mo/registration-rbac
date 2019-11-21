@@ -5,8 +5,11 @@ from . import views
 app_name = 'clc_reg'
 
 urlpatterns = [
-    # Display index page (login / registration)
+    # Display home page
     path('', views.index, name='index'),
+
+    # Display login / registration page
+    path('register_login/', views.register_login, name='register_login'),
 
     # Handles the login process, register_login renders the template
     path('login_user/', views.login_user, name='login_user'),
@@ -16,9 +19,6 @@ urlpatterns = [
 
     # Display protected page
     path('special_page/', views.special_page, name='special_page'),
-
-    # Display home page
-    path('home/', views.home, name='home'),
 
     # Handles logging out a user
     path('logout_user/', views.logout_user, name='logout_user'),

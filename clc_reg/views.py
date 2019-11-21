@@ -14,8 +14,17 @@ from .models import VerifyRegistration
 import secrets
 
 def index(request):
+    message = request.GET.get('message', '')
+    next = request.GET.get('next', '')
+    context = {
+        'message': message,
+        'next': next
+    }
+    return render(request, 'clc_reg/index.html', context)
+
+def register_login(request):
     if request.user.is_authenticated:
-        return HttpResponseRedirect(reverse('clc_reg:home'))
+        return HttpResponseRedirect(reverse('clc_reg:index'))
     else:
         message = request.GET.get('message', '')
         next = request.GET.get('next', '')
@@ -23,16 +32,7 @@ def index(request):
             'message': message,
             'next': next
         }
-    return render(request, 'clc_reg/index.html', context)
-
-def home(request):
-    message = request.GET.get('message', '')
-    next = request.GET.get('next', '')
-    context = {
-        'message': message,
-        'next': next
-    }
-    return render(request, 'clc_reg/home.html', context)
+    return render(request, 'clc_reg/register_login.html', context)
 
 def login_user(request):
     username = request.POST['username']
@@ -47,8 +47,8 @@ def login_user(request):
             return HttpResponseRedirect(reverse('clc_reg:special_page'))
     else:
         if next != '':
-            return HttpResponseRedirect(reverse('clc_reg:index')+'?message=error&next='+next)
-        return HttpResponseRedirect(reverse('clc_reg:index')+'?message=error')
+            return HttpResponseRedirect(reverse('clc_reg:register_login')+'?message=error&next='+next)
+        return HttpResponseRedirect(reverse('clc_reg:register_login')+'?message=error')
 
 ###
 ### THIS CODE DOESN'T WORK (reason: unk, perhaps due to deprecated feature)
@@ -90,7 +90,7 @@ def register_user(request):
 
     if next != '':
         return HttpResponseRedirect(next)
-    return HttpResponseRedirect(reverse('clc_reg:home'))
+    return HttpResponseRedirect(reverse('clc_reg:index'))
 
 def create_key(request):
     expiry = timezone.now() + timezone.timedelta(days=3)
@@ -115,7 +115,7 @@ def send_new_key(request):
     except:
         print('!!! There was an error sending an email! !!!')
 
-    return HttpResponseRedirect(reverse('clc_reg:home')+'?message=resent')
+    return HttpResponseRedirect(reverse('clc_reg:index')+'?message=resent')
 
 # @login_required # this is optional
 # need to account for multiple keys for the user.
@@ -124,7 +124,7 @@ def special_page(request):
     if confirmed.confirmed:                                     # if confirmed.confirmed (boolean) = true (1)
         return render(request, 'clc_reg/special_page.html')     # then go to login-required page
     else:                                                       # else go to index?message=pending
-        return HttpResponseRedirect(reverse('clc_reg:home')+'?message=pending')
+        return HttpResponseRedirect(reverse('clc_reg:index')+'?message=pending')
 
 def logout_user(request):
     logout(request)
@@ -146,13 +146,13 @@ def confirmation(request):
                 valid_code.confirmed = True
                 valid_code.save()
                 # then, redirect to home page and tell user they're confirmed
-                return HttpResponseRedirect(reverse('clc_reg:home')+'?message=verified')
+                return HttpResponseRedirect(reverse('clc_reg:index')+'?message=verified')
             else:
                 # if confirmed=True, redirect to home page and tell user account is already verified
-                return HttpResponseRedirect(reverse('clc_reg:home')+'?message=confirmed')
+                return HttpResponseRedirect(reverse('clc_reg:index')+'?message=confirmed')
         else:
             # else, redirect to home page and tell user there was a problem
-            return HttpResponseRedirect(reverse('clc_reg:home')+'?message=error')
+            return HttpResponseRedirect(reverse('clc_reg:index')+'?message=error')
     else:
         # if valid_code is expired, redirect to home page and tell user account is expired
-        return HttpResponseRedirect(reverse('clc_reg:home')+'?message=expired')
+        return HttpResponseRedirect(reverse('clc_reg:index')+'?message=expired')
