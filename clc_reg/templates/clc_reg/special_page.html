@@ -8,5 +8,10 @@
   <h1>Secured page, verified account required</h1>
   <h2>Hello, {{ user.username }}</h2>
   <h3>Go to: <a href="{% url 'clc_reg:index' %}">Unsecured Page</a></h3>
+  <p class="blurb">
+    This application is a simple registration and login system (URS) which includes:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(1) a confirmation step, and<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(2) a secured page (requires logged in/confirmed user).
+  </p>
 
 {% endblock %}
