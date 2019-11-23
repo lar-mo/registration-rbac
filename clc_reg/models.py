@@ -8,4 +8,4 @@ class VerifyRegistration(models.Model):
     user              = models.ForeignKey(User, on_delete=models.PROTECT)
 
     def __str__(self):
-        return self.confirmation_code
+        return self.user.username + ': ' + self.confirmation_code
