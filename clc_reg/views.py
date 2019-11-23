@@ -72,25 +72,29 @@ def register_user(request):
     password = request.POST['password']
     next = request.POST['next']
 
-    user = User.objects.create_user(username, email, password)
-    login(request, user)
-    create_key(request)
-    clc_key = VerifyRegistration.objects.get(user_id=request.user.id)
+    # check if this username already exists in the system
+    if User.objects.filter(username=username).exists():
+        return HttpResponseRedirect(reverse('clc_reg:register_login')+'?message=reg_error')
+    else:
+        user = User.objects.create_user(username, email, password)
+        login(request, user)
+        create_key(request)
+        clc_key = VerifyRegistration.objects.get(user_id=request.user.id)
 
-    # send email with clc_link
-    subject = 'Confirm you account'
-    msg_plain = render_to_string('clc_reg/email.txt', {'page': 'send_new_key', 'clc_code': clc_key.confirmation_code})
-    sender = 'Postmaster <postmaster@community-lending-library.org>'
-    recipient = [request.user.email]
-    msg_html = render_to_string('clc_reg/email.html', {'page': 'send_new_key', 'clc_code': clc_key.confirmation_code})
-    try:
-        send_mail(subject, msg_plain, sender, recipient, fail_silently=False, html_message=msg_html)
-    except:
-        print('!!! There was an error sending an email! !!!')
+        # send email with clc_link
+        subject = 'Confirm you account'
+        msg_plain = render_to_string('clc_reg/email.txt', {'page': 'send_new_key', 'clc_code': clc_key.confirmation_code})
+        sender = 'Postmaster <postmaster@community-lending-library.org>'
+        recipient = [request.user.email]
+        msg_html = render_to_string('clc_reg/email.html', {'page': 'send_new_key', 'clc_code': clc_key.confirmation_code})
+        try:
+            send_mail(subject, msg_plain, sender, recipient, fail_silently=False, html_message=msg_html)
+        except:
+            print('!!! There was an error sending an email! !!!')
 
-    if next != '':
-        return HttpResponseRedirect(next)
-    return HttpResponseRedirect(reverse('clc_reg:index'))
+        if next != '':
+            return HttpResponseRedirect(next)
+        return HttpResponseRedirect(reverse('clc_reg:index'))
 
 def create_key(request):
     expiry = timezone.now() + timezone.timedelta(days=3)
