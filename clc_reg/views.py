@@ -82,7 +82,7 @@ def register_user(request):
         clc_key = VerifyRegistration.objects.get(user_id=request.user.id)
 
         # send email with clc_link
-        subject = 'Confirm you account'
+        subject = 'Confirm your account'
         msg_plain = render_to_string('clc_reg/email.txt', {'page': 'send_new_key', 'clc_code': clc_key.confirmation_code})
         sender = 'Postmaster <postmaster@community-lending-library.org>'
         recipient = [request.user.email]
@@ -109,7 +109,7 @@ def send_new_key(request):
     create_key(request)
     new_key = VerifyRegistration.objects.get(user_id=request.user.id)
     # send email with new clc_link
-    subject = 'Confirm you account'
+    subject = 'Confirm your account'
     msg_plain = render_to_string('clc_reg/email.txt', {'page': 'send_new_key', 'clc_code': new_key.confirmation_code})
     sender = 'Postmaster <postmaster@community-lending-library.org>'
     recipient = [request.user.email]
