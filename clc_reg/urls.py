@@ -20,6 +20,9 @@ urlpatterns = [
     # Display protected page
     path('special_page/', views.special_page, name='special_page'),
 
+    # Display protected page 2
+    path('special_page2/', views.special_page2, name='special_page2'),
+
     # Handles logging out a user
     path('logout_user/', views.logout_user, name='logout_user'),
 

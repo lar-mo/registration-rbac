@@ -124,10 +124,14 @@ def send_new_key(request):
 @login_required
 def special_page(request):
     confirmed = VerifyRegistration.objects.get(user_id=request.user.id) # lookup VerifyRegistration by user.id
-    # if confirmed.confirmed:                                     # if confirmed.confirmed (boolean) = true (1)
-    return render(request, 'clc_reg/special_page.html')     # then go to login-required page
-    # else:                                                       # else go to index?message=pending
-        # return HttpResponseRedirect(reverse('clc_reg:index')+'?message=pending')
+    if confirmed.confirmed:                                     # if confirmed.confirmed (boolean) = true (1)
+        return render(request, 'clc_reg/special_page.html')     # then go to login-required page
+    else:                                                       # else go to index?message=pending
+        return HttpResponseRedirect(reverse('clc_reg:index')+'?message=pending')
+
+@login_required
+def special_page2(request):
+    return render(request, 'clc_reg/special_page2.html')
 
 def logout_user(request):
     logout(request)
