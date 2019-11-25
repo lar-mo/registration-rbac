@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 
 def is_confirmed(user):
-    # number_of_pending_requests = user.items.filter(item_status=9).count()
     confirmed = user.isConfirmed.get()
     return confirmed.confirmed
 User.add_to_class('is_confirmed', is_confirmed)

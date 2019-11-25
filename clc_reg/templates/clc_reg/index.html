@@ -25,8 +25,8 @@
     {% endif %}
     <h1>Unsecured page, anonymous ok</h1>
     <h2>Hello, {{ user.username }}</h2>
-    <h3>Go to: <a href="{% url 'clc_reg:special_page' %}">Secured Page</a> (confirmation status checked in view)</h3>
-    <h3>Go to: <a href="{% url 'clc_reg:special_page2' %}">Secured Page 2</a> (confirmation status checked in template)</h3>
+    <h3>Go to: <a href="{% url 'clc_reg:special_page' %}">Secured Page</a> <i>version 1</i></h3>
+    <h3>Go to: <a href="{% url 'clc_reg:special_page2' %}">Secured Page</a> <i>version 2</i></h3>
   {% else %}
     {% if message == "logout" %}
       <div style="background-color:blue;color:white;">You've been logged out.</div>
