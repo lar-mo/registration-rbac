@@ -109,11 +109,12 @@ def send_new_key(request):
     create_key(request)
     new_key = VerifyRegistration.objects.get(user_id=request.user.id)
     # send email with new clc_link
+    host = request.META['HTTP_HOST']
     subject = 'Confirm your account'
     msg_plain = render_to_string('clc_reg/email.txt', {'page': 'send_new_key', 'clc_code': new_key.confirmation_code})
     sender = 'Postmaster <postmaster@community-lending-library.org>'
     recipient = [request.user.email]
-    msg_html = render_to_string('clc_reg/email.html', {'page': 'send_new_key', 'clc_code': new_key.confirmation_code})
+    msg_html = render_to_string('clc_reg/email.html', {'page': 'send_new_key', 'clc_code': new_key.confirmation_code, 'host': host})
     try:
         send_mail(subject, msg_plain, sender, recipient, fail_silently=False, html_message=msg_html)
     except:
