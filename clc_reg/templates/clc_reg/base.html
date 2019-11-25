@@ -45,8 +45,9 @@
         background-color:#FFF;
         width: 100%;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: center;
+        /* align-items: center; */
         padding: 15px
       }
     </style>
@@ -54,14 +55,30 @@
     <body>
       <main>
         {% block content %}{% endblock %}
-        <p class="blurb">
-          This application is a simple registration and login system (URS) which includes:<br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(1) a confirmation step after registration, and<br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(2) two secured pages (both require a logged in/confirmed user):<br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(a) Version 1 - confirmation status check is done in views.py.<br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(a) Version 2 - confirmation status check is done in models.py and used by the template.
-
-        </p>
+        <div class="blurb">
+          This application is a simple registration and login system (URS) which includes:
+          <ul>
+            <li>a login and registration page,
+            <li>a two-step registration system,
+            <li>an email component,
+            <li>simple error handling and messaging via url parameters,
+            <li>an unsecured page (anonymous visitors ok)
+            <li>two secured pages (both require a logged in/confirmed user):
+              <ul>
+                <li>VERSION 1 - Confirmation status check is done in views.py.
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>If confirmed=False</u>, user is redirected to the index page with a small error message and a link to resend the CLC link.
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>If confirmed=True</u>, user is passed through to the secure page.
+                  <br>This implementation is used for directing users to different pages based on their confirmation status.
+                  <br>It could be used for sending users to an upgrade page, for example.
+                <li>VERSION 2 - Confirmation status check is done in models.py and used by the template.
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>If confirmed=False</u>, an error message is shown on the secure page.
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>If confirmed=True</u>, the secure page content is visible.
+                  <br>This implementation is used for showing different content on the same page based on user's confirmation status.
+                  <br>It is globally available via the built-in user system and could easily be retooled to return an integer for different member levels, for example.
+              </ul>
+            </li>
+          </ul>
+        </div>
       </main>
     </body>
   </html>
