@@ -6,4 +6,7 @@
       <li><a href="http://localhost:8000/confirmation/?clc_code={{clc_code}}">http://localhost:8000/confirmation/?clc_code={{clc_code}}</a></li>
     </ul>
   </h4>
+{% elif page == 'confirmed' %}
+  <h2>Hello, {{request.user.username|title}}</h2>
+  <h3>You have successfully confirmed your account.</h3>
 {% endif %}
