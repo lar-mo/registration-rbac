@@ -2,7 +2,7 @@
   Hello {{username|title}},
   Cut'n'paste this link to confirm your account:
 
-  http://localhost:8000/confirmation/?clc_code={{clc_code}}
+  http://{{host}}/confirmation/?clc_code={{clc_code}}
 {% elif page == 'confirmed' %}
   Hello {{username|title}},
   You have successfully confirmed your account.
