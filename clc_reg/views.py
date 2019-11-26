@@ -139,6 +139,16 @@ def logout_user(request):
     logout(request)
     return HttpResponseRedirect(reverse('clc_reg:index')+'?message=logout')
 
+def send_notification(request, subject, page):
+    msg_plain = render_to_string('clc_reg/email.txt', {'page': page})
+    sender = 'Postmaster <postmaster@community-lending-library.org>'
+    recipient = [request.user.email]
+    msg_html = render_to_string('clc_reg/email.html', {'page': page})
+    try:
+        send_mail(subject, msg_plain, sender, recipient, fail_silently=False, html_message=msg_html)
+    except:
+        print('!!! There was an error sending an email! !!!')
+
 @login_required(login_url='/register_login/')
 def confirmation(request):
     clc_code = request.GET.get('clc_code', '')
@@ -156,15 +166,8 @@ def confirmation(request):
                 valid_code.save()
                 # send confirmation success email
                 subject = 'Account confirmed'
-                msg_plain = render_to_string('clc_reg/email.txt', {'page': 'confirmed'})
-                sender = 'Postmaster <postmaster@community-lending-library.org>'
-                recipient = [request.user.email]
-                msg_html = render_to_string('clc_reg/email.html', {'page': 'confirmed'})
-                try:
-                    send_mail(subject, msg_plain, sender, recipient, fail_silently=False, html_message=msg_html)
-                except:
-                    print('!!! There was an error sending an email! !!!')
-                # then, redirect to home page and tell user they're confirmed
+                page = 'confirmed'
+                send_notification(request, subject, page)
                 return HttpResponseRedirect(reverse('clc_reg:index')+'?message=verified')
             else:
                 # if confirmed=True, redirect to home page and tell user account is already verified
