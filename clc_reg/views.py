@@ -82,16 +82,21 @@ def register_user(request):
         clc_key = VerifyRegistration.objects.get(user_id=request.user.id)
 
         # send email with clc_link
-        host = request.META['HTTP_HOST']
+        # host = request.META['HTTP_HOST']
+        # subject = 'Confirm your account'
+        # msg_plain = render_to_string('clc_reg/email.txt', {'page': 'send_new_key', 'clc_code': clc_key.confirmation_code, 'host': host})
+        # sender = 'Postmaster <postmaster@community-lending-library.org>'
+        # recipient = [request.user.email]
+        # msg_html = render_to_string('clc_reg/email.html', {'page': 'send_new_key', 'clc_code': clc_key.confirmation_code, 'host': host})
+        # try:
+        #     send_mail(subject, msg_plain, sender, recipient, fail_silently=False, html_message=msg_html)
+        # except:
+        #     print('!!! There was an error sending an email! !!!')
         subject = 'Confirm your account'
-        msg_plain = render_to_string('clc_reg/email.txt', {'page': 'send_new_key', 'clc_code': clc_key.confirmation_code, 'host': host})
-        sender = 'Postmaster <postmaster@community-lending-library.org>'
-        recipient = [request.user.email]
-        msg_html = render_to_string('clc_reg/email.html', {'page': 'send_new_key', 'clc_code': clc_key.confirmation_code, 'host': host})
-        try:
-            send_mail(subject, msg_plain, sender, recipient, fail_silently=False, html_message=msg_html)
-        except:
-            print('!!! There was an error sending an email! !!!')
+        page = 'send_new_key'
+        clc_code = clc_key.confirmation_code
+        host = request.META['HTTP_HOST']
+        send_notification(request, subject, page, clc_code, host)
 
         if next != '':
             return HttpResponseRedirect(next)
@@ -110,16 +115,21 @@ def send_new_key(request):
     create_key(request)
     new_key = VerifyRegistration.objects.get(user_id=request.user.id)
     # send email with new clc_link
-    host = request.META['HTTP_HOST']
+    # host = request.META['HTTP_HOST']
+    # subject = 'Confirm your account'
+    # msg_plain = render_to_string('clc_reg/email.txt', {'page': 'send_new_key', 'clc_code': new_key.confirmation_code, 'host': host})
+    # sender = 'Postmaster <postmaster@community-lending-library.org>'
+    # recipient = [request.user.email]
+    # msg_html = render_to_string('clc_reg/email.html', {'page': 'send_new_key', 'clc_code': new_key.confirmation_code, 'host': host})
+    # try:
+    #     send_mail(subject, msg_plain, sender, recipient, fail_silently=False, html_message=msg_html)
+    # except:
+    #     print('!!! There was an error sending an email! !!!')
     subject = 'Confirm your account'
-    msg_plain = render_to_string('clc_reg/email.txt', {'page': 'send_new_key', 'clc_code': new_key.confirmation_code, 'host': host})
-    sender = 'Postmaster <postmaster@community-lending-library.org>'
-    recipient = [request.user.email]
-    msg_html = render_to_string('clc_reg/email.html', {'page': 'send_new_key', 'clc_code': new_key.confirmation_code, 'host': host})
-    try:
-        send_mail(subject, msg_plain, sender, recipient, fail_silently=False, html_message=msg_html)
-    except:
-        print('!!! There was an error sending an email! !!!')
+    page = 'send_new_key'
+    clc_code = new_key.confirmation_code
+    host = request.META['HTTP_HOST']
+    send_notification(request, subject, page, clc_code, host)
 
     return HttpResponseRedirect(reverse('clc_reg:index')+'?message=resent')
 
@@ -139,11 +149,11 @@ def logout_user(request):
     logout(request)
     return HttpResponseRedirect(reverse('clc_reg:index')+'?message=logout')
 
-def send_notification(request, subject, page):
-    msg_plain = render_to_string('clc_reg/email.txt', {'page': page})
+def send_notification(request, subject, page, clc_code, host):
+    msg_plain = render_to_string('clc_reg/email.txt', {'page': page, 'clc_code': clc_code, 'host': host})
     sender = 'Postmaster <postmaster@community-lending-library.org>'
     recipient = [request.user.email]
-    msg_html = render_to_string('clc_reg/email.html', {'page': page})
+    msg_html = render_to_string('clc_reg/email.html', {'page': page, 'clc_code': clc_code, 'host': host})
     try:
         send_mail(subject, msg_plain, sender, recipient, fail_silently=False, html_message=msg_html)
     except:
@@ -167,7 +177,9 @@ def confirmation(request):
                 # send confirmation success email
                 subject = 'Account confirmed'
                 page = 'confirmed'
-                send_notification(request, subject, page)
+                clc_code = ''
+                host = ''
+                send_notification(request, subject, page, clc_code, host)
                 return HttpResponseRedirect(reverse('clc_reg:index')+'?message=verified')
             else:
                 # if confirmed=True, redirect to home page and tell user account is already verified
