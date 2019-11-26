@@ -5,7 +5,7 @@
   <div class="navbar">
     <a href="{% url 'clc_reg:logout_user' %}">Logout</a>
   </div>
-  <h1>Secured page, version 1, verified account required</h1>
+  <h1>Secured page <i>version 1</i>, verified account required</h1>
   <h2>Hello, {{ user.username }}</h2>
   <h3>Go to: <a href="{% url 'clc_reg:index' %}">Unsecured Page</a></h3>
   <h3>Go to: <a href="{% url 'clc_reg:special_page2' %}">Secured Page</a> <i>version 2</i></h3>

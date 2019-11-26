@@ -6,7 +6,7 @@
   <a href="{% url 'clc_reg:logout_user' %}">Logout</a>
 </div>
 {% if user.is_confirmed %}
-  <h1>Secured page2, verified account required</h1>
+  <h1>Secured page <i>version 2</i>, verified account required</h1>
   <h2>Hello, {{ user.username }}</h2>
   <h3>Go to: <a href="{% url 'clc_reg:index' %}">Unsecured Page</a></h3>
   <h3>Go to: <a href="{% url 'clc_reg:special_page' %}">Secured Page</a> <i>version 1</i></h3>
