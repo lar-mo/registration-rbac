@@ -151,12 +151,12 @@ def confirmation(request):
 
     # lookup all code associated with user_id
     valid_code = VerifyRegistration.objects.get(user_id=request.user.id)
-    
+
     # compare code from url vs in the database for user_id
-    # if it is valid (strings match, not expried, and not already used))
-    if valid_code.confirmation_code == clc_code:
-        if valid_code.expiration >= timezone.now():
-            if valid_code.confirmed == False:
+    # if it is valid (strings match, not expired, and not already used))
+    if valid_code.confirmed == False:
+        if valid_code.confirmation_code == clc_code:
+            if valid_code.expiration >= timezone.now():
                 # if code in URL matches one of the codes in 'valid codes' array, set "confirmed" = True
                 valid_code.confirmed = True
                 valid_code.save()
@@ -168,11 +168,11 @@ def confirmation(request):
                 send_notification(request, subject, page, clc_code, host)
                 return HttpResponseRedirect(reverse('clc_reg:index')+'?message=verified')
             else:
-                # if confirmed=True, redirect to home page and tell user account is already verified
-                return HttpResponseRedirect(reverse('clc_reg:index')+'?message=confirmed')
+                # if valid_code is expired, redirect to home page and tell user account is expired
+                return HttpResponseRedirect(reverse('clc_reg:index')+'?message=expired')
         else:
-            # if valid_code is expired, redirect to home page and tell user account is expired
-            return HttpResponseRedirect(reverse('clc_reg:index')+'?message=expired')
+            # else, redirect to home page and tell user there was a problem
+            return HttpResponseRedirect(reverse('clc_reg:index')+'?message=error')
     else:
-        # else, redirect to home page and tell user there was a problem
-        return HttpResponseRedirect(reverse('clc_reg:index')+'?message=error')
+        # if confirmed=True, redirect to home page and tell user account is already verified
+        return HttpResponseRedirect(reverse('clc_reg:index')+'?message=confirmed')
