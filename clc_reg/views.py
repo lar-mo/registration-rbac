@@ -162,13 +162,16 @@ def confirmation(request):
                 # if code in URL matches one of the codes in 'valid codes' array, set "confirmed" = True
                 valid_code.confirmed = True
                 valid_code.save()
+
                 # send confirmation success email
                 subject = 'Account confirmed'
                 page = 'confirmed'
                 clc_code = ''
                 host = ''
                 send_notification(request, subject, page, clc_code, host)
-                return HttpResponseRedirect(reverse('clc_reg:index')+'?message=verified')
+
+                # redirect back to index and tell user account is confirmed
+                return HttpResponseRedirect(reverse('clc_reg:index')+'?message=confirmed')
             else:
                 # if valid_code is expired, redirect to home page and tell user account is expired
                 return HttpResponseRedirect(reverse('clc_reg:index')+'?message=expired')
@@ -177,4 +180,4 @@ def confirmation(request):
             return HttpResponseRedirect(reverse('clc_reg:index')+'?message=error')
     else:
         # if confirmed=True, redirect to home page and tell user account is already verified
-        return HttpResponseRedirect(reverse('clc_reg:index')+'?message=confirmed')
+        return HttpResponseRedirect(reverse('clc_reg:index')+'?message=verified')
