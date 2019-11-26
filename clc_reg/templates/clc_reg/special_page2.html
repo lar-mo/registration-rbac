@@ -11,6 +11,8 @@
   <h3>Go to: <a href="{% url 'clc_reg:index' %}">Unsecured Page</a></h3>
 {% else %}
   <h1>Your account is not confirmed.</h1>
+  <h2><a href="{% url 'clc_reg:send_new_key' %}">Send new key</a></h2>
+  <h3>Go to: <a href="{% url 'clc_reg:index' %}">Unsecured Page</a></h3>
 {% endif %}
 
 {% endblock %}
