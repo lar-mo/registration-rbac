@@ -78,20 +78,12 @@ def register_user(request):
     else:
         user = User.objects.create_user(username, email, password)
         login(request, user)
+
+        # create new key
         create_key(request)
         clc_key = VerifyRegistration.objects.get(user_id=request.user.id)
 
         # send email with clc_link
-        # host = request.META['HTTP_HOST']
-        # subject = 'Confirm your account'
-        # msg_plain = render_to_string('clc_reg/email.txt', {'page': 'send_new_key', 'clc_code': clc_key.confirmation_code, 'host': host})
-        # sender = 'Postmaster <postmaster@community-lending-library.org>'
-        # recipient = [request.user.email]
-        # msg_html = render_to_string('clc_reg/email.html', {'page': 'send_new_key', 'clc_code': clc_key.confirmation_code, 'host': host})
-        # try:
-        #     send_mail(subject, msg_plain, sender, recipient, fail_silently=False, html_message=msg_html)
-        # except:
-        #     print('!!! There was an error sending an email! !!!')
         subject = 'Confirm your account'
         page = 'send_new_key'
         clc_code = clc_key.confirmation_code
@@ -111,20 +103,12 @@ def send_new_key(request):
     # delete previous key
     old_key = VerifyRegistration.objects.get(user_id=request.user.id)
     old_key.delete()
+
     # create new key
     create_key(request)
     new_key = VerifyRegistration.objects.get(user_id=request.user.id)
+
     # send email with new clc_link
-    # host = request.META['HTTP_HOST']
-    # subject = 'Confirm your account'
-    # msg_plain = render_to_string('clc_reg/email.txt', {'page': 'send_new_key', 'clc_code': new_key.confirmation_code, 'host': host})
-    # sender = 'Postmaster <postmaster@community-lending-library.org>'
-    # recipient = [request.user.email]
-    # msg_html = render_to_string('clc_reg/email.html', {'page': 'send_new_key', 'clc_code': new_key.confirmation_code, 'host': host})
-    # try:
-    #     send_mail(subject, msg_plain, sender, recipient, fail_silently=False, html_message=msg_html)
-    # except:
-    #     print('!!! There was an error sending an email! !!!')
     subject = 'Confirm your account'
     page = 'send_new_key'
     clc_code = new_key.confirmation_code
@@ -164,8 +148,10 @@ def confirmation(request):
     clc_code = request.GET.get('clc_code', '')
     message = request.GET.get('message', '')
     context = {'message': message}
+
     # lookup all code associated with user_id
     valid_code = VerifyRegistration.objects.get(user_id=request.user.id)
+    
     # compare code from url vs in the database for user_id
     # if it is valid (strings match, not expried, and not already used))
     if valid_code.confirmation_code == clc_code:
