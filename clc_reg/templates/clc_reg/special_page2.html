@@ -11,8 +11,9 @@
   <h3>Go to: <a href="{% url 'clc_reg:index' %}">Unsecured Page</a></h3>
   <h3>Go to: <a href="{% url 'clc_reg:special_page' %}">Secured Page</a> <i>version 1</i></h3>
 {% else %}
-  <h1>Your account is not confirmed.</h1>
-  <h2><a href="{% url 'clc_reg:send_new_key' %}">Send new key</a></h2>
+  <h1>Secured page <i>version 2</i>, verified account required</h1>
+  <h2>Hello, {{ user.username }}</h2>
+  <h3>Your account is not confirmed. <a href="{% url 'clc_reg:send_new_key' %}">Send new key</a></h3>
   <h3>Go to: <a href="{% url 'clc_reg:index' %}">Unsecured Page</a></h3>
 {% endif %}
 
