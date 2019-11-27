@@ -63,35 +63,35 @@
             <li>Simple error handling and messaging via url parameters,</li>
             <li>
               {% url 'clc_reg:index' as index_url %}
-              {% if request.path == index_url %}<b>{% endif %}
+              {% if request.path == index_url %}<span style="color:blue;font-weight:bold">{% endif %}
               An unsecured page (anonymous visitors ok)
-              {% if request.path == index_url %}</b>{% endif %}
+              {% if request.path == index_url %}</span>{% endif %}
             <li>
               {% url 'clc_reg:special_page' as sp_url %}
               {% url 'clc_reg:special_page2' as sp2_url %}
-              {% if request.path == sp_url or request.path == sp2_url %}<b>{% endif %}
+              {% if request.path == sp_url or request.path == sp2_url %}<span style="color:blue;font-weight:bold">{% endif %}
               Two secured pages (both require a logged in/confirmed user):
-              {% if request.path == sp_url or request.path == sp2_url %}</b>{% endif %}
+              {% if request.path == sp_url or request.path == sp2_url %}</span>{% endif %}
               <ul>
                 <li>
                   {% url 'clc_reg:special_page' as sp_url %}
-                  {% if request.path == sp_url %}<b>{% endif %}
+                  {% if request.path == sp_url %}<span style="font-weight:bold">{% endif %}
                   VERSION 1 - Confirmation status is calculated in views.py.
                   <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>If confirmed=False</u>, user is redirected to the index page with a small error message and a link to resend the CLC link.
                   <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>If confirmed=True</u>, user is passed through to the secure page.
                   <br>This implementation is used for directing users to different pages based on their confirmation status.
                   <br>It could be used for sending users to an upgrade/upsell page, for example.
-                  {% if request.path == sp_url %}</b>{% endif %}
+                  {% if request.path == sp_url %}</span>{% endif %}
                 </li>
                 <li>
                   {% url 'clc_reg:special_page2' as sp2_url %}
-                  {% if request.path == sp2_url %}<b>{% endif %}
+                  {% if request.path == sp2_url %}<span style="font-weight:bold">{% endif %}
                   VERSION 2 - Confirmation status is calculated in models.py and passed to the template.
                   <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>If confirmed=False</u>, an error message is shown on the secure page.
                   <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>If confirmed=True</u>, the secure page content is visible.
                   <br>This implementation is used for showing different content on the same page based on user's confirmation status.
                   <br>It is globally available via the built-in user system and could easily be retooled to return an integer for different member levels, for example.
-                  {% if request.path == sp2_url %}</b>{% endif %}
+                  {% if request.path == sp2_url %}</span>{% endif %}
                 </li>
               </ul>
             </li>
