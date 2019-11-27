@@ -59,14 +59,19 @@
           This application is a simple registration and login system (URS) which includes:
           <ul>
             <li>A two-step registration system and login,</li>
-            <li>Token generator and confirmation emails,
-            <li>Simple error handling and messaging via url parameters,
+            <li>Token generator and confirmation emails,</li>
+            <li>Simple error handling and messaging via url parameters,</li>
             <li>
               {% url 'clc_reg:index' as index_url %}
               {% if request.path == index_url %}<b>{% endif %}
               An unsecured page (anonymous visitors ok)
               {% if request.path == index_url %}</b>{% endif %}
-            <li>Two secured pages (both require a logged in/confirmed user):
+            <li>
+              {% url 'clc_reg:special_page' as sp_url %}
+              {% url 'clc_reg:special_page2' as sp2_url %}
+              {% if request.path == sp_url or request.path == sp2_url %}<b>{% endif %}
+              Two secured pages (both require a logged in/confirmed user):
+              {% if request.path == sp_url or request.path == sp2_url %}</b>{% endif %}
               <ul>
                 <li>
                   {% url 'clc_reg:special_page' as sp_url %}
