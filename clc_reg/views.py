@@ -136,10 +136,11 @@ def logout_user(request):
 # Can clc_code and host can be optional? The problem seems to be with render_to_string (see lines 167, 168).
 # Possible solution: https://stackoverflow.com/questions/9539921/how-do-i-create-a-python-function-with-optional-arguments
 def send_notification(request, subject, page, clc_code, host):
-    msg_plain = render_to_string('clc_reg/email.txt', {'page': page, 'clc_code': clc_code, 'host': host})
+    username = request.user.username
+    msg_plain = render_to_string('clc_reg/email.txt', {'username': username, 'page': page, 'clc_code': clc_code, 'host': host})
     sender = 'Postmaster <postmaster@community-lending-library.org>'
     recipient = [request.user.email]
-    msg_html = render_to_string('clc_reg/email.html', {'page': page, 'clc_code': clc_code, 'host': host})
+    msg_html = render_to_string('clc_reg/email.html', {'username': username, 'page': page, 'clc_code': clc_code, 'host': host})
     try:
         send_mail(subject, msg_plain, sender, recipient, fail_silently=False, html_message=msg_html)
     except:

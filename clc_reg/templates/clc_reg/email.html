@@ -1,5 +1,5 @@
 {% if page == 'send_new_key' %}
-  <h2>Hello, {{request.user.username|title}}</h2>
+  <h2>Hello {{username|title}},</h2>
   <h3>Click this link to confirm your account:</h3>
   <h4>
     <ul>
@@ -7,6 +7,6 @@
     </ul>
   </h4>
 {% elif page == 'confirmed' %}
-  <h2>Hello, {{request.user.username|title}}</h2>
+  <h2>Hello {{username|title}},</h2>
   <h3>You have successfully confirmed your account.</h3>
 {% endif %}
