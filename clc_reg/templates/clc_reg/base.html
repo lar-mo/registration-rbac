@@ -67,11 +67,9 @@
               An unsecured page (anonymous visitors ok)
               {% if request.path == index_url %}</span>{% endif %}
             <li>
-              {% url 'clc_reg:special_page' as sp_url %}
-              {% url 'clc_reg:special_page2' as sp2_url %}
-              {% if request.path == sp_url or request.path == sp2_url %}<span style="color:blue;font-weight:bold">{% endif %}
+              {% if "special_page" in request.path %}<span style="color:blue;font-weight:bold">{% endif %}
               Two secured pages (both require a logged in/confirmed user):
-              {% if request.path == sp_url or request.path == sp2_url %}</span>{% endif %}
+              {% if "special_page" in request.path %}</span>{% endif %}
               <ul>
                 <li>
                   {% url 'clc_reg:special_page' as sp_url %}
