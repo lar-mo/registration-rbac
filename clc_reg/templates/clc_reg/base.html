@@ -86,7 +86,8 @@
                   <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>If confirmed=True</u>, user is passed through to the secure page.
                   <br>This implementation is used for directing users to different pages based on their confirmation status.
                   <br>It is available on pages where it has been implemented in the view.
-                  <br>It could be used for sending users to an upgrade/upsell page, for example.
+                  <br>It could easily be retooled to return an integer for different member levels.
+                  <br>Then, be used for sending users to an upgrade/upsell page, for example.
                   {% if request.path == sp_url %}</span>{% endif %}
                 </li>
                 <li>
@@ -97,7 +98,8 @@
                   <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>If confirmed=True</u>, the secure page content is visible.
                   <br>This implementation is used for showing different content on the same page based on user's confirmation status.
                   <br>It is available globally via an extension to the built-in user system.
-                  <br>It could easily be retooled to return an integer for different member levels, for example.
+                  <br>It could easily be retooled to return an integer for different member levels.
+                  <br>Then, be used for showing different content or unlocking member-specific features, for example.
                   {% if request.path == sp2_url %}</span>{% endif %}
                 </li>
               </ul>
