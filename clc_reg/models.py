@@ -13,8 +13,13 @@ User.add_to_class('membership_isactive', membership_isactive)
 
 def membership_level(user):
     level = user.MembershipLevel.get()
-    return level.membership.name
+    return level.membership_type.name
 User.add_to_class('membership_level', membership_level)
+
+def membership_expiry(user):
+    expiry = user.MembershipLevel.get()
+    return expiry.expiration
+User.add_to_class('membership_expiry', membership_expiry)
 
 class MembershipType(models.Model):
     name       = models.CharField(max_length=200)
@@ -32,10 +37,10 @@ class VerifyRegistration(models.Model):
         return self.user.username + ': ' + self.confirmation_code
 
 class Membership(models.Model):
-    membership = models.ForeignKey(MembershipType, on_delete=models.PROTECT)
-    is_active  = models.BooleanField()
-    expiration = models.DateTimeField()
-    user       = models.ForeignKey(User, on_delete=models.PROTECT, related_name='MembershipLevel')
+    membership_type = models.ForeignKey(MembershipType, on_delete=models.PROTECT)
+    is_active       = models.BooleanField()
+    expiration      = models.DateTimeField()
+    user            = models.ForeignKey(User, on_delete=models.PROTECT, related_name='MembershipLevel')
 
     def __str__(self):
-        return self.user.username + ': ' + self.membership.name
+        return self.user.username + ': ' + self.membership_type.name

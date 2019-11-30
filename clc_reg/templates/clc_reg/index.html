@@ -27,9 +27,11 @@
     <h2>Hello, {{ user.username }}</h2>
     <h3>Go to: <a href="{% url 'clc_reg:special_page' %}">Secured Page</a> <i>version 1</i></h3>
     <h3>Go to: <a href="{% url 'clc_reg:special_page2' %}">Secured Page</a> <i>version 2</i></h3>
+    <h3>Go to: <a href="{% url 'clc_reg:plus' %}">Plus</a></h3>
 
-    <h4>{{ user.membership_isactive }}</h4>
-    <h4>{{ user.membership_level }}</h4>
+    <h4>isActive? {{ user.membership_isactive }}
+    <br>Type: {{ user.membership_level }}
+    <br>Expiry: {{ user.membership_expiry }}</h4>
 
   {% else %}
     {% if message == "logout" %}

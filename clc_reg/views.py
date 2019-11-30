@@ -9,7 +9,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import check_password
 
-from .models import VerifyRegistration
+from .models import VerifyRegistration, Membership, MembershipType
 
 import secrets
 
@@ -121,7 +121,7 @@ def send_new_key(request):
 def special_page(request):
     confirmed = VerifyRegistration.objects.get(user_id=request.user.id) # lookup VerifyRegistration by user.id
     if confirmed.confirmed:                                     # if confirmed.confirmed (boolean) = true (1)
-        return render(request, 'clc_reg/special_page.html')     # then go to login-required page
+        return render(request, 'clc_reg/special_page.html')     # then go to special_page
     else:                                                       # else go to index?message=pending
         return HttpResponseRedirect(reverse('clc_reg:index')+'?message=pending')
 
@@ -183,11 +183,33 @@ def confirmation(request):
         # if confirmed=True, redirect to home page and tell user account is already verified
         return HttpResponseRedirect(reverse('clc_reg:index')+'?message=verified')
 
+@login_required
 def upsell(request):
     return HttpResponse("Upsell page!")
 
+@login_required
 def plus(request):
-    return HttpResponse("Plus page!")
+    try:
+        level = Membership.objects.get(user_id=request.user.id) # lookup Membership by user.id
+        if level.expiration >= timezone.now():                  # check if expiration date is in future
+            if level.is_active:                                 # check if membership is active
+                if level.membership_type.name == 'Plus':        # check if membership type is Plus
+                    return render(request, 'clc_reg/plus.html') # then proceed to Plus page
+                elif level.membership_type.name == 'Premium':   # or, redir to Premium page
+                    return HttpResponseRedirect(reverse('clc_reg:premium')+'?message=redir_from_plus')
+                elif level.membership_type.name == 'Basic':     # or, redir to Upsell page
+                    return HttpResponseRedirect(reverse('clc_reg:upsell')+'?message=redir_from_plus')
+                else:                                           # else go to upsell?message=error
+                    return HttpResponseRedirect(reverse('clc_reg:upsell')+'?message=error')
+            else:                                               # else go to upsell?message=inactive
+                return HttpResponseRedirect(reverse('clc_reg:upsell')+'?message=inactive')
+        else:
+            level.is_active = False                             # set is_active to False
+            level.save()                                        # save to database
+            return HttpResponseRedirect(reverse('clc_reg:upsell')+'?message=expired')
+    except:
+        return HttpResponseRedirect(reverse('clc_reg:upsell')+'?message=error')
 
+@login_required
 def premium(request):
     return HttpResponse("Premium page!")
