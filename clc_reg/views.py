@@ -188,7 +188,7 @@ def upsell(request):
     return HttpResponse("Upsell page!")
 
 @login_required
-def plus(request):
+def plus(request): # see lines 213-215 --> def check_membership(request):
     try:
         level = Membership.objects.get(user_id=request.user.id) # lookup Membership by user.id
         if level.expiration >= timezone.now():                  # check if expiration date is in future
@@ -209,6 +209,10 @@ def plus(request):
             return HttpResponseRedirect(reverse('clc_reg:upsell')+'?message=expired')
     except:
         return HttpResponseRedirect(reverse('clc_reg:upsell')+'?message=error')
+
+# @login_required
+# def plus(request):
+#     check_membership(request)
 
 @login_required
 def premium(request):
