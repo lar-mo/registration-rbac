@@ -35,4 +35,12 @@ urlpatterns = [
     # Handles creation of new clc link
     path('send_new_key/', views.send_new_key, name='send_new_key'),
 
+    # Display upsell page
+    path('upsell/', views.upsell, name='upsell'),
+
+    # Display Plus page
+    path('plus/', views.plus, name='plus'),
+
+    # Display Premium page
+    path('premium/', views.premium, name='premium'),
 ]

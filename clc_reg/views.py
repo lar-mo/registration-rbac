@@ -182,3 +182,12 @@ def confirmation(request):
     else:
         # if confirmed=True, redirect to home page and tell user account is already verified
         return HttpResponseRedirect(reverse('clc_reg:index')+'?message=verified')
+
+def upsell(request):
+    return HttpResponse("Upsell page!")
+
+def plus(request):
+    return HttpResponse("Plus page!")
+
+def premium(request):
+    return HttpResponse("Premium page!")
