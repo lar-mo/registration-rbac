@@ -188,34 +188,53 @@ def upsell(request):
     return HttpResponse("Upsell page!")
 
 @login_required
-def plus(request): # see lines 213-215 --> def check_membership(request):
+# def plus(request):
+def check_membership(request):
     try:
         level = Membership.objects.get(user_id=request.user.id) # lookup Membership by user.id
         if level.expiration >= timezone.now():                  # check if expiration date is in future
             if level.is_active:                                 # check if membership is active
-                if level.membership_type.name == 'Plus':        # check if membership type is Plus
-                    return render(request, 'clc_reg/plus.html') # then proceed to Plus page
-                elif level.membership_type.name == 'Premium':   # or, redir to Premium page
-                    return HttpResponseRedirect(reverse('clc_reg:premium')+'?message=redir_from_plus')
-                elif level.membership_type.name == 'Basic':     # or, redir to Upsell page
-                    return HttpResponseRedirect(reverse('clc_reg:upsell')+'?message=redir_from_plus')
-                else:                                           # else go to upsell?message=error
-                    return HttpResponseRedirect(reverse('clc_reg:upsell')+'?message=error')
+                return level.membership_type.name
+            #     if level.membership_type.name == 'Plus':        # check if membership type is Plus
+            #         return render(request, 'clc_reg/plus.html') # then proceed to Plus page
+            #     elif level.membership_type.name == 'Premium':   # or, redir to Premium page
+            #         return HttpResponseRedirect(reverse('clc_reg:premium')+'?message=redir_from_plus')
+            #     elif level.membership_type.name == 'Basic':     # or, redir to Upsell page
+            #         return HttpResponseRedirect(reverse('clc_reg:upsell')+'?message=redir_from_plus')
+            #     else:                                           # else go to upsell?message=error
+            #         return HttpResponseRedirect(reverse('clc_reg:upsell')+'?message=error')
             else:                                               # else go to upsell?message=inactive
-                return HttpResponseRedirect(reverse('clc_reg:upsell')+'?message=inactive')
+                # return HttpResponseRedirect(reverse('clc_reg:upsell')+'?message=inactive')
+                return "Inactive"
         else:
             type = MembershipType.objects.get(name='Basic')     # get Basic object from MembershipType
             level.membership_type = type                        # set value of membership_type to Basic
             level.expiration = '2099-12-31 00:00:00-00'         # set expiration far in the future
             level.save()                                        # save new values to database
-            return HttpResponseRedirect(reverse('clc_reg:upsell')+'?message=expired')
-    except:
-        return HttpResponseRedirect(reverse('clc_reg:upsell')+'?message=error')
+            # return HttpResponseRedirect(reverse('clc_reg:upsell')+'?message=expired')
+            return "Expired"
 
-# @login_required
-# def plus(request):
-#     check_membership(request)
+    except:
+        # return HttpResponseRedirect(reverse('clc_reg:upsell')+'?message=error')
+        return "Error"
+
+@login_required
+def plus(request):
+    level = check_membership(request)
+    print(level)
+    if level == 'Plus':                                         # check if membership type is Plus
+        return render(request, 'clc_reg/plus.html')             # then proceed to Plus page
+    elif level == 'Premium':                                    # or, redir to Premium page
+        return HttpResponseRedirect(reverse('clc_reg:premium')+'?message=redir_from_plus')
+    elif level == 'Basic':                                      # or, redir to Upsell page
+        return HttpResponseRedirect(reverse('clc_reg:upsell')+'?message=redir_from_plus')
+    elif level == 'Expired':                                    # else go to upsell?message=expired
+        return HttpResponseRedirect(reverse('clc_reg:upsell')+'?message=expired')
+    elif level == 'Inactive':                                   # else go to upsell?message=inactive
+        return HttpResponseRedirect(reverse('clc_reg:upsell')+'?message=inactive')
+    else:                                                       # else go to upsell?message=error
+        return HttpResponseRedirect(reverse('clc_reg:upsell')+'?message=error')
 
 @login_required
 def premium(request):
-    return HttpResponse("Premium page!")
+    return HttpResponse("Premium!")
