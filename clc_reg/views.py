@@ -204,8 +204,10 @@ def plus(request): # see lines 213-215 --> def check_membership(request):
             else:                                               # else go to upsell?message=inactive
                 return HttpResponseRedirect(reverse('clc_reg:upsell')+'?message=inactive')
         else:
-            level.is_active = False                             # set is_active to False
-            level.save()                                        # save to database
+            type = MembershipType.objects.get(name='Basic')     # get Basic object from MembershipType
+            level.membership_type = type                        # set value of membership_type to Basic
+            level.expiration = '2099-12-31 00:00:00-00'         # set expiration far in the future
+            level.save()                                        # save new values to database
             return HttpResponseRedirect(reverse('clc_reg:upsell')+'?message=expired')
     except:
         return HttpResponseRedirect(reverse('clc_reg:upsell')+'?message=error')
