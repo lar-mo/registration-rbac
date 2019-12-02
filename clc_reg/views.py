@@ -223,4 +223,16 @@ def plus(request):
 
 @login_required
 def premium(request):
-    return HttpResponse("Premium!")
+    level = check_membership(request)
+    if level == 'Premium':                                      # check if membership type is Premium
+        return render(request, 'clc_reg/premium.html')          # then proceed to Premium page
+    elif level == 'Plus':                                       # or, redir to Plus page
+        return HttpResponseRedirect(reverse('clc_reg:plus')+'?message=redir_from_premium')
+    elif level == 'Basic':                                      # or, redir to Upsell page
+        return HttpResponseRedirect(reverse('clc_reg:upsell')+'?message=redir_from_premium')
+    elif level == 'Expired':                                    # else go to upsell?message=expired
+        return HttpResponseRedirect(reverse('clc_reg:upsell')+'?message=expired')
+    elif level == 'Inactive':                                   # else go to upsell?message=inactive
+        return HttpResponseRedirect(reverse('clc_reg:upsell')+'?message=inactive')
+    else:                                                       # else go to upsell?message=error
+        return HttpResponseRedirect(reverse('clc_reg:upsell')+'?message=error')
