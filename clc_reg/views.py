@@ -158,43 +158,58 @@ def confirmation(request):
 
     # compare code from url vs in the database for user_id
     # if it is valid (strings match, not expired, and not already used))
-    if valid_code.confirmed == False:
-        if valid_code.confirmation_code == clc_code:
-            if valid_code.expiration >= timezone.now():
-                # if code in URL matches one of the codes in 'valid codes' array, set "confirmed" = True
-                valid_code.confirmed = True
-                valid_code.save()
+    # if valid_code.confirmed == False:
+    #     if valid_code.confirmation_code == clc_code:
+    #         if valid_code.expiration >= timezone.now():
+    #             # if code in URL matches one of the codes in 'valid codes' array, set "confirmed" = True
+    #             valid_code.confirmed = True
+    #             valid_code.save()
+    #
+    #             # send confirmation success email
+    #             subject = 'Account confirmed'
+    #             page = 'confirmed'
+    #             clc_code = ''
+    #             host = ''
+    #             send_notification(request, subject, page, clc_code, host)
+    #
+    #             # redirect back to index and tell user account is confirmed
+    #             return HttpResponseRedirect(reverse('clc_reg:index')+'?message=confirmed')
+    #         else:
+    #             # if valid_code is expired, redirect to home page and tell user account is expired
+    #             return HttpResponseRedirect(reverse('clc_reg:index')+'?message=expired')
+    #     else:
+    #         # else, redirect to home page and tell user there was a problem
+    #         return HttpResponseRedirect(reverse('clc_reg:index')+'?message=error')
+    # else:
+    #     # if confirmed=True, redirect to home page and tell user account is already verified
+    #     return HttpResponseRedirect(reverse('clc_reg:index')+'?message=verified')
 
-                # send confirmation success email
-                subject = 'Account confirmed'
-                page = 'confirmed'
-                clc_code = ''
-                host = ''
-                send_notification(request, subject, page, clc_code, host)
-
-                # redirect back to index and tell user account is confirmed
-                return HttpResponseRedirect(reverse('clc_reg:index')+'?message=confirmed')
-            else:
-                # if valid_code is expired, redirect to home page and tell user account is expired
-                return HttpResponseRedirect(reverse('clc_reg:index')+'?message=expired')
-        else:
-            # else, redirect to home page and tell user there was a problem
-            return HttpResponseRedirect(reverse('clc_reg:index')+'?message=error')
-    else:
+    if valid_code.confirmed == True:
         # if confirmed=True, redirect to home page and tell user account is already verified
         return HttpResponseRedirect(reverse('clc_reg:index')+'?message=verified')
 
-@login_required
-def inactive(request):
-    return render(request, 'clc_reg/inactive.html')
+    if valid_code.confirmation_code != clc_code:
+        # else, redirect to home page and tell user there was a problem
+        return HttpResponseRedirect(reverse('clc_reg:index')+'?message=error')
 
-@login_required
-def account_error(request):
-    return render(request, 'clc_reg/error.html')
+    if valid_code.expiration >= timezone.now():
+        # if code in URL matches one of the codes in 'valid codes' array, set "confirmed" = True
+        valid_code.confirmed = True
+        valid_code.save()
 
-@login_required
-def upsell(request):
-    return render(request, 'clc_reg/upsell.html')
+        # send confirmation success email
+        subject = 'Account confirmed'
+        page = 'confirmed'
+        clc_code = ''
+        host = ''
+        send_notification(request, subject, page, clc_code, host)
+
+        # redirect back to index and tell user account is confirmed
+        return HttpResponseRedirect(reverse('clc_reg:index')+'?message=confirmed')
+    else:
+        # if valid_code is expired, redirect to home page and tell user account is expired
+        return HttpResponseRedirect(reverse('clc_reg:index')+'?message=expired')
+
 
 @login_required
 def check_membership(request):
@@ -243,3 +258,15 @@ def premium(request):
         return HttpResponseRedirect(reverse('clc_reg:inactive')+'?message=inactive')
     else:                                                       # else go to upsell?message=error
         return HttpResponseRedirect(reverse('clc_reg:account_error')+'?message=error')
+
+@login_required
+def inactive(request):
+    return render(request, 'clc_reg/inactive.html')
+
+@login_required
+def account_error(request):
+    return render(request, 'clc_reg/error.html')
+
+@login_required
+def upsell(request):
+    return render(request, 'clc_reg/upsell.html')
