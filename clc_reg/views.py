@@ -156,55 +156,30 @@ def confirmation(request):
     # lookup all code associated with user_id
     valid_code = VerifyRegistration.objects.get(user_id=request.user.id)
 
-    # compare code from url vs in the database for user_id
-    # if it is valid (strings match, not expired, and not already used))
-    # if valid_code.confirmed == False:
-    #     if valid_code.confirmation_code == clc_code:
-    #         if valid_code.expiration >= timezone.now():
-    #             # if code in URL matches one of the codes in 'valid codes' array, set "confirmed" = True
-    #             valid_code.confirmed = True
-    #             valid_code.save()
-    #
-    #             # send confirmation success email
-    #             subject = 'Account confirmed'
-    #             page = 'confirmed'
-    #             clc_code = ''
-    #             host = ''
-    #             send_notification(request, subject, page, clc_code, host)
-    #
-    #             # redirect back to index and tell user account is confirmed
-    #             return HttpResponseRedirect(reverse('clc_reg:index')+'?message=confirmed')
-    #         else:
-    #             # if valid_code is expired, redirect to home page and tell user account is expired
-    #             return HttpResponseRedirect(reverse('clc_reg:index')+'?message=expired')
-    #     else:
-    #         # else, redirect to home page and tell user there was a problem
-    #         return HttpResponseRedirect(reverse('clc_reg:index')+'?message=error')
-    # else:
-    #     # if confirmed=True, redirect to home page and tell user account is already verified
-    #     return HttpResponseRedirect(reverse('clc_reg:index')+'?message=verified')
-
+    # if confirmed=True, ...
     if valid_code.confirmed == True:
-        # if confirmed=True, redirect to home page and tell user account is already verified
+        # ... redirect to home page and tell user account is already verified
         return HttpResponseRedirect(reverse('clc_reg:index')+'?message=verified')
 
+    # if code from url doesn't match code in the database for request.user, ...
     if valid_code.confirmation_code != clc_code:
-        # else, redirect to home page and tell user there was a problem
+        # ... redirect to home page and tell user there was a problem
         return HttpResponseRedirect(reverse('clc_reg:index')+'?message=error')
 
+    # if valid_code is not expired,
     if valid_code.expiration >= timezone.now():
-        # if code in URL matches one of the codes in 'valid codes' array, set "confirmed" = True
+        # ... set "confirmed" = True and save to database
         valid_code.confirmed = True
         valid_code.save()
 
-        # send confirmation success email
+        # and, send confirmation success email
         subject = 'Account confirmed'
         page = 'confirmed'
         clc_code = ''
         host = ''
         send_notification(request, subject, page, clc_code, host)
 
-        # redirect back to index and tell user account is confirmed
+        # then, redirect back to index and tell user account is now confirmed
         return HttpResponseRedirect(reverse('clc_reg:index')+'?message=confirmed')
     else:
         # if valid_code is expired, redirect to home page and tell user account is expired
