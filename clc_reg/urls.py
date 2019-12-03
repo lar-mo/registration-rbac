@@ -43,4 +43,10 @@ urlpatterns = [
 
     # Display Premium page
     path('premium/', views.premium, name='premium'),
+
+    # Display Inactive Account page
+    path('inactive/', views.inactive, name='inactive'),
+
+    # Display Account Error page
+    path('account_error/', views.account_error, name='account_error'),
 ]

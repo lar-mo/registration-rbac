@@ -184,8 +184,16 @@ def confirmation(request):
         return HttpResponseRedirect(reverse('clc_reg:index')+'?message=verified')
 
 @login_required
+def inactive(request):
+    return render(request, 'clc_reg/inactive.html')
+
+@login_required
+def account_error(request):
+    return render(request, 'clc_reg/error.html')
+
+@login_required
 def upsell(request):
-    return HttpResponse("Upsell page!")
+    return render(request, 'clc_reg/upsell.html')
 
 @login_required
 def check_membership(request):
@@ -217,9 +225,9 @@ def plus(request):
     elif level == 'Expired':                                    # else go to upsell?message=expired
         return HttpResponseRedirect(reverse('clc_reg:upsell')+'?message=expired')
     elif level == 'Inactive':                                   # else go to upsell?message=inactive
-        return HttpResponseRedirect(reverse('clc_reg:upsell')+'?message=inactive')
+        return HttpResponseRedirect(reverse('clc_reg:inactive')+'?message=inactive')
     else:                                                       # else go to upsell?message=error
-        return HttpResponseRedirect(reverse('clc_reg:upsell')+'?message=error')
+        return HttpResponseRedirect(reverse('clc_reg:account_error')+'?message=error')
 
 @login_required
 def premium(request):
@@ -233,6 +241,6 @@ def premium(request):
     elif level == 'Expired':                                    # else go to upsell?message=expired
         return HttpResponseRedirect(reverse('clc_reg:upsell')+'?message=expired')
     elif level == 'Inactive':                                   # else go to upsell?message=inactive
-        return HttpResponseRedirect(reverse('clc_reg:upsell')+'?message=inactive')
+        return HttpResponseRedirect(reverse('clc_reg:inactive')+'?message=inactive')
     else:                                                       # else go to upsell?message=error
-        return HttpResponseRedirect(reverse('clc_reg:upsell')+'?message=error')
+        return HttpResponseRedirect(reverse('clc_reg:account_error')+'?message=error')
