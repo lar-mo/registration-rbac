@@ -190,17 +190,16 @@ def confirmation(request):
 def check_membership(request):
     try:
         level = Membership.objects.get(user_id=request.user.id) # lookup Membership by user.id
-        if level.expiration >= timezone.now():                  # check if expiration date is in future
-            if level.is_active:                                 # check if membership is active
-                return level.membership_type.name
-            else:                                               # else go to upsell?message=inactive
-                return "Inactive"
-        else:
+        if level.expiration <= timezone.now():                  # check if expiration date is in future
             type = MembershipType.objects.get(name='Basic')     # get Basic object from MembershipType
             level.membership_type = type                        # set value of membership_type to Basic
             level.expiration = '2099-12-31 00:00:00-00'         # set expiration far in the future
             level.save()                                        # save new values to database
             return "Expired"
+        if level.is_active:                                 # check if membership is active
+            return level.membership_type.name
+        else:                                               # else go to upsell?message=inactive
+            return "Inactive"
     except:
         return "Error"
 
@@ -221,6 +220,7 @@ def plus(request):
 @login_required
 def premium(request):
     level = check_membership(request)
+    # level = request.user.membership_level() # this won't work for Expired or Inactive accounts
     if level == 'Premium':                                      # check if membership type is Premium
         return render(request, 'clc_reg/premium.html')          # then proceed to Premium page
     elif level == 'Plus':                                       # or, redir to Plus page

@@ -63,7 +63,7 @@
       <main>
         {% block content %}{% endblock %}
         <div class="blurb">
-          This application is a simple registration and login system (URS) which includes:
+          Originally, this application was a simple registration and login system (URS) which included:
           <ul>
             <li>A two-step registration system and login,</li>
             <li>Token generator and confirmation emails,</li>
@@ -102,6 +102,24 @@
                   <br>Then, be used for showing different content or unlocking member-specific features, for example.
                   {% if request.path == sp2_url %}</span>{% endif %}
                 </li>
+              </ul>
+            </li>
+          </ul>
+          Update: A simple mult-tiered membership system has been added to this app.
+          <ul>
+            <li>All registered users automatically have a Basic membership.</li>
+            <li>The middle level is Plus and the top level is Premium.</li>
+            <li>Premium users can see the Plus user's page(s).</li>
+            <li>Basic memberships have an expiration of 2099-12-31 at midnight.</li>
+            <li>Plus and Premium memberships must have a expiration date.
+            <li>When a Plus or Premium membership expires it reverts a Basic membership.</li>
+            <li>The is_active flag is meant as a way to temporarily disable an account.</li>
+            <li>There are 4 additional page types:
+              <ul>
+                <li>Plus - content that is available to Plus members (and Premium)</li>
+                <li>Premium - content that is available to Premium members</li>
+                <li>Account Error - landing page for Inactive accounts when trying to access a membership page</li>
+                <li>Expired Account - landing page for Expired accounts when trying to access a membership page</li>
               </ul>
             </li>
           </ul>
