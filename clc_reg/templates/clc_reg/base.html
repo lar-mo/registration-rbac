@@ -57,10 +57,21 @@
       .blurb_bold {
         font-weight:bold
       }
+      #no-li-bullet {
+        list-style-type: none
+      }
     </style>
   </head>
     <body>
       <main>
+        <div class="navbar">
+          {% if user.is_authenticated %}
+            <a href="{% url 'clc_reg:logout_user' %}">Logout</a>
+          {% else %}
+            <a href="{% url 'clc_reg:register_login' %}?next=/">Register or Login</a>
+          {% endif %}
+        </div>
+
         {% block content %}{% endblock %}
         <div class="blurb">
           Originally, this application was a simple registration and login system (URS) which included:
@@ -123,17 +134,20 @@
               </ul>
             </li>
           </ul>
-          <pre>
---------------------------------------------------------
-Features        Basic   Plus    Premium   (page)
---------------------------------------------------------
-cool thing      x       x       x         (index.html)
---------------------------------------------------------
-special thing           x       x         (plus.html)
---------------------------------------------------------
-amazing thing                   x         (premium.html)
---------------------------------------------------------
-          </pre>
+            <li id="no-li-bullet">
+              <pre>
+  --------------------------------------------------------
+  <b>Features        Basic   Plus    Premium   (page)</b>
+  --------------------------------------------------------
+  cool thing        x       x       x       (index.html)
+  --------------------------------------------------------
+  special thing             x       x       (plus.html)
+  --------------------------------------------------------
+  amazing thing                     x       (premium.html)
+  --------------------------------------------------------
+              </pre>
+            </li>
+          </ul>
         </div>
       </main>
     </body>

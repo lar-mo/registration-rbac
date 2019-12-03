@@ -2,13 +2,6 @@
 
 {% block content %}
 
-  <div class="navbar">
-    {% if user.is_authenticated %}
-      <a href="{% url 'clc_reg:logout_user' %}">Logout</a>
-    {% else %}
-      <a href="{% url 'clc_reg:register_login' %}?next=/">Register or Login</a>
-    {% endif %}
-  </div>
   {% if user.is_authenticated %}
     {% if message == "pending" %}
       <div style="background-color:orange;color:white;">You need to confirm your account. <a href="{% url 'clc_reg:send_new_key' %}">Send new key</a></div>

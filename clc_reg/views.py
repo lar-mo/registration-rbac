@@ -77,12 +77,20 @@ def register_user(request):
     if User.objects.filter(username=username).exists():
         return HttpResponseRedirect(reverse('clc_reg:register_login')+'?message=reg_error')
     else:
+        # create user account
         user = User.objects.create_user(username, email, password)
         login(request, user)
 
         # create new key
         create_key(request)
         clc_key = VerifyRegistration.objects.get(user_id=request.user.id)
+
+        # create Basic membership
+        type = MembershipType.objects.get(name='Basic')     # get Basic object from MembershipType
+        basic_membership_type = type                        # set value of membership_type to Basic
+        expiration = '2099-12-31 00:00:00-00'         # set expiration far in the future
+        create_basic_membership = Membership(membership_type=basic_membership_type, expiration=expiration, is_active=True, user_id=request.user.id)
+        create_basic_membership.save()
 
         # send email with clc_link
         subject = 'Confirm your account'
@@ -166,7 +174,7 @@ def confirmation(request):
         # ... redirect to home page and tell user there was a problem
         return HttpResponseRedirect(reverse('clc_reg:index')+'?message=error')
 
-    # if valid_code is not expired,
+    # if valid_code is not expired, ...
     if valid_code.expiration >= timezone.now():
         # ... set "confirmed" = True and save to database
         valid_code.confirmed = True
