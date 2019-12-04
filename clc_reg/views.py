@@ -243,10 +243,21 @@ def premium(request):
 
 @login_required
 def purchase_membership(request):
-    # return render(request, 'clc_reg/purchase_membership.html')
-    username = request.POST['username']
-    email = request.POST['email']
-    password = request.POST['password']
+    return render(request, 'clc_reg/purchase_membership.html')
+
+@login_required
+def create_membership(request):
+    membership_type = request.POST['membership_type']
+    firstname = request.POST['firstname']
+    lastname = request.POST['lastname']
+    address1 = request.POST['address1']
+    address2 = request.POST['address2']
+    city = request.POST['city']
+    state = request.POST['state']
+    zipcode = request.POST['zipcode']
+    creditcard = request.POST['creditcard']
+    expiration = request.POST['expiration']
+    cid = request.POST['cid']
     next = request.POST['next']
 
     # check if this username already exists in the system

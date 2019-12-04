@@ -52,4 +52,7 @@ urlpatterns = [
 
     # Display Membership purchase page
     path('purchase_membership/', views.purchase_membership, name='purchase_membership'),
+
+    # Handles creation of membership
+    path('create_membership/', views.create_membership, name='create_membership'),
 ]

@@ -9,7 +9,7 @@
   {% endif %}
   <div id="container">
     <h3>Purchase</h3>
-    <form action="{% url 'clc_reg:register_user' %}" method="post">
+    <form action="{% url 'clc_reg:create_membership' %}" method="post">
       {% csrf_token %}
       <input type="hidden" name="next" value="{{next}}"/>
       <p>Membership Information:
@@ -26,16 +26,16 @@
           Last Name: <input type="text" name="lastname" placeholder="" required pattern="" title=""/>
         </div>
         <div>
-          Address 1: <input type="text" name="Address 1" placeholder="" required pattern="" title=""/>
+          Address 1: <input type="text" name="address1" placeholder="" required pattern="" title=""/>
         </div>
         <div>
-          Address 2: <input type="text" name="Address 2" placeholder="" required pattern="" title=""/>
+          Address 2: <input type="text" name="address2" placeholder="" required pattern="" title=""/>
         </div>
         <div>
-          City: <input type="text" name="City" placeholder="" required pattern="" title=""/>
+          City: <input type="text" name="city" placeholder="" required pattern="" title=""/>
         </div>
         <div>
-          State: <select name="State" placeholder="" required pattern="" title="">
+          State: <select name="state" placeholder="" required pattern="" title="">
             <option value="AL">Alabama</option>
           	<option value="AK">Alaska</option>
           	<option value="AZ">Arizona</option>
@@ -90,7 +90,7 @@
         </select>
         </div>
         <div>
-          Zip Code: <input type="text" name="Zipcode" placeholder="" required pattern="" title=""/>
+          Zip Code: <input type="text" name="zipcode" placeholder="" required pattern="" title=""/>
         </div>
       </p>
       <br>
@@ -99,10 +99,10 @@
           Card Number: <input type="text" name="creditcard" placeholder="" required pattern="" title=""/>
         </div>
         <div>
-          Expiration: <input type="text" name="Expiration" placeholder="" required pattern="" title=""/>
+          Expiration: <input type="text" name="expiration" placeholder="" required pattern="" title=""/>
         </div>
         <div>
-          CID: <input type="text" name="CID" placeholder="" required pattern="" title=""/>
+          CID: <input type="text" name="cid" placeholder="" required pattern="" title=""/>
         </div>
         <div class="status_block"><button type="submit" id="bt_register">Purchase</button></div>
       </p>
