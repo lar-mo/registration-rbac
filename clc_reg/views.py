@@ -9,7 +9,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import check_password
 
-from .models import VerifyRegistration, Membership, MembershipType
+from .models import VerifyRegistration, Membership, MembershipType, Transaction, BillingInformation
 
 import secrets
 
@@ -256,35 +256,39 @@ def create_membership(request):
     state = request.POST['state']
     zipcode = request.POST['zipcode']
     creditcard = request.POST['creditcard']
-    expiration = request.POST['expiration']
+    expiration_month = request.POST['expiration_month']
+    expiration_year = request.POST['expiration_year']
     cid = request.POST['cid']
     next = request.POST['next']
+    user = request.POST['user']
+    print(request.POST)
 
     # check if this username already exists in the system
-    if Membership.objects.filter(user=username).exists():
-        return HttpResponseRedirect(reverse('clc_reg:register_login')+'?message=reg_error')
+    type = MembershipType.objects.get(name='Basic')
+    if Membership.objects.filter(user_id=request.user.id).exclude(membership_type=type).exists():
+        return HttpResponseRedirect(reverse('clc_reg:index')+'?message=active_membership')
     else:
         # create user account
-        user = User.objects.create_user(username, email, password)
-        login(request, user)
-
-        # create new key
-        create_key(request)
-        clc_key = VerifyRegistration.objects.get(user_id=request.user.id)
-
-        # create Basic membership
-        type = MembershipType.objects.get(name='Basic')     # get Basic object from MembershipType
-        basic_membership_type = type                        # set value of membership_type to Basic
-        expiration = '2099-12-31 00:00:00-00'               # set expiration far in the future
-        create_basic_membership = Membership(membership_type=basic_membership_type, expiration=expiration, is_active=True, user_id=request.user.id)            # create the record to be saved
-        create_basic_membership.save()                      # save to the database
+        # user = User.objects.create_user(username, email, password)
+        # login(request, user)
+        #
+        # # create new key
+        # create_key(request)
+        # clc_key = VerifyRegistration.objects.get(user_id=request.user.id)
+        #
+        # # create Basic membership
+        # type = MembershipType.objects.get(name='Basic')     # get Basic object from MembershipType
+        # basic_membership_type = type                        # set value of membership_type to Basic
+        # expiration = '2099-12-31 00:00:00-00'               # set expiration far in the future
+        # create_basic_membership = Membership(membership_type=basic_membership_type, expiration=expiration, is_active=True, user_id=request.user.id)            # create the record to be saved
+        # create_basic_membership.save()                      # save to the database
 
         # send email with clc_link
-        subject = 'Confirm your account'
-        page = 'send_new_key'
-        clc_code = clc_key.confirmation_code
-        host = request.META['HTTP_HOST']
-        send_notification(request, subject, page, clc_code, host)
+        # subject = 'Confirm your account'
+        # page = 'send_new_key'
+        # clc_code = clc_key.confirmation_code
+        # host = request.META['HTTP_HOST']
+        # send_notification(request, subject, page, clc_code, host)
 
         if next != '':
             return HttpResponseRedirect(next)

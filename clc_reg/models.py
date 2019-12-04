@@ -45,11 +45,25 @@ class Membership(models.Model):
     def __str__(self):
         return self.user.username + ': ' + self.membership_type.name
 
-class Transactions(models.Model):
+class Transaction(models.Model):
      transaction_date   = models.DateTimeField()
      item_purchased     = models.CharField(max_length=200)
-     expiration_date    = models.DateTimeField()
      purchaser          = models.ForeignKey(User, on_delete=models.PROTECT, related_name='PurchaseHistory')
+
+     def __str__(self):
+         return self.purchaser.username
+
+class BillingInformation(models.Model):
+     address1           = models.CharField(max_length=200)
+     address2           = models.CharField(max_length=200)
+     city               = models.CharField(max_length=200)
+     state              = models.CharField(max_length=20)
+     zipcode            = models.CharField(max_length=10)
+     creditcard         = models.CharField(max_length=20)
+     expiration_month   = models.CharField(max_length=20)
+     expiration_year    = models.CharField(max_length=20)
+     cid                = models.CharField(max_length=20)
+     purchaser          = models.ForeignKey(User, on_delete=models.PROTECT, related_name='BillingInfo')
 
      def __str__(self):
          return self.purchaser.username
