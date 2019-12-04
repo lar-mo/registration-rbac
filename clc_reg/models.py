@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+from django.utils import timezone
+
 def is_confirmed(user):
     confirmed = user.isConfirmed.get()
     return confirmed.confirmed
@@ -20,6 +22,13 @@ def membership_expiry(user):
     expiry = user.MembershipLevel.get()
     return expiry.expiration
 User.add_to_class('membership_expiry', membership_expiry)
+
+def membership_isexpired(user):
+    expiry = user.MembershipLevel.get()
+    if expiry.expiration <= timezone.now():
+        return True
+    return False
+User.add_to_class('membership_isexpired', membership_isexpired)
 
 class MembershipType(models.Model):
     name       = models.CharField(max_length=200)

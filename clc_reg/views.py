@@ -262,11 +262,16 @@ def create_membership(request):
     next = request.POST['next']
     user = request.POST['user']
 
-    # check if this username already exists in the system
-    type = MembershipType.objects.get(name='Basic')
-    #### add more filtering for expiration or is_active
-    if Membership.objects.filter(user_id=request.user.id).exclude(membership_type=type).exists():
-        return HttpResponseRedirect(reverse('clc_reg:index')+'?message=active_membership')
+    level = request.user.membership_level()
+    isactive = request.user.membership_isactive()
+    isexpired = request.user.membership_isexpired()
+    # check is_active status and redirect to inactive page
+    if isactive == False:
+        return HttpResponseRedirect(reverse('clc_reg:inactive'))
+
+    # check for valid membership (not Basic & not expired)
+    if level != "Basic" and isexpired != True:
+        return HttpResponseRedirect(reverse('clc_reg:index')+'?message=valid_membership')
     else:
         # create Plus or Premium membership
         membership = Membership.objects.get(user_id=request.user.id) # lookup Membership by user.id
@@ -275,6 +280,7 @@ def create_membership(request):
         # define record values
         membership.membership_type = type                       # set membership_type to Plus or Premium
         membership.expiration = timezone.now() + timezone.timedelta(days=365) # set expiration 1-year in future
+        membership.is_active = True                             # set is_active = True
         membership.save()                                       # save to the database
 
         # send email with clc_link
@@ -286,8 +292,7 @@ def create_membership(request):
 
         if next != '':
             return HttpResponseRedirect(next)
-        return HttpResponseRedirect(reverse('clc_reg:index'))
-
+        return HttpResponseRedirect(reverse('clc_reg:purchase_membership')+'?message=membership_upgraded')
 
 @login_required
 def inactive(request):
