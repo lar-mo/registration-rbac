@@ -20,5 +20,8 @@
       You have a Basic membership. For additional features, upgrade to Plus or Premium.
       Click here: {% url 'clc_reg:purchase_membership' %}
 
-
+{% elif page == 'purchase' %}
+  Hello {{username|title}},
+  You have successfully purchased a {{level}} membership.
+  It is valid for one year and expires on {{expiration}}
 {% endif %}

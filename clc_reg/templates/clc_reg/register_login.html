@@ -9,7 +9,7 @@
   {% elif message == "reg_error" %}
     <div style="background-color:red;color:white;">That username is already in-use. Try again.</div>
   {% endif %}
-  <div id="container">
+  <div id="container_reg">
     <h3>Login</h3>
     <form action="{% url 'clc_reg:login_user' %}" method="post">
       {% csrf_token %}

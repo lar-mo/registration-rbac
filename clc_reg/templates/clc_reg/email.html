@@ -24,4 +24,9 @@
       <h4>You have a Basic membership. For additional features, upgrade to Plus or Premium.</h4>
       <h5><a href={% url 'clc_reg:purchase_membership' %}Click here</a></h5>
   </span>
+
+{% elif page == 'purchase' %}
+  <h2>Hello {{username|title}},</h2>
+  <h3>You have successfully purchased a {{level}} membership.</h3>
+  <h4>It is valid for one year and expires on {{expiration}}</h4>
 {% endif %}

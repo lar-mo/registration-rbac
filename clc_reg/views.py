@@ -96,7 +96,9 @@ def register_user(request):
         page = 'send_new_key'
         clc_code = clc_key.confirmation_code
         host = request.META['HTTP_HOST']
-        send_notification(request, subject, page, clc_code, host)
+        level = ''
+        expiration = ''
+        send_notification(request, subject, page, clc_code, host, level, expiration)
 
         if next != '':
             return HttpResponseRedirect(next)
@@ -121,7 +123,9 @@ def send_new_key(request):
     page = 'send_new_key'
     clc_code = new_key.confirmation_code
     host = request.META['HTTP_HOST']
-    send_notification(request, subject, page, clc_code, host)
+    level = ''
+    expiration = ''
+    send_notification(request, subject, page, clc_code, host, level, expiration)
 
     return HttpResponseRedirect(reverse('clc_reg:index')+'?message=resent')
 
@@ -143,12 +147,12 @@ def logout_user(request):
 
 # Can clc_code and host can be optional? The problem seems to be with render_to_string (see lines 167, 168).
 # Possible solution: https://stackoverflow.com/questions/9539921/how-do-i-create-a-python-function-with-optional-arguments
-def send_notification(request, subject, page, clc_code, host):
+def send_notification(request, subject, page, clc_code, host, level, expiration):
     username = request.user.username
-    msg_plain = render_to_string('clc_reg/email.txt', {'username': username, 'page': page, 'clc_code': clc_code, 'host': host})
+    msg_plain = render_to_string('clc_reg/email.txt', {'username': username, 'page': page, 'clc_code': clc_code, 'host': host, 'level': level, 'expiration': expiration})
     sender = 'Postmaster <postmaster@community-lending-library.org>'
     recipient = [request.user.email]
-    msg_html = render_to_string('clc_reg/email.html', {'username': username, 'page': page, 'clc_code': clc_code, 'host': host})
+    msg_html = render_to_string('clc_reg/email.html', {'username': username, 'page': page, 'clc_code': clc_code, 'host': host, 'level': level, 'expiration': expiration})
     try:
         send_mail(subject, msg_plain, sender, recipient, fail_silently=False, html_message=msg_html)
     except:
@@ -184,7 +188,9 @@ def confirmation(request):
         page = 'confirmed'
         clc_code = ''
         host = ''
-        send_notification(request, subject, page, clc_code, host)
+        level = ''
+        expiration = ''
+        send_notification(request, subject, page, clc_code, host, level, expiration)
 
         # then, redirect back to index and tell user account is now confirmed
         return HttpResponseRedirect(reverse('clc_reg:index')+'?message=confirmed')
@@ -227,7 +233,7 @@ def plus(request):
 @login_required
 def premium(request):
     level = check_membership(request)
-    # level = request.user.membership_level() # this won't work for Expired or Inactive accounts
+    ### level = request.user.membership_level() # this won't work for Expired or Inactive accounts
     if level == 'Premium':                                      # check if membership type is Premium
         return render(request, 'clc_reg/premium.html')          # then proceed to Premium page
     elif level == 'Plus':                                       # or, redir to Plus page
@@ -247,6 +253,7 @@ def purchase_membership(request):
 
 @login_required
 def create_membership(request):
+    # Get the form values from request.POST
     membership_type = request.POST['membership_type']
     firstname = request.POST['firstname']
     lastname = request.POST['lastname']
@@ -262,37 +269,42 @@ def create_membership(request):
     next = request.POST['next']
     user = request.POST['user']
 
+    # Get the existing membership data
     level = request.user.membership_level()
     isactive = request.user.membership_isactive()
     isexpired = request.user.membership_isexpired()
-    # check is_active status and redirect to inactive page
+
+    # Check is_active status and redirect to inactive page
     if isactive == False:
         return HttpResponseRedirect(reverse('clc_reg:inactive'))
 
-    # check for valid membership (not Basic & not expired)
+    # Redirect if there is a current, valid membership (Plus or Premium that is not expired)
     if level != "Basic" and isexpired != True:
         return HttpResponseRedirect(reverse('clc_reg:index')+'?message=valid_membership')
+    # Otherwise, proceed to create Plus or Premium membership
     else:
-        # create Plus or Premium membership
         membership = Membership.objects.get(user_id=request.user.id) # lookup Membership by user.id
         type = MembershipType.objects.get(name=membership_type) # get Plus or Premium object from MembershipType
+        one_year_term = timezone.now() + timezone.timedelta(days=365)
 
         # define record values
         membership.membership_type = type                       # set membership_type to Plus or Premium
-        membership.expiration = timezone.now() + timezone.timedelta(days=365) # set expiration 1-year in future
+        membership.expiration = one_year_term                   # set expiration 1-year in future
         membership.is_active = True                             # set is_active = True
         membership.save()                                       # save to the database
 
-        # send email with clc_link
-        # subject = 'Confirm your account'
-        # page = 'send_new_key'
-        # clc_code = clc_key.confirmation_code
-        # host = request.META['HTTP_HOST']
-        # send_notification(request, subject, page, clc_code, host)
+        # send purchase confirmation email
+        subject = 'Membership purchased'
+        page = 'purchase'
+        level = type
+        expiration = one_year_term
+        clc_code = ''
+        host = ''
+        send_notification(request, subject, page, clc_code, host, level, expiration)
 
         if next != '':
             return HttpResponseRedirect(next)
-        return HttpResponseRedirect(reverse('clc_reg:purchase_membership')+'?message=membership_upgraded')
+        return HttpResponseRedirect(reverse('clc_reg:index')+'?message=membership_upgraded')
 
 @login_required
 def inactive(request):
