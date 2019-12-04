@@ -261,27 +261,21 @@ def create_membership(request):
     cid = request.POST['cid']
     next = request.POST['next']
     user = request.POST['user']
-    print(request.POST)
 
     # check if this username already exists in the system
     type = MembershipType.objects.get(name='Basic')
+    #### add more filtering for expiration or is_active
     if Membership.objects.filter(user_id=request.user.id).exclude(membership_type=type).exists():
         return HttpResponseRedirect(reverse('clc_reg:index')+'?message=active_membership')
     else:
-        # create user account
-        # user = User.objects.create_user(username, email, password)
-        # login(request, user)
-        #
-        # # create new key
-        # create_key(request)
-        # clc_key = VerifyRegistration.objects.get(user_id=request.user.id)
-        #
-        # # create Basic membership
-        # type = MembershipType.objects.get(name='Basic')     # get Basic object from MembershipType
-        # basic_membership_type = type                        # set value of membership_type to Basic
-        # expiration = '2099-12-31 00:00:00-00'               # set expiration far in the future
-        # create_basic_membership = Membership(membership_type=basic_membership_type, expiration=expiration, is_active=True, user_id=request.user.id)            # create the record to be saved
-        # create_basic_membership.save()                      # save to the database
+        # create Plus or Premium membership
+        membership = Membership.objects.get(user_id=request.user.id) # lookup Membership by user.id
+        type = MembershipType.objects.get(name=membership_type) # get Plus or Premium object from MembershipType
+
+        # define record values
+        membership.membership_type = type                       # set membership_type to Plus or Premium
+        membership.expiration = timezone.now() + timezone.timedelta(days=365) # set expiration 1-year in future
+        membership.save()                                       # save to the database
 
         # send email with clc_link
         # subject = 'Confirm your account'
