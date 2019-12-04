@@ -104,21 +104,9 @@
         <div>
           CID: <input type="text" name="cid" placeholder="" required pattern="" title=""/>
         </div>
-        <div class="status_block"><button type="submit" id="bt_register">Purchase</button></div>
+        <div class="status_block"><button type="submit">Purchase</button></div>
       </p>
     </form>
   </div> <!-- end of 'container'-->
-  <script type="text/javascript">
-    bt_register = document.querySelector('#bt_register')
-    input_password = document.querySelector('#input_password')
-    input_password2 = document.querySelector('#input_password2')
-
-    bt_register.onclick = function(evt) {
-      if (input_password.value != input_password2.value) {
-        alert('those passwords do not match')
-        evt.preventDefault()
-      }
-    }
-  </script>
 
 {% endblock %}
