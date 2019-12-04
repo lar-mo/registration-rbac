@@ -44,3 +44,12 @@ class Membership(models.Model):
 
     def __str__(self):
         return self.user.username + ': ' + self.membership_type.name
+
+class Transactions(models.Model):
+     transaction_date   = models.DateTimeField()
+     item_purchased     = models.CharField(max_length=200)
+     expiration_date    = models.DateTimeField()
+     purchaser          = models.ForeignKey(User, on_delete=models.PROTECT, related_name='PurchaseHistory')
+
+     def __str__(self):
+         return self.purchaser.username

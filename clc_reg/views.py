@@ -67,7 +67,6 @@ def login_user(request):
     #     return HttpResponse("The username and password were incorrect.")
 
 def register_user(request):
-    # fix error when you try to register with same username
     username = request.POST['username']
     email = request.POST['email']
     password = request.POST['password']
@@ -244,7 +243,42 @@ def premium(request):
 
 @login_required
 def purchase_membership(request):
-    return render(request, 'clc_reg/purchase_membership.html')
+    # return render(request, 'clc_reg/purchase_membership.html')
+    username = request.POST['username']
+    email = request.POST['email']
+    password = request.POST['password']
+    next = request.POST['next']
+
+    # check if this username already exists in the system
+    if Membership.objects.filter(user=username).exists():
+        return HttpResponseRedirect(reverse('clc_reg:register_login')+'?message=reg_error')
+    else:
+        # create user account
+        user = User.objects.create_user(username, email, password)
+        login(request, user)
+
+        # create new key
+        create_key(request)
+        clc_key = VerifyRegistration.objects.get(user_id=request.user.id)
+
+        # create Basic membership
+        type = MembershipType.objects.get(name='Basic')     # get Basic object from MembershipType
+        basic_membership_type = type                        # set value of membership_type to Basic
+        expiration = '2099-12-31 00:00:00-00'               # set expiration far in the future
+        create_basic_membership = Membership(membership_type=basic_membership_type, expiration=expiration, is_active=True, user_id=request.user.id)            # create the record to be saved
+        create_basic_membership.save()                      # save to the database
+
+        # send email with clc_link
+        subject = 'Confirm your account'
+        page = 'send_new_key'
+        clc_code = clc_key.confirmation_code
+        host = request.META['HTTP_HOST']
+        send_notification(request, subject, page, clc_code, host)
+
+        if next != '':
+            return HttpResponseRedirect(next)
+        return HttpResponseRedirect(reverse('clc_reg:index'))
+
 
 @login_required
 def inactive(request):
