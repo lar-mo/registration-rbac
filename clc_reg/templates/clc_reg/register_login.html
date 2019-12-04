@@ -2,9 +2,6 @@
 
 {% block content %}
 
-  <div class="navbar">
-    <a href="{% url 'clc_reg:index' %}">Homepage</a>
-  </div>
   {% if user.is_authenticated %}
     <div style="background-color:blue;color:white;">You're already logged in.</div>
   {% elif message == "error" %}

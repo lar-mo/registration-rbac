@@ -20,8 +20,10 @@
     <h2>Hello, {{ user.username }}</h2>
     <h3>Go to: <a href="{% url 'clc_reg:special_page' %}">Secured Page</a> <i>version 1</i></h3>
     <h3>Go to: <a href="{% url 'clc_reg:special_page2' %}">Secured Page</a> <i>version 2</i></h3>
+    {% if user.is_confirmed %}
     <h3>Go to: <a href="{% url 'clc_reg:plus' %}">Plus</a></h3>
     <h3>Go to: <a href="{% url 'clc_reg:premium' %}">Premium</a></h3>
+    {% endif %}
 
   {% else %}
     {% if message == "logout" %}
