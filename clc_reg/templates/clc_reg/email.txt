@@ -6,4 +6,19 @@
 {% elif page == 'confirmed' %}
   Hello {{username|title}},
   You have successfully confirmed your account.
+
+      ---------------------------------------
+      Features        Basic   Plus    Premium
+      ---------------------------------------
+      cool thing        x       x       x
+      ---------------------------------------
+      special thing             x       x
+      ---------------------------------------
+      amazing thing                     x
+      ---------------------------------------
+
+      You have a Basic membership. For additional features, upgrade to Plus or Premium.
+      Click here: {% url 'clc_reg:purchase_membership' %}
+
+
 {% endif %}
