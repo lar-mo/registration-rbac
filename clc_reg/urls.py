@@ -49,4 +49,7 @@ urlpatterns = [
 
     # Display Account Error page
     path('account_error/', views.account_error, name='account_error'),
+
+    # Display Membership purchase page
+    path('purchase_membership/', views.purchase_membership, name='purchase_membership'),
 ]

@@ -243,6 +243,10 @@ def premium(request):
         return HttpResponseRedirect(reverse('clc_reg:account_error')+'?message=error')
 
 @login_required
+def purchase_membership(request):
+    return render(request, 'clc_reg/purchase_membership.html')
+
+@login_required
 def inactive(request):
     return render(request, 'clc_reg/inactive.html')
 
