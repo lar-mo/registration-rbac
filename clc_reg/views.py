@@ -341,9 +341,9 @@ def create_membership(request):
 
         ### Account for existing record
         ### pre-populate this form (use case: upgrading from Plus to Premium)
-        ### This needs to be done on the form side - purchase_membership()
+        ### This should be done on the client side - when rendering purchase_membership()
 
-        ### Need to pass something from the form for the following to work:
+        ### Need to pass something from the form to determine whether to create or update record:
         ### hidden form value => request.POST['update'] - true/false?
         ### Or, check for existing record here and adjust accordingly
         # if record exists in BillingInformation for user_id
