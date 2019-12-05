@@ -320,26 +320,25 @@ def create_membership(request):
         type = MembershipType.objects.get(name=membership_type) # get Plus or Premium object from MembershipType
         one_year_term = timezone.now() + timezone.timedelta(days=365) # # calculate 1-year in future
 
-        # Update Membership table
+        # Update Membership table - update existing record
         membership.membership_type = type                   # set membership_type to Plus or Premium
         membership.expiration = one_year_term               # set expiration 1-year in future
         membership.is_active = True                         # set is_active = True
         membership.save()                                   # save to the database
 
-        # Update Transaction table
+        # Update Transaction table - CREATE new record
         transaction = Transaction(                          # create record in the database with the following:
             transaction_date=timezone.now(),                # - set transaction_date to current datetime (UTC)
             item_purchased=membership_type,                 # - takes value from purchase form
             purchaser_id=request.user.id)                   # - takes value from request.user
         transaction.save()                                  # save to the database
 
-        # Update User table
+        # Update User table - UPDATE existing record
         user_info = User.objects.get(id=request.user.id)    # retrieve record for editing
         user_info.first_name = firstname                    # set new first name
         user_info.last_name = lastname                      # set new last name
         user_info.save()                                    # save to the database
 
-        # Update Billing Information table
         ### Account for existing record
         ### pre-populate this form (use case: upgrading from Plus to Premium)
         ### This needs to be done on the form side - purchase_membership()
@@ -352,6 +351,8 @@ def create_membership(request):
         # else
         #  create a new recording (add operation)
         ###
+
+        # Update Billing Information table - CREATE new record
         billing_info = BillingInformation(                  # create record in the database
             address1=address1,                              # set values from FORM values
             address2=address2,                              #
@@ -379,7 +380,7 @@ def create_membership(request):
         if membership_type == 'Plus':
             return HttpResponseRedirect(reverse('clc_reg:plus')+'?message=membership_upgraded')
         elif membership_type == 'Premium':
-            return HttpResponseRedirect(reverse('clc_reg:premium')+'?message=membership_upgraded')            
+            return HttpResponseRedirect(reverse('clc_reg:premium')+'?message=membership_upgraded')
 
 @login_required
 def inactive(request):
