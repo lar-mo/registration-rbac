@@ -249,7 +249,25 @@ def premium(request):
 
 @login_required
 def purchase_membership(request):
-    return render(request, 'clc_reg/purchase_membership.html')
+    isconfirmed = request.user.is_confirmed()
+    level = request.user.membership_level()
+    isactive = request.user.membership_isactive()
+    isexpired = request.user.membership_isexpired()
+
+    # Redirect to index page if user already has active Premium membership (***Plus members can upgrade***)
+    if level == "Premium" and not isexpired and isconfirmed:
+        return HttpResponseRedirect(reverse('clc_reg:index')+'?message=valid_membership')
+
+    # Redirect to Inactive page
+    if not isactive:
+        return HttpResponseRedirect(reverse('clc_reg:inactive'))
+
+    # Redirect to the index page and tell the user if registration is not confirmed
+    if not isconfirmed:
+        return HttpResponseRedirect(reverse('clc_reg:index')+'?message=pending')
+    # otherwise, render the purchase page
+    else:
+        return render(request, 'clc_reg/purchase_membership.html')
 
 @login_required
 def create_membership(request):
@@ -269,31 +287,41 @@ def create_membership(request):
     next = request.POST['next']
     user = request.POST['user']
 
-    # Get the existing membership data
+    ###
+    ### The following error handling is extra enforcement of app (business) logic.
+    ### See purchase_membership() above, lines 257-270
+    ###
+
+    # Get the existing registration & membership data
+    isconfirmed = request.user.is_confirmed()
     level = request.user.membership_level()
     isactive = request.user.membership_isactive()
     isexpired = request.user.membership_isexpired()
 
-    # Check is_active status and redirect to inactive page
-    if isactive == False:
+    # Redirect when login/registration is not confirmed
+    if not isconfirmed:
+        return HttpResponseRedirect(reverse('clc_reg:index')+'?message=pending')
+
+    # Redirect when membership is inactive
+    if not isactive:
         return HttpResponseRedirect(reverse('clc_reg:inactive'))
 
-    # Redirect if there is a current, valid membership (Plus or Premium that is not expired)
-    if level != "Basic" and isexpired != True:
+    # Redirect if there is a current (not expired), valid Premium membership
+    if level == "Premium" and not isexpired:
         return HttpResponseRedirect(reverse('clc_reg:index')+'?message=valid_membership')
     # Otherwise, proceed to create Plus or Premium membership
     else:
         membership = Membership.objects.get(user_id=request.user.id) # lookup Membership by user.id
         type = MembershipType.objects.get(name=membership_type) # get Plus or Premium object from MembershipType
-        one_year_term = timezone.now() + timezone.timedelta(days=365)
+        one_year_term = timezone.now() + timezone.timedelta(days=365) # # calculate 1-year in future
 
-        # define record values
+        # Define record values
         membership.membership_type = type                       # set membership_type to Plus or Premium
         membership.expiration = one_year_term                   # set expiration 1-year in future
         membership.is_active = True                             # set is_active = True
         membership.save()                                       # save to the database
 
-        # send purchase confirmation email
+        # Send purchase confirmation email
         subject = 'Membership purchased'
         page = 'purchase'
         level = type

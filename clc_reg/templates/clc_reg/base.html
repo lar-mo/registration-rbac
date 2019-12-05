@@ -34,7 +34,7 @@
         display: flex;
         flex-direction: column;
         /* justify-content: center; */
-        /* align-self: center; */
+        align-items: center;
         padding: 10px;
         margin: 20px 30% 20px 15%;
       }
@@ -69,6 +69,15 @@
       }
       #no-li-bullet {
         list-style-type: none
+      }
+      .purchase_form {
+        width: 500px;
+        background-color: lightblue;
+      }
+      .purchase {
+        background-color: lightblue;
+        text-align: center;
+        padding: 10px;
       }
       .purchase_form, .purchase_form > * {
         padding: 5px;
@@ -179,5 +188,12 @@
           </ul>
         </div>
       </main>
+      <script type="text/javascript">
+        console.log("isConfirmed? {{ user.is_confirmed }}")
+        console.log("isActive? {{ user.membership_isactive }}")
+        console.log("Level: {{ user.membership_level }}")
+        console.log("Expiry: {{ user.membership_expiry }}")
+        console.log("isExpired? {{ user.membership_isexpired }}")
+      </script>
     </body>
   </html>

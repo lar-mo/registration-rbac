@@ -19,8 +19,8 @@
           <div>
             <span>
               <span>Membership Type</span>:
-              <span><input type="radio" name="membership_type" required value="Plus" checked="checked"/> Plus</span>
-              <span><input type="radio" name="membership_type" required value="Premium"/> Premium</span>
+              <span><input type="radio" name="membership_type" required value="Plus"{% if user.membership_level == "Plus" %}disabled{% endif %}/> Plus</span>
+              <span><input type="radio" name="membership_type" required value="Premium" {% if user.membership_level == "Plus" %}checked{% endif %}/> Premium</span>
             </span>
           </div>
           <div>
@@ -143,8 +143,9 @@
             <span>CID:</span>
             <span><input type="text" name="cid" placeholder="" required !attern="" !itle="" value="567"/></span>
           </div>
-          <div class="status_block"><button type="submit">Purchase</button></div>
         </div>
+        <br>
+        <div class="purchase"><button type="submit" id="btnPurchase">Purchase Membership</button></div>
       </form>
     </div>
   </div> <!-- end of 'container'-->
