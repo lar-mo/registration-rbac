@@ -18,7 +18,7 @@
       ---------------------------------------
 
       You have a Basic membership. For additional features, upgrade to Plus or Premium.
-      Click here: {% url 'clc_reg:purchase_membership' %}
+      Click here: http://{{host}}/purchase_membership/
 
 {% elif page == 'purchase' %}
   Hello {{username|title}},

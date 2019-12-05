@@ -187,7 +187,7 @@ def confirmation(request):
         subject = 'Account confirmed'
         page = 'confirmed'
         clc_code = ''
-        host = ''
+        host = request.META['HTTP_HOST']
         level = ''
         expiration = ''
         send_notification(request, subject, page, clc_code, host, level, expiration)
