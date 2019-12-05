@@ -13,7 +13,6 @@
       <form action="{% url 'clc_reg:create_membership' %}" method="post">
         {% csrf_token %}
         <input type="hidden" name="next" value="{{next}}"/>
-        <input type="hidden" name="user" value="{{request.user}}"/>
         <div class="purchase_form">
           <span class="form_title">Member Information:</span>
           <div>

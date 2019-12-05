@@ -279,19 +279,18 @@ def purchase_membership(request):
 def create_membership(request):
     # Get the form values from request.POST
     membership_type = request.POST['membership_type']
-    firstname = request.POST['firstname']
-    lastname = request.POST['lastname']
-    address1 = request.POST['address1']
-    address2 = request.POST['address2']
-    city = request.POST['city']
+    firstname = request.POST['firstname'].strip()
+    lastname = request.POST['lastname'].strip()
+    address1 = request.POST['address1'].strip()
+    address2 = request.POST['address2'].strip()
+    city = request.POST['city'].strip()
     state = request.POST['state']
-    zipcode = request.POST['zipcode']
-    creditcard = request.POST['creditcard']
+    zipcode = request.POST['zipcode'].strip()
+    creditcard = request.POST['creditcard'].strip()
     expiration_month = request.POST['expiration_month']
     expiration_year = request.POST['expiration_year']
-    cid = request.POST['cid']
-    next = request.POST['next']
-    user = request.POST['user']
+    cid = request.POST['cid'].strip()
+    next = request.POST['next'].strip()
 
     ###
     ### The following error handling is extra enforcement of app (business) logic.
@@ -321,11 +320,50 @@ def create_membership(request):
         type = MembershipType.objects.get(name=membership_type) # get Plus or Premium object from MembershipType
         one_year_term = timezone.now() + timezone.timedelta(days=365) # # calculate 1-year in future
 
-        # Define record values
+        # Update Membership table
         membership.membership_type = type                       # set membership_type to Plus or Premium
         membership.expiration = one_year_term                   # set expiration 1-year in future
         membership.is_active = True                             # set is_active = True
         membership.save()                                       # save to the database
+
+        # Update Transaction table
+        transaction = Transaction(                              # create record in the database
+            transaction_date=timezone.now(),                    # set transaction_date to current datetime (UTC)
+            item_purchased=membership_type,                     # takes value from purchase form
+            purchaser_id=request.user.id)                       # takes value from request.user
+        transaction.save()                                      # save to the database
+
+        # Update User table
+        user_info = User.objects.get(id=request.user.id)
+        user_info.first_name = firstname
+        user_info.last_name = lastname
+        user_info.save()
+
+        # Update Billing Information table
+        ### Account for existing record
+        ### pre-populate this form (use case: upgrading from Plus to Premium)
+        ### This needs to be done on the form side - purchase_membership()
+
+        ### Need to pass something from the form for the following to work:
+        ### hidden form value => request.POST['update'] - true/false?
+        ### Or, check for existing record here and adjust accordingly
+        # if record exists in BillingInformation for user_id
+        #  save any changes (update operation)
+        # else
+        #  create a new recording (add operation)
+        ###
+        billing_info = BillingInformation(
+            address1=address1,
+            address2=address2,
+            city=city,
+            state=state,
+            zipcode=zipcode,
+            creditcard=creditcard,
+            expiration_month=expiration_month,
+            expiration_year=expiration_year,
+            cid=cid,
+            purchaser_id=request.user.id)
+        billing_info.save()
 
         # Send purchase confirmation email
         subject = 'Membership purchased'
