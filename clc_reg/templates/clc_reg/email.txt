@@ -23,5 +23,5 @@
 {% elif page == 'purchase' %}
   Hello {{username|title}},
   You have successfully purchased a {{level}} membership.
-  It is valid for one year and expires on {{expiration}}
+  It is valid for one year and expires on {{expiration|date:"M d, Y"}}.
 {% endif %}

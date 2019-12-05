@@ -28,5 +28,5 @@
 {% elif page == 'purchase' %}
   <h2>Hello {{username|title}},</h2>
   <h3>You have successfully purchased a {{level}} membership.</h3>
-  <h4>It is valid for one year and expires on {{expiration}}</h4>
+  <h4>It is valid for one year and expires on {{expiration|date:"M d, Y"}}.</h4>
 {% endif %}
