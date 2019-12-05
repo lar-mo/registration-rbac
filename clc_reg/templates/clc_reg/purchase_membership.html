@@ -24,15 +24,15 @@
           </div>
           <div>
             <span>First Name:</span>
-            <span><input type="text" name="firstname" placeholder="" value="Larry"/></span>
+            <span><input type="text" name="firstname" placeholder="" required value="Larry"/></span>
           </div>
           <div>
             <span>Last Name: </span>
-            <span><input type="text" name="lastname" placeholder="" value="Moiola"/></span>
+            <span><input type="text" name="lastname" placeholder="" required value="Moiola"/></span>
           </div>
           <div>
             <span>Address 1:</span>
-            <span><input type="text" name="address1" placeholder="" value="1234 Any Street"/></span>
+            <span><input type="text" name="address1" placeholder="" required value="1234 Any Street"/></span>
           </div>
           <div>
             <span>Address 2:</span>
@@ -40,11 +40,12 @@
           </div>
           <div>
             <span>City:</span>
-            <span><input type="text" name="city" placeholder="" value="Portland"/></span>
+            <span><input type="text" name="city" placeholder="" required value="Portland"/></span>
           </div>
           <div>
             <span>State:</span>
-            <span><select name="state">
+            <span><select name="state" required>
+              <option value="---" disabled selected>---</option>
               <option value="AL">Alabama</option>
             	<option value="AK">Alaska</option>
             	<option value="AZ">Arizona</option>
@@ -100,7 +101,7 @@
           </div>
           <div>
             <span>Zip Code:</span>
-            <span><input type="text" name="zipcode" placeholder="" value="97217"/></span>
+            <span><input type="text" name="zipcode" placeholder="" required value="97217"/></span>
           </div>
         </div>
         <br>
@@ -108,7 +109,7 @@
           <span class="form_title">Payment Information:</span>
           <div>
             <span>Card Number:</span>
-            <span><input type="text" name="creditcard" placeholder="" required !attern="" !itle="" value="4444333322221111"/></span>
+            <span><input type="text" name="creditcard" placeholder="" required pattern="^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$" title="Invalid Card Number" value="4444333322221111"/></span>
           </div>
           <div>
             <span>Expiration:</span>
@@ -127,7 +128,7 @@
                 <option value="11">November</option>
                 <option value="12" selected>December</option>
               </select>
-              <select name="expiration_year" placeholder="" required pattern="" title="">
+              <select name="expiration_year" placeholder="" required>
                 <option value="---" disabled selected>---</option>
                 <option value="2019">2019</option>
                 <option value="2020">2020</option>
@@ -139,8 +140,10 @@
               </select></span>
           </div>
           <div>
-            <span>CID:</span>
-            <span><input type="text" name="cid" placeholder="" required !attern="" !itle="" value="567"/></span>
+            <span>CVV:</span>
+            <span>
+              <input type="text" name="cid" required !pattern="/^[0-9]{3,4}$/" !title="3 or 4 digits" value="563"/>
+            </span>
           </div>
         </div>
         <br>
