@@ -376,7 +376,10 @@ def create_membership(request):
 
         if next != '':
             return HttpResponseRedirect(next)
-        return HttpResponseRedirect(reverse('clc_reg:index')+'?message=membership_upgraded')
+        if membership_type == 'Plus':
+            return HttpResponseRedirect(reverse('clc_reg:plus')+'?message=membership_upgraded')
+        elif membership_type == 'Premium':
+            return HttpResponseRedirect(reverse('clc_reg:premium')+'?message=membership_upgraded')            
 
 @login_required
 def inactive(request):
