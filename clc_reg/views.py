@@ -321,23 +321,23 @@ def create_membership(request):
         one_year_term = timezone.now() + timezone.timedelta(days=365) # # calculate 1-year in future
 
         # Update Membership table
-        membership.membership_type = type                       # set membership_type to Plus or Premium
-        membership.expiration = one_year_term                   # set expiration 1-year in future
-        membership.is_active = True                             # set is_active = True
-        membership.save()                                       # save to the database
+        membership.membership_type = type                   # set membership_type to Plus or Premium
+        membership.expiration = one_year_term               # set expiration 1-year in future
+        membership.is_active = True                         # set is_active = True
+        membership.save()                                   # save to the database
 
         # Update Transaction table
-        transaction = Transaction(                              # create record in the database
-            transaction_date=timezone.now(),                    # set transaction_date to current datetime (UTC)
-            item_purchased=membership_type,                     # takes value from purchase form
-            purchaser_id=request.user.id)                       # takes value from request.user
-        transaction.save()                                      # save to the database
+        transaction = Transaction(                          # create record in the database with the following:
+            transaction_date=timezone.now(),                # - set transaction_date to current datetime (UTC)
+            item_purchased=membership_type,                 # - takes value from purchase form
+            purchaser_id=request.user.id)                   # - takes value from request.user
+        transaction.save()                                  # save to the database
 
         # Update User table
-        user_info = User.objects.get(id=request.user.id)
-        user_info.first_name = firstname
-        user_info.last_name = lastname
-        user_info.save()
+        user_info = User.objects.get(id=request.user.id)    # retrieve record for editing
+        user_info.first_name = firstname                    # set new first name
+        user_info.last_name = lastname                      # set new last name
+        user_info.save()                                    # save to the database
 
         # Update Billing Information table
         ### Account for existing record
@@ -352,18 +352,18 @@ def create_membership(request):
         # else
         #  create a new recording (add operation)
         ###
-        billing_info = BillingInformation(
-            address1=address1,
-            address2=address2,
-            city=city,
-            state=state,
-            zipcode=zipcode,
-            creditcard=creditcard,
-            expiration_month=expiration_month,
-            expiration_year=expiration_year,
-            cid=cid,
-            purchaser_id=request.user.id)
-        billing_info.save()
+        billing_info = BillingInformation(                  # create record in the database
+            address1=address1,                              # set values from FORM values
+            address2=address2,                              #
+            city=city,                                      #
+            state=state,                                    #
+            zipcode=zipcode,                                #
+            creditcard=creditcard,                          # *** maybe shouldn't save cc# info ***
+            expiration_month=expiration_month,              # *** maybe shouldn't save cc# info ***
+            expiration_year=expiration_year,                # *** maybe shouldn't save cc# info ***
+            cid=cid,                                        # *** maybe shouldn't save cc# info ***
+            purchaser_id=request.user.id)                   #
+        billing_info.save()                                 # save to the database
 
         # Send purchase confirmation email
         subject = 'Membership purchased'
