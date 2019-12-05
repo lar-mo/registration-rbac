@@ -218,9 +218,15 @@ def check_membership(request):
 
 @login_required
 def plus(request):
+    message = request.GET.get('message', '')
+    next = request.GET.get('next', '')
+    context = {
+        'message': message,
+        'next': next
+    }
     level = check_membership(request)
     if level in ['Plus', 'Premium']:                            # check if membership type is Plus
-        return render(request, 'clc_reg/plus.html')             # then proceed to Plus page
+        return render(request, 'clc_reg/plus.html', context)    # then proceed to Plus page
     elif level == 'Basic':                                      # or, redir to Upsell page
         return HttpResponseRedirect(reverse('clc_reg:upsell')+'?message=redir_from_plus')
     elif level == 'Expired':                                    # else go to upsell?message=expired
