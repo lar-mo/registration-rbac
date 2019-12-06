@@ -15,7 +15,7 @@
       {% csrf_token %}
       <input type="hidden" name="next" value="{{next}}"/>
       <input type="text" name="username" placeholder="username" required/>
-      <input type="password" name="password" placeholder="password" required/>
+      <input type="password" name="password" placeholder="password" required autocomplete="off"/>
       <div class="status_block"><button type="submit">Login</button></div>
     </form>
 
@@ -25,8 +25,8 @@
       <input type="hidden" name="next" value="{{next}}"/>
       <input type="text" name="username" placeholder="username" required pattern="\w{3,15}" title="username must be between 3 and 15 characters, all lowercase"/>
       <input type="text" name="email" placeholder="email" required pattern="\w+@\w+\.\w+" title="please enter a properly formatted email address"/>
-      <input type="password" id="input_password" name="password" placeholder="password"/>
-      <input type="password" id="input_password2" name="password2" placeholder="retype password"/>
+      <input type="password" id="input_password" name="password" placeholder="password" autocomplete="off"/>
+      <input type="password" id="input_password2" name="password2" placeholder="retype password" autocomplete="off"/>
       <div class="status_block"><button type="submit" id="bt_register">Register</button></div>
     </form>
   </div> <!-- end of 'container'-->
