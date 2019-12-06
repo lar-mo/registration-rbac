@@ -5,22 +5,22 @@ from . import views
 app_name = 'clc_reg'
 
 urlpatterns = [
-    # Display home page
+    # Displays home page
     path('', views.index, name='index'),
 
-    # Display login / registration page
+    # Displays login / registration page
     path('register_login/', views.register_login, name='register_login'),
 
-    # Handles the login process, register_login renders the template
+    # Handles the login process
     path('login_user/', views.login_user, name='login_user'),
 
-    # Handles the registration process, register_login renders the template
+    # Handles the registration process
     path('register_user/', views.register_user, name='register_user'),
 
-    # Display protected page
+    # Displays protected page 1
     path('special_page/', views.special_page, name='special_page'),
 
-    # Display protected page 2
+    # Displays protected page 2
     path('special_page2/', views.special_page2, name='special_page2'),
 
     # Handles logging out a user
@@ -35,22 +35,22 @@ urlpatterns = [
     # Handles creation of new clc link
     path('send_new_key/', views.send_new_key, name='send_new_key'),
 
-    # Display upsell page
+    # Displays Upsell page
     path('upsell/', views.upsell, name='upsell'),
 
-    # Display Plus page
+    # Displays Plus page
     path('plus/', views.plus, name='plus'),
 
-    # Display Premium page
+    # Displays Premium page
     path('premium/', views.premium, name='premium'),
 
-    # Display Inactive Account page
+    # Displays Inactive Account page
     path('inactive/', views.inactive, name='inactive'),
 
-    # Display Account Error page
+    # Displays Account Error page
     path('account_error/', views.account_error, name='account_error'),
 
-    # Display Membership purchase page
+    # Displays Membership purchase page
     path('purchase_membership/', views.purchase_membership, name='purchase_membership'),
 
     # Handles creation of membership
