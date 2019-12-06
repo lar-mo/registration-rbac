@@ -88,7 +88,11 @@ def register_user(request):
         type = MembershipType.objects.get(name='Basic')     # get Basic object from MembershipType
         basic_membership_type = type                        # set value of membership_type to Basic
         expiration = '2099-12-31 00:00:00-00'               # set expiration far in the future
-        create_basic_membership = Membership(membership_type=basic_membership_type, expiration=expiration, is_active=True, user_id=request.user.id)            # create the record to be saved
+        create_basic_membership = Membership(               # create the record to be saved
+            membership_type=basic_membership_type,          #
+            expiration=expiration,                          #
+            is_active=True,                                 #
+            user_id=request.user.id)                        #
         create_basic_membership.save()                      # save to the database
 
         # send email with clc_link
@@ -105,9 +109,13 @@ def register_user(request):
         return HttpResponseRedirect(reverse('clc_reg:index'))
 
 def create_key(request):
-    expiry = timezone.now() + timezone.timedelta(days=3)
-    clc_link = VerifyRegistration(confirmation_code=secrets.token_hex(16), expiration=expiry, confirmed=False, user_id=request.user.id)
-    clc_link.save()
+    expiry = timezone.now() + timezone.timedelta(days=3)    # calculate expiry 3 days in the future
+    clc_link = VerifyRegistration(                          # create the record to be saved
+        confirmation_code=secrets.token_hex(16),            #
+        expiration=expiry,                                  #
+        confirmed=False,                                    #
+        user_id=request.user.id)                            #
+    clc_link.save()                                         # save to the database
 
 def send_new_key(request):
     # delete previous key
@@ -293,6 +301,7 @@ def create_membership(request):
     next = request.POST['next'].strip()
 
     ###
+    ### Belt and suspenders
     ### The following error handling is extra enforcement of app (business) logic.
     ### See purchase_membership() above, lines 257-270
     ###
