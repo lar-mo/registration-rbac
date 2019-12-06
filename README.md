@@ -46,7 +46,7 @@ amazing thing                     x       (premium.html)
 - The middle level is Plus and the top level is Premium.
 - Premium users can see the Plus user's page(s).
 - Basic memberships have an expiration of 2099-12-31 at midnight.
-- Plus and Premium memberships must have a expiration date.
+- Plus and Premium memberships must have an expiration date.
 - When a Plus or Premium membership expires it reverts a Basic membership.
 - The is_active flag is meant as a way to temporarily disable an account.
 - There are 6 additional page types:
