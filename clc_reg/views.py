@@ -246,10 +246,16 @@ def plus(request):
 
 @login_required
 def premium(request):
+    message = request.GET.get('message', '')
+    next = request.GET.get('next', '')
+    context = {
+        'message': message,
+        'next': next
+    }
     level = check_membership(request)
     ### level = request.user.membership_level() # this won't work for Expired or Inactive accounts
     if level == 'Premium':                                      # check if membership type is Premium
-        return render(request, 'clc_reg/premium.html')          # then proceed to Premium page
+        return render(request, 'clc_reg/premium.html', context) # then proceed to Premium page
     elif level == 'Plus':                                       # or, redir to Plus page
         return HttpResponseRedirect(reverse('clc_reg:plus')+'?message=redir_from_premium')
     elif level == 'Basic':                                      # or, redir to Upsell page

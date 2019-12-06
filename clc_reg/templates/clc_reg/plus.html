@@ -10,6 +10,9 @@
       <br>
       <a href="{% url 'clc_reg:purchase_membership' %}">Click here</a> to upgrade.
     </h3>
+  {% elif message == "membership_upgraded" %}
+    <div style="background-color:green;color:white;">You have successfully upgraded to Plus.</div>
   {% endif %}
+
 
 {% endblock %}

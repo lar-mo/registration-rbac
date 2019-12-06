@@ -4,4 +4,8 @@
 
 <h1>Premium page</h1>
 
+{% if message == "membership_upgraded" %}
+  <div style="background-color:green;color:white;">You have successfully upgraded to Premium.</div>
+{% endif %}
+
 {% endblock %}
