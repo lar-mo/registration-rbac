@@ -57,13 +57,15 @@ amazing thing                     x       (premium.html)
   - **Upsell/Marketing** - landing page for when Basic or Expired accounts when trying to access a membership page
   - **Error** - Error page for account with other errors when trying to access a membership page
 
+<div style="height:25px">&nbsp;</div>
+
 ## Views ##
 
 ### Homepage ###
 
 ```
 - Template: index.html
-- View: Display home page
+- View: [index] Display home page
 - Path: /
 ```
 
@@ -85,7 +87,7 @@ This data is powered by User methods defined in ```models.py```:
 
 ```
 - Template: register_login.html
-- View: Displays login / registration page
+- View: [register_login] Displays login / registration page
 - Path: register_login/
 ```
 
@@ -99,7 +101,7 @@ All the form fields on login and registration forms are **required** except the 
 
 ```
 - Template: None
-- View: Handles the login process
+- View: [login_user] Handles the login process
 - Path: login_user/
 ```
 
@@ -112,7 +114,7 @@ See: https://stackoverflow.com/questions/29742845/django-how-do-i-use-is-active-
 
 ```
 - Template: None
-- View: Handles the registration process
+- View: [register_user] Handles the registration process
 - Path: register_user/
 ```
 
@@ -130,7 +132,7 @@ If those checks succeed, the following actions occur:
 
 ```
 - Template: special_page.html
-- View: Displays protected page 1
+- View: [special_page] Displays protected page 1
 - Path: special_page/
 ```
 
@@ -146,7 +148,7 @@ This is an example of view-level evaluation of user's confirmation status. The `
 
 ```
 - Template: special_page2.html
-- View: Displays protected page 2
+- View: [special_page2] Displays protected page 2
 - Path: special_page2/
 ```
 
@@ -160,7 +162,7 @@ This is an example of page-level evaluation of user's confirmation status. The `
 
 ```
 - Template: None
-- View: Handles logging out a user
+- View: [logout_user] Handles logging out a user
 - Path: logout_user/
 ```
 
@@ -170,7 +172,7 @@ This view handles the logout process (via ```logout``` method of the User class)
 
 ```
 - Template: None
-- View: Handles creation of clc link
+- View: [create_key] Handles creation of clc link
 - Path: create_key/
 ```
 
@@ -182,7 +184,7 @@ Note: There is only one record per user which gets overwritten when a new one is
 
 ```
 - Template: None
-- View: Handles creation of new clc link
+- View: [send_new_key] Handles creation of new clc link
 - Path: send_new_key/
 ```
 
@@ -194,7 +196,7 @@ This view is only called from the ```homepage``` when an expired confirmation is
 
 ```
 - Template: None
-- View: Sends transaction emails
+- View: [send_notification] Sends transaction emails
 - Path: None
 ```
 
@@ -216,7 +218,7 @@ The functionality is built around ```send_mail``` from ```django.core.mail``` an
 
 ```
 - Template: None
-- View: Handles validation of clc link
+- View: [confirmation] Handles validation of clc link
 - Path: confirmation/
 ```
 
@@ -232,7 +234,7 @@ Finally, a Welcome message is sent upon successfully confirming the account.
 
 ```
 - Template: None
-- View: Utility function used on Plus and Premium pages (views)
+- View: [check_membership] Utility function used on Plus and Premium pages (views)
 - Path: None
 ```
 
@@ -252,81 +254,113 @@ This gives the calling view flexibility to do whatever is best with the returned
 
 ```
 - Template: plus.html
-- View: Displays Plus page
+- View: [plus] Displays Plus page
 - Path: plus/
 ```
 
-description
-check_membership(request)
+This view displays an example of a page that requires as Plus or Premium membership. The membership is validated by calling the ```check_membership(request)``` function. The redirect logic is handled here for Basic and non-valid memberships (Inactive, Expired, Other). This templates supports URL ```messages```.
 
 ### Premium ###
 
 ```
 - Template: premium.html
-- View: Displays Premium page
+- View: [premium] Displays Premium page
 - Path: premium/
 ```
 
-description
-see check_membership(request)
+This view displays an example of a page that requires as Premium membership. The membership is validated by calling the ```check_membership(request)``` function. The redirect logic is handled here for Basic, Plus and non-valid memberships (Inactive, Expired, Other). This templates supports URL ```messages```.
 
 ### Upsell / Marketing ###
 
 ```
 - Template: upsell.html
-- View: Displays Upsell page
+- View: [upsell] Displays Upsell page
 - Path: upsell/
 ```
 
 This view displays the Upsell page which is used for marketing purposes.
 
-It is shown when (1) a Plus user tries to access a Premium page, (2) a user with an expired Plus or Premium membership tries to access and Plus or Premium page.
+It is shown when (1) a Plus user tries to access a Premium page, (2) a user with an expired Plus or Premium membership tries to access a Plus or Premium page.
+
+<i>Page in-progress</i>
 
 ### Inactive Membership ###
 
 ```
 - Template: inactive.html
-- View: Displays Inactive Account page
+- View: [inactive] Displays Inactive Account page
 - Path: inactive/
 ```
+This view displays the Inactive membership page which is used for customer service purposes.
 
-description
+It is shown when a user with an inactive membership of any level tries to access and Plus or Premium page.
+
+<i>Page in-progress</i>
 
 ### Account Error ###
 
 ```
 - Template: error.html
-- View: Displays Account Error page
+- View: [account_error] Displays Account Error page
 - Path: account_error/
 ```
+This view displays the Account Error page which is used for customer services purposes.
 
-description
+It is shown when the membership lookup for a user fails when they try to access a Plus or Premium page.
+
+<i>Page in-progress</i>
 
 ### Purchase Membership ###
 
 ```
 - Template: purchase_membership.html
-- View: Displays Membership purchase page
+- View: [purchase_membership] Displays Membership purchase page
 - Path: purchase_membership/
 ```
 
-description
+This view displays the Purchase Membership page. Various checks are performed before allowing a user to reach the page:
+1. If logged-in (```@login_required```), confirmed user (```request.user.is_confirmed()```) already has a valid (not ```request.user.membership_isexpired()```), active (```request.user.is_confirmed()```) Premium membership (```request.user.membership_level()```)
+2. If user has an Inactive membership (not ```request.user.membership_isactive()```)
+3. If user is not confirmed (not ```request.user.is_confirmed()```)
+
+Note: This logic might need to be optimized.
 
 ### Create Membership ###
 
 ```
 - Template: None
-- View: Handles creation of membership
+- View: [create_membership] Handles creation of membership
 - Path: create_membership/
 ```
 
-description
+This view handles the form submission for the ```purchase_membership``` form. There are similar checks performed here, 'belt and suspenders'.
+1. ```is not isconfirmed```
+2. ```is not isactive```
+3. ```level == "Premium" and not isexpired```
+
+If all these checks succeed, the membership is created and saved in the database.
+
+First, (a) the current membership (object) is fetched, (b) the membership_type object is fetched based on selection made on the form, and (c) the date/time one year for current date (```timezone.now()```).
+
+Second, the user's membership record is updated in the database.
+
+Third, the Transaction table is update is the purchase date, membership purchase, and the current user.
+
+Fourth, the user's first and last name is added to their User record.
+
+Fifth, the Billing Information is added to the database. Some improvements need to be made here:
+- Short-term: Implement in the View: If the record exists, destroy and recreate. This is inefficient but works.
+- Long-term: Implement in Template and View: if the record exists, populate the form. Then, fetch and update the record. This is the best user experience and proper way to handle this kind of data.
+
+Sixth, the Membership Purchase email is sent.
+
+Lastly, the user is redirected to the page that matches the Membership purchased.
 
 ### Inactive Account ###
 
 ```
 - Template: inactive.html
-- View: Displays Inactive Account page
+- View: [inactive] Displays Inactive Account page
 - Path: inactive/
 ```
 
@@ -338,13 +372,15 @@ It is shown when a user with an inactive membership tries to access a member-onl
 
 ```
 - Template: error.html
-- View: Displays Account Error page
+- View: [account_error] Displays Account Error page
 - Path: account_error/
 ```
 
 This view displays the Error page which is used as a path to the customer service funnel.
 
 It is shown when a user with an inactive membership tries to access a member-only page.
+
+<div style="height:25px">&nbsp;</div>
 
 ## Data Model
 

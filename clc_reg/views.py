@@ -277,7 +277,7 @@ def purchase_membership(request):
 
     # Redirect to index page if user already has active Premium membership (***Plus members can upgrade***)
     if level == "Premium" and not isexpired and isconfirmed:
-        return HttpResponseRedirect(reverse('clc_reg:index')+'?message=valid_membership')
+        return HttpResponseRedirect(reverse('clc_reg:premium')+'?message=valid_membership')
 
     # Redirect to Inactive page
     if not isactive:
