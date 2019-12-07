@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-**Two Step Registration and a three-tier membership**
+**Two Step Registration and Three-Tier Membership**
 
 After experiment with the ```django-registation``` (https://django-registration.readthedocs.io/en/3.0.1/), I wanted to create my own solution. My intention is implement a two-step registration process to my Community Lending Library app.
 
