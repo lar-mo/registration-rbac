@@ -63,7 +63,7 @@ amazing thing                     x       (premium.html)
 ```
 - Template: index.html
 - View: Display home page
-- URL: /
+- Path: /
 ```
 This view displays the front door of the app. Anyone can access this page, anonymous, logged in, any membership level, and even users with inactive memberships. Error messages can be passed via ```request.GET.get('message', '')```.
 
@@ -83,7 +83,7 @@ This data is powered by User methods defined in ```models.py```:
 ```
 - Template: register_login.html
 - View: Displays login / registration page
-- URL: register_login/
+- Path: register_login/
 ```
 This view displays the combined login & registration page. Registration and login-related error messages can be passed via ```request.GET.get('message', '')```.
 
@@ -95,9 +95,9 @@ All the form fields on login and registration forms are **required** except the 
 ```
 - Template: None
 - View: Handles the login process
-- URL: login_user/
+- Path: login_user/
 ```
-This view handles the login form submission. The supplied credentials are evaluated via the ```authenticate``` method of the User class. If this check fails, an error message is shown. If the check succeeds, users is logged in and redirected to the home page or the value of the ```next``` parameter.
+This view handles the login form submission. The supplied credentials are evaluated via the ```authenticate``` method of the User class. If this check fails, an error message is shown. If the check succeeds, users is logged in (with built-in ```login``` method of the User class) and redirected to the home page or the value of the ```next``` parameter.
 
 Note: I originally tried to leverage the ```is_active``` boolean in the User model but an inactive user is treated as unrecognized.
 See: https://stackoverflow.com/questions/29742845/django-how-do-i-use-is-active-of-auth-user-table
@@ -106,12 +106,12 @@ See: https://stackoverflow.com/questions/29742845/django-how-do-i-use-is-active-
 ```
 - Template: None
 - View: Handles the registration process
-- URL: register_user/
+- Path: register_user/
 ```
 This view handles the registration form submission. If the ```username``` already existing in the database, an error message is shown. Additional validation (_all fields are required_) is enforced only on the front-end.
 
 If those checks succeed, the following actions occur:
-1. Account is created
+1. Account is created (built-in ```create_user``` model of User class)
 2. New user is logged in
 3. Confirmation key is created
 4. New key is fetched
@@ -122,7 +122,7 @@ If those checks succeed, the following actions occur:
 ```
 - Template: special_page.html
 - View: Displays protected page 1
-- URL: special_page/
+- Path: special_page/
 ```
 
 This view displays the special page. This page is only accessible for logged-in + confirmed users. If the user is not logged-in and/or confirmed, they are redirect to the index page. (As of writing this, no error message has been implemented.)
@@ -137,7 +137,7 @@ This is an example of view-level evaluation of user's confirmation status. The `
 ```
 - Template: special_page2.html
 - View: Displays protected page 2
-- URL: special_page2/
+- Path: special_page2/
 ```
 
 This view displays another version of the special page. This page is accessible for logged-in users but unconfirmed users will see different content than confirmed users.
@@ -151,16 +151,37 @@ This is an example of page-level evaluation of user's confirmation status. The `
 ```
 - Template: None
 - View: Handles logging out a user
-- URL: logout_user/
+- Path: logout_user/
 ```
 
-description
+This view handles the logout process (via ```logout``` method of the User class) and redirects user back to the homepage.
+
+### Send Notification ###
+```
+- Template: None
+- View: Handles send of emails
+- Path: None
+```
+
+This view handles sending the various notification emails:
+- Confirm Your Account (called by ```register_user```)
+- Confirm Your Account (called by ```send_new_key```)
+- Account Confirmed (called by ```confirmation```)
+- Membership purchased (called by ```create_membership```)
+
+The functionality is built around ```send_mail``` from ```django.core.mail``` and ```render_to_string``` from ```django.template.loader```. ```render_to_string``` contains two parts, the template and data (variables) which are merged when (```send_mail```) is called. ```send_mail``` takes six parameters:
+1. subject
+2. msg_plain (string)
+3. sender
+4. recipient
+5. fail_silently=False
+6. html_message=msg_html (string)
 
 ### Confirmation ###
 ```
 - Template: None
 - View: Handles validation of clc link
-- URL: confirmation/
+- Path: confirmation/
 ```
 
 description
@@ -169,7 +190,7 @@ description
 ```
 - Template: None
 - View: Handles creation of clc link
-- URL: create_key/
+- Path: create_key/
 ```
 
 description
@@ -179,7 +200,7 @@ there is only one record per user when gets overwritten when a new one is reques
 ```
 - Template: None
 - View: Handles creation of new clc link
-- URL: send_new_key/
+- Path: send_new_key/
 ```
 
 description
@@ -188,7 +209,7 @@ description
 ```
 - Template: upsell.html
 - View: Displays Upsell page
-- URL: upsell/
+- Path: upsell/
 ```
 
 description
@@ -197,7 +218,7 @@ description
 ```
 - Template: plus.html
 - View: Displays Plus page
-- URL: plus/
+- Path: plus/
 ```
 
 description
@@ -206,7 +227,7 @@ description
 ```
 - Template: premium.html
 - View: Displays Premium page
-- URL: premium/
+- Path: premium/
 ```
 
 description
@@ -215,7 +236,7 @@ description
 ```
 - Template: inactive.html
 - View: Displays Inactive Account page
-- URL: inactive/
+- Path: inactive/
 ```
 
 description
@@ -224,7 +245,7 @@ description
 ```
 - Template: error.html
 - View: Displays Account Error page
-- URL: account_error/
+- Path: account_error/
 ```
 
 description
@@ -233,7 +254,7 @@ description
 ```
 - Template: purchase_membership.html
 - View: Displays Membership purchase page
-- URL: purchase_membership/
+- Path: purchase_membership/
 ```
 
 description
@@ -242,7 +263,7 @@ description
 ```
 - Template: None
 - View: Handles creation of membership
-- URL: create_membership/
+- Path: create_membership/
 ```
 
 description

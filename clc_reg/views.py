@@ -153,7 +153,8 @@ def logout_user(request):
     logout(request)
     return HttpResponseRedirect(reverse('clc_reg:index')+'?message=logout')
 
-# Can clc_code and host can be optional? The problem seems to be with render_to_string (see lines 167, 168).
+# Can clc_code, host, level, expiration be optional?
+# The problem seems to be with render_to_string (see lines 167, 168).
 # Possible solution: https://stackoverflow.com/questions/9539921/how-do-i-create-a-python-function-with-optional-arguments
 def send_notification(request, subject, page, clc_code, host, level, expiration):
     username = request.user.username
