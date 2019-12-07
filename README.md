@@ -186,7 +186,9 @@ Note: There is only one record per user which gets overwritten when a new one is
 - Path: send_new_key/
 ```
 
-description (called on index.html page - see error handling)
+This view handles the destruction & regeneration of the account confirmation code. First, the current code is deleted from the database. Then, the ```create_key``` method is called which add a new code to the database and returned the code to the calling view. Then, an email is sent to the registered user with a CLC link. Then, the users is redirected to the index and a message is displayed confirming new code was generated.
+
+This view is only called from the ```homepage``` when an expired confirmation is used or some other issue is found.
 
 ### Send Notification ###
 
