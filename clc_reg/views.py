@@ -81,8 +81,7 @@ def register_user(request):
         login(request, user)
 
         # create new key
-        create_key(request)
-        clc_key = VerifyRegistration.objects.get(user_id=request.user.id) # fetch new key for use in email below
+        bignumber = create_key(request)
 
         # create Basic membership
         type = MembershipType.objects.get(name='Basic')     # get Basic object from MembershipType
@@ -98,7 +97,7 @@ def register_user(request):
         # send email with clc_link
         subject = 'Confirm your account'
         page = 'send_new_key'
-        clc_code = clc_key.confirmation_code
+        clc_code = bignumber
         host = request.META['HTTP_HOST']
         level = ''
         expiration = ''
@@ -110,12 +109,14 @@ def register_user(request):
 
 def create_key(request):
     expiry = timezone.now() + timezone.timedelta(days=3)    # calculate expiry 3 days in the future
+    bignumber = secrets.token_hex(16)                       # generate 32-digit number
     clc_link = VerifyRegistration(                          # create the record to be saved
-        confirmation_code=secrets.token_hex(16),            #
+        confirmation_code=bignumber,                        #
         expiration=expiry,                                  #
         confirmed=False,                                    #
         user_id=request.user.id)                            #
     clc_link.save()                                         # save to the database
+    return bignumber                                        # pass the 32-digit number back to calling function
 
 def send_new_key(request):
     # delete previous key
@@ -123,13 +124,12 @@ def send_new_key(request):
     old_key.delete()
 
     # create new key
-    create_key(request)
-    new_key = VerifyRegistration.objects.get(user_id=request.user.id)
+    bignumber = create_key(request)
 
     # send email with new clc_link
     subject = 'Confirm your account'
     page = 'send_new_key'
-    clc_code = new_key.confirmation_code
+    clc_code = bignumber
     host = request.META['HTTP_HOST']
     level = ''
     expiration = ''

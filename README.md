@@ -116,7 +116,7 @@ If those checks succeed, the following actions occur:
 3. Confirmation key is created
 4. New key is fetched
 5. Basic membership is created
-6. Confirm Your Account email is generated and sent.
+6. Confirm Your Account email is sent
 
 ### Special Page 1 ###
 ```
@@ -125,78 +125,116 @@ If those checks succeed, the following actions occur:
 - URL: special_page/
 ```
 
-### Special Page 1 ###
+description
+
+### Special Page 2 ###
 ```
 - Template: special_page2.html
 - View: Displays protected page 2
 - URL: special_page2/
 ```
+
+user.is_confirmed
+
 ### Logout User ###
 ```
 - Template: None
 - View: Handles logging out a user
 - URL: logout_user/
 ```
+
+description
+
 ### Confirmation ###
 ```
 - Template: None
 - View: Handles validation of clc link
 - URL: confirmation/
 ```
+
+description
+
 ### Create Key ###
 ```
 - Template: None
 - View: Handles creation of clc link
 - URL: create_key/
 ```
+
+description
+
 ### Send New Key ###
 ```
 - Template: None
 - View: Handles creation of new clc link
 - URL: send_new_key/
 ```
+
+description
+
 ### Upsell / Marketing ###
 ```
 - Template: upsell.html
 - View: Displays Upsell page
 - URL: upsell/
 ```
+
+description
+
 ### Plus membership ###
 ```
 - Template: plus.html
 - View: Displays Plus page
 - URL: plus/
 ```
+
+description
+
 ### Premium membership ###
 ```
 - Template: premium.html
 - View: Displays Premium page
 - URL: premium/
 ```
+
+description
+
 ### Inactive Membership ###
 ```
 - Template: inactive.html
 - View: Displays Inactive Account page
 - URL: inactive/
 ```
+
+description
+
 ### Account Error ###
 ```
 - Template: error.html
 - View: Displays Account Error page
 - URL: account_error/
 ```
+
+description
+
 ### Purchase Membership ###
 ```
 - Template: purchase_membership.html
 - View: Displays Membership purchase page
 - URL: purchase_membership/
 ```
+
+description
+
 ### Create Membership ###
 ```
 - Template: None
 - View: Handles creation of membership
 - URL: create_membership/
 ```
+
+description
+
 ## Data Model
 
 ### User ###
