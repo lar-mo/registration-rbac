@@ -199,8 +199,17 @@ Finally, a Welcome message is sent upon successfully confirming the account.
 - Path: None
 ```
 
-description
-see Plus and Premium below
+This view is called by membership specific pages like Plus and Premium. Since the ```user.membership_level``` method of the User class only returns [Basic, Plus, Premium], this function extends the possible return values to ```Expired```, ```Inactive```, ```Error```. (Of course, this functionality could be added to the custom User methods.)
+
+Note: This app design has a single entry per user for the Membership. There is no history at present. Additionally, a presumption is made that the Membership level is above Basic since expiration is set to New Year's Eve, 2099. Lastly, this evaluation is not done at login and only when access to a restricted page is attempted by design.
+
+The following evaluations are peformed:
+- If the membership has expired, the user's membership type is converted to Basic with an expiration_date of Dec 31, 2099. Then "Expired" is returned to the calling view.
+- If the membership has been marked "Inactive", that value is returned to the calling view.
+- If some uncaught error is encountered, "Error" is returned to the calling view.
+- If all evaluations succeed, the actual Membership level is returned to the calling view.
+
+This gives the calling view flexibility to do whatever is best with the returned values.
 
 ### Create Key ###
 ```
