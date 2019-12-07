@@ -70,8 +70,9 @@ amazing thing                     x       (premium.html)
 ### Homepage ###
 
 ```
+- Purpose: Display home page
 - Template: index.html
-- View: [index] Display home page
+- View: index
 - Path: /
 ```
 
@@ -92,8 +93,9 @@ This data is powered by User methods defined in ```models.py```:
 ### Registration / Login ###
 
 ```
+- Purpose: Displays login / registration page
 - Template: register_login.html
-- View: [register_login] Displays login / registration page
+- View: register_login
 - Path: register_login/
 ```
 
@@ -106,8 +108,9 @@ All the form fields on login and registration forms are **required** except the 
 ### Login User ###
 
 ```
+- Purpose: Handles the login process
 - Template: None
-- View: [login_user] Handles the login process
+- View: login_user
 - Path: login_user/
 ```
 
@@ -119,8 +122,9 @@ See: https://stackoverflow.com/questions/29742845/django-how-do-i-use-is-active-
 ### Register ###
 
 ```
+- Purpose: Handles the registration process
 - Template: None
-- View: [register_user] Handles the registration process
+- View: register_user
 - Path: register_user/
 ```
 
@@ -137,8 +141,9 @@ If those checks succeed, the following actions occur:
 ### Special Page 1 ###
 
 ```
+- Purpose: Displays protected page 1
 - Template: special_page.html
-- View: [special_page] Displays protected page 1
+- View: special_page
 - Path: special_page/
 ```
 
@@ -153,8 +158,9 @@ This is an example of view-level evaluation of user's confirmation status. The `
 ### Special Page 2 ###
 
 ```
+- Purpose: Displays protected page 2
 - Template: special_page2.html
-- View: [special_page2] Displays protected page 2
+- View: special_page2
 - Path: special_page2/
 ```
 
@@ -167,8 +173,9 @@ This is an example of page-level evaluation of user's confirmation status. The `
 ### Logout User ###
 
 ```
+- Purpose: Handles logging out a user
 - Template: None
-- View: [logout_user] Handles logging out a user
+- View: logout_user
 - Path: logout_user/
 ```
 
@@ -177,8 +184,9 @@ This view handles the logout process (via ```logout``` method of the User class)
 ### Create Key ###
 
 ```
+- Purpose: Handles creation of clc link
 - Template: None
-- View: [create_key] Handles creation of clc link
+- View: create_key
 - Path: create_key/
 ```
 
@@ -189,8 +197,9 @@ Note: There is only one record per user which gets overwritten when a new one is
 ### Send New Key ###
 
 ```
+- Purpose: Handles creation of new clc link
 - Template: None
-- View: [send_new_key] Handles creation of new clc link
+- View: send_new_key
 - Path: send_new_key/
 ```
 
@@ -201,8 +210,9 @@ This view is only called from the ```homepage``` when an expired confirmation is
 ### Send Notification ###
 
 ```
+- Purpose: Sends transaction emails
 - Template: None
-- View: [send_notification] Sends transaction emails
+- View: send_notification
 - Path: None
 ```
 
@@ -223,8 +233,9 @@ The functionality is built around ```send_mail``` from ```django.core.mail``` an
 ### Confirmation ###
 
 ```
+- Purpose: Handles validation of clc link
 - Template: None
-- View: [confirmation] Handles validation of clc link
+- View: confirmation
 - Path: confirmation/
 ```
 
@@ -239,8 +250,9 @@ Finally, a Welcome message is sent upon successfully confirming the account.
 ### Check Membership ###
 
 ```
+- Purpose: Utility function used on Plus and Premium pages (views)
 - Template: None
-- View: [check_membership] Utility function used on Plus and Premium pages (views)
+- View: check_membership
 - Path: None
 ```
 
@@ -259,8 +271,9 @@ This gives the calling view flexibility to do whatever is best with the returned
 ### Plus ###
 
 ```
+- Purpose: Displays Plus page
 - Template: plus.html
-- View: [plus] Displays Plus page
+- View: plus
 - Path: plus/
 ```
 
@@ -269,8 +282,9 @@ This view displays an example of a page that requires as Plus or Premium members
 ### Premium ###
 
 ```
+- Purpose: Displays Premium page
 - Template: premium.html
-- View: [premium] Displays Premium page
+- View: premium
 - Path: premium/
 ```
 
@@ -279,8 +293,9 @@ This view displays an example of a page that requires as Premium membership. The
 ### Upsell / Marketing ###
 
 ```
+- Purpose: Displays Upsell page
 - Template: upsell.html
-- View: [upsell] Displays Upsell page
+- View: upsell
 - Path: upsell/
 ```
 
@@ -293,8 +308,9 @@ It is shown when (1) a Plus user tries to access a Premium page, (2) a user with
 ### Inactive Membership ###
 
 ```
+- Purpose: Displays Inactive Account page
 - Template: inactive.html
-- View: [inactive] Displays Inactive Account page
+- View: inactive
 - Path: inactive/
 ```
 This view displays the Inactive membership page which is used for customer service purposes.
@@ -306,8 +322,9 @@ It is shown when a user with an inactive membership of any level tries to access
 ### Account Error ###
 
 ```
+- Purpose: Displays Account Error page
 - Template: error.html
-- View: [account_error] Displays Account Error page
+- View: account_error
 - Path: account_error/
 ```
 This view displays the Account Error page which is used for customer services purposes.
@@ -319,8 +336,9 @@ It is shown when the membership lookup for a user fails when they try to access 
 ### Purchase Membership ###
 
 ```
+- Purpose: Displays Membership purchase page
 - Template: purchase_membership.html
-- View: [purchase_membership] Displays Membership purchase page
+- View: purchase_membership
 - Path: purchase_membership/
 ```
 
@@ -334,8 +352,9 @@ Note: This logic might need to be optimized.
 ### Create Membership ###
 
 ```
+- Purpose: Handles creation of membership
 - Template: None
-- View: [create_membership] Handles creation of membership
+- View: create_membership
 - Path: create_membership/
 ```
 
@@ -365,8 +384,9 @@ Lastly, the user is redirected to the page that matches the Membership purchased
 ### Inactive Account ###
 
 ```
+- Purpose: Displays Inactive Account page
 - Template: inactive.html
-- View: [inactive] Displays Inactive Account page
+- View: inactive
 - Path: inactive/
 ```
 
@@ -377,8 +397,9 @@ It is shown when a user with an inactive membership tries to access a member-onl
 ### Account Error ###
 
 ```
+- Purpose: Displays Account Error page
 - Template: error.html
-- View: [account_error] Displays Account Error page
+- View: account_error
 - Path: account_error/
 ```
 
