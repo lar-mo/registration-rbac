@@ -2,7 +2,13 @@
 
 ## Project Overview
 
-**Lorem ipsum Lorem ipsum** Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum
+**Two Step Registration and a three-tier membership**
+
+After experiment with the ```django-registation``` (https://django-registration.readthedocs.io/en/3.0.1/), I wanted to create my own solution. My intention is implement a two-step registration process to my Community Lending Library app.
+
+Once the original concept was coded and working, I set out to add a Membership system. I naively thought I could convert the simple "confirmed" Boolean to an integer denoting different "levels". It became a much more involved undertaking with several new Views, tables (models), new Member pages, error handling, and a purchase form.
+
+It's been a great learning tool and hopefully architected to be a flexible skeleton for future Django apps.
 
 ## Functionality
 
@@ -107,7 +113,7 @@ All the form fields on login and registration forms are **required** except the 
 
 This view handles the login form submission. The supplied credentials are evaluated via the ```authenticate``` method of the User class. If this check fails, an error message is shown. If the check succeeds, users is logged in (with built-in ```login``` method of the User class) and redirected to the home page or the value of the ```next``` parameter.
 
-Note: I originally tried to leverage the ```is_active``` boolean in the User model but an inactive user is treated as unrecognized.
+Note: I originally tried to leverage the ```is_active``` Boolean in the User model but an inactive user is treated as unrecognized.
 See: https://stackoverflow.com/questions/29742845/django-how-do-i-use-is-active-of-auth-user-table
 
 ### Register ###
@@ -226,7 +232,7 @@ This view handles the validation of a 32-digit code that was sent to the registe
 
 The value is taken from the url parameter (clc_code). There are a couple short-circuit evaluations first: (1) if account is already confirmed, (2) if the code in the URL doesn't match code in the database.
 
-Then, if the expiration date greater than the current date/time, the ```confirmed``` boolean is switched to ```True```.
+Then, if the expiration date greater than the current date/time, the ```confirmed``` Boolean is switched to ```True```.
 
 Finally, a Welcome message is sent upon successfully confirming the account.
 
