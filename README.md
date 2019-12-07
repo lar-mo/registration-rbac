@@ -125,7 +125,13 @@ If those checks succeed, the following actions occur:
 - URL: special_page/
 ```
 
-description
+This view displays the special page. This page is only accessible for logged-in + confirmed users. If the user is not logged-in and/or confirmed, they are redirect to the index page. (As of writing this, no error message has been implemented.)
+
+The logged-in requirement is enforced by the ```@login_required``` decorator from: ```django.contrib.auth.decorators```
+
+The confirmation requirement is enforced by the view. If ```confirmed``` is True and the user is sent to the special page.
+
+This is an example of view-level evaluation of user's confirmation status. The ```special_page.html``` template is only rendered when the condition is met.
 
 ### Special Page 2 ###
 ```
@@ -134,7 +140,12 @@ description
 - URL: special_page2/
 ```
 
-user.is_confirmed
+This view displays another version of the special page. This page is accessible for logged-in users but unconfirmed users will see different content than confirmed users.
+
+The template checks the user's confirmation status via the ```user.is_confirmed``` method for the User class and shows the appropriate content (if/else).
+
+This is an example of page-level evaluation of user's confirmation status. The ```special_page2.html``` template is always rendered.
+
 
 ### Logout User ###
 ```
@@ -162,6 +173,7 @@ description
 ```
 
 description
+there is only one record per user when gets overwritten when a new one is requested, therefore not history of them.
 
 ### Send New Key ###
 ```

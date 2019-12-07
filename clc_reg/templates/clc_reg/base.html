@@ -109,12 +109,16 @@
       <main>
         <div class="navbar">
           {% if user.is_authenticated %}
-            <a href="{% url 'clc_reg:index' %}">Homepage</a>&nbsp;|&nbsp;<a href="{% url 'clc_reg:logout_user' %}">Logout</a>
+            {% url 'clc_reg:index' as hp_url %}
+            {% if request.path != hp_url %}
+            <a href="{% url 'clc_reg:index' %}">Homepage</a>&nbsp;|&nbsp;
+            {% endif %}
+            <a href="{% url 'clc_reg:logout_user' %}">Logout</a>
           {% else %}
-            <a href="{% url 'clc_reg:index' %}">Homepage</a>
             {% url 'clc_reg:register_login' as reg_url %}
+              <a href="{% url 'clc_reg:index' %}">Homepage</a>
             {% if request.path != reg_url %}
-            &nbsp;|&nbsp;<a href="{% url 'clc_reg:register_login' %}?next=/">Register or Login</a>
+              &nbsp;|&nbsp;<a href="{% url 'clc_reg:register_login' %}?next=/">Register or Login</a>
             {% endif %}
           {% endif %}
         </div>
