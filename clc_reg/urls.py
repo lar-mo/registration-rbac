@@ -29,8 +29,8 @@ urlpatterns = [
     # Handles validation of clc link
     path('confirmation/', views.confirmation, name='confirmation'),
 
-    # Handles creation of clc link
-    path('create_key/', views.create_key, name='create_key'),
+    # # Handles creation of clc link
+    # path('create_key/', views.create_key, name='create_key'),
 
     # Handles creation of new clc link
     path('send_new_key/', views.send_new_key, name='send_new_key'),

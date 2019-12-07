@@ -177,7 +177,7 @@ def confirmation(request):
     valid_code = VerifyRegistration.objects.get(user_id=request.user.id)
 
     # if confirmed=True, ...
-    if valid_code.confirmed == True:
+    if valid_code.confirmed:
         # ... redirect to home page and tell user account is already verified
         return HttpResponseRedirect(reverse('clc_reg:index')+'?message=verified')
 

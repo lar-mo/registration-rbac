@@ -159,7 +159,7 @@ This view handles the logout process (via ```logout``` method of the User class)
 ### Send Notification ###
 ```
 - Template: None
-- View: Handles send of emails
+- View: Sends transaction emails
 - Path: None
 ```
 
@@ -184,7 +184,23 @@ The functionality is built around ```send_mail``` from ```django.core.mail``` an
 - Path: confirmation/
 ```
 
+This view handles the validation of a 32-digit code that was sent to the registered email, confirming the registration was authorized.
+
+The value is taken from the url parameter (clc_code). There are a couple short-circuit evaluations first: (1) if account is already confirmed, (2) if the code in the URL doesn't match code in the database.
+
+Then, if the expiration date greater than the current date/time, the ```confirmed``` boolean is switched to ```True```.
+
+Finally, a Welcome message is sent upon successfully confirming the account.
+
+### Check Membership ###
+```
+- Template: None
+- View: Utility function used on Plus and Premium pages (views)
+- Path: None
+```
+
 description
+see Plus and Premium below
 
 ### Create Key ###
 ```
@@ -203,7 +219,7 @@ there is only one record per user when gets overwritten when a new one is reques
 - Path: send_new_key/
 ```
 
-description
+description (called on index.html page - see error handling)
 
 ### Upsell / Marketing ###
 ```
@@ -216,7 +232,7 @@ This view displays the Upsell page which is used for marketing purposes.
 
 It is shown when (1) a Plus user tries to access a Premium page, (2) a user with an expired Plus or Premium membership tries to access and Plus or Premium page.
 
-### Plus membership ###
+### Plus ###
 ```
 - Template: plus.html
 - View: Displays Plus page
@@ -224,8 +240,9 @@ It is shown when (1) a Plus user tries to access a Premium page, (2) a user with
 ```
 
 description
+check_membership(request)
 
-### Premium membership ###
+### Premium ###
 ```
 - Template: premium.html
 - View: Displays Premium page
@@ -233,6 +250,7 @@ description
 ```
 
 description
+see check_membership(request)
 
 ### Inactive Membership ###
 ```
