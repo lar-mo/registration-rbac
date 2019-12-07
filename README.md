@@ -212,7 +212,9 @@ description
 - Path: upsell/
 ```
 
-description
+This view displays the Upsell page which is used for marketing purposes.
+
+It is shown when (1) a Plus user tries to access a Premium page, (2) a user with an expired Plus or Premium membership tries to access and Plus or Premium page.
 
 ### Plus membership ###
 ```
@@ -267,6 +269,28 @@ description
 ```
 
 description
+
+### Inactive Account ###
+```
+- Template: inactive.html
+- View: Displays Inactive Account page
+- Path: inactive/
+```
+
+This view displays the Inactive Membership page which is used as a path to the customer service funnel.
+
+It is shown when a user with an inactive membership tries to access a member-only page or purchase a membership.
+
+### Account Error ###
+```
+- Template: error.html
+- View: Displays Account Error page
+- Path: account_error/
+```
+
+This view displays the Error page which is used as a path to the customer service funnel.
+
+It is shown when a user with an inactive membership tries to access a member-only page.
 
 ## Data Model
 
