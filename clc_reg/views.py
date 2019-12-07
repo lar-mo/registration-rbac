@@ -82,7 +82,7 @@ def register_user(request):
 
         # create new key
         create_key(request)
-        clc_key = VerifyRegistration.objects.get(user_id=request.user.id)
+        clc_key = VerifyRegistration.objects.get(user_id=request.user.id) # fetch new key for use in email below
 
         # create Basic membership
         type = MembershipType.objects.get(name='Basic')     # get Basic object from MembershipType

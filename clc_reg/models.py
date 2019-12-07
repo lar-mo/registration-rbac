@@ -30,12 +30,6 @@ def membership_isexpired(user):
     return False
 User.add_to_class('membership_isexpired', membership_isexpired)
 
-class MembershipType(models.Model):
-    name       = models.CharField(max_length=200)
-
-    def __str__(self):
-        return self.name
-
 class VerifyRegistration(models.Model):
     confirmation_code = models.CharField(max_length=200)
     expiration        = models.DateTimeField()
@@ -44,6 +38,12 @@ class VerifyRegistration(models.Model):
 
     def __str__(self):
         return self.user.username + ': ' + self.confirmation_code
+
+class MembershipType(models.Model):
+    name       = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
 
 class Membership(models.Model):
     membership_type = models.ForeignKey(MembershipType, on_delete=models.PROTECT)
