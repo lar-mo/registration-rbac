@@ -359,21 +359,21 @@ This view handles the form submission for the `purchase_membership` form. The sa
 
 If all these checks succeed, the membership is created and saved in the database.
 
-First, (a) the current membership (object) is fetched, (b) the membership_type object is fetched based on selection made on the form, and (c) the date/time one year for current date (`timezone.now()`).
+<u>First</u>, (a) the current membership (object) is fetched, (b) the membership_type object is fetched based on selection made on the form, and (c) the date/time one year for current date (`timezone.now()`).
 
-Second, the user's membership record is updated in the database.
+<u>Second</u>, the user's membership record is updated in the database.
 
-Third, the Transaction table is update is the purchase date, membership purchase, and the current user.
+<u>Third</u>, the Transaction table is update is the purchase date, membership purchase, and the current user.
 
-Fourth, the user's first and last name is added to their User record.
+<u>Fourth</u>, the user's first and last name is added to their User record.
 
-Fifth, the Billing Information is added to the database. Some improvements need to be made here:
+<u>Fifth</u>, the Billing Information is added to the database. Some improvements need to be made here:
 - Short-term: Implement in the View: If the record exists, destroy and recreate. This is inefficient but works.
 - Long-term: Implement in Template and View: if the record exists, populate the form. Then, fetch and update the record. This is the best user experience and proper way to handle this kind of data.
 
-Sixth, the Membership Purchase email is sent.
+<u>Sixth</u>, the Membership Purchase email is sent.
 
-Lastly, the user is redirected to the page that matches the Membership purchased.
+<u>Lastly</u>, the user is redirected to the page that matches the Membership purchased.
 
 ### Inactive Account ###
 
