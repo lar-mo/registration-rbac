@@ -343,6 +343,31 @@ This view displays the Purchase Membership page. Various checks are performed be
 
 _Note: This logic needs to be optimized, maybe to match `Create Membership`._
 
+### Validate Credit Card ###
+
+```
+- Purpose: Handles credit card validation for Create Membership
+- Template: None
+- View: validate_credit_card
+- Path: None
+```
+```
++---------------------------------------------------------------------------------------------+
+| Steps                                                | Data                                 |
++------------------------------------------------------+--------------------------------------+
+| 1. Convert the input string into a list of ints      | 4 5 5 6 7 3 7 5 8 6 8 9 9 8 5 5      |
+| 2. Slice off the last digit. That is the check digit | 4 5 5 6 7 3 7 5 8 6 8 9 9 8 5        |
+| 3. Reverse the digits.                               | 5 8 9 9 8 6 8 5 7 3 7 6 5 5 4        |
+| 4. Double every other element in the reversed list   | 10 8 18 9 16 6 16 5 14 3 14 6 10 5 8 |
+| 5. Subtract nine from numbers over nine              | 1 8 9 9 7 6 7 5 5 3 5 6 1 5 8        |
+| 6. Sum all values                                    | 85                                   |
+| 7. Take the second digit of that sum                 | 5                                    |
++------------------------------------------------------+--------------------------------------+
+| Result: If that matches the check digit, the whole card number is valid.                    |
++---------------------------------------------------------------------------------------------+
+```
+Note: This is copied verbatim from the bootcamp Python lab.
+
 ### Create Membership ###
 
 ```
@@ -355,7 +380,8 @@ _Note: This logic needs to be optimized, maybe to match `Create Membership`._
 This view handles the form submission for the `purchase_membership` form. The same checks done for the template view `Purchase Membership` are performed here, *belt and suspenders*.
 1. `is not isconfirmed`
 2. `is not isactive`
-3. `level == "Premium" and not isexpired`
+3. `validate_credit_card`
+4. `level == "Premium" and not isexpired`
 
 If all these checks succeed, the membership is created and saved in the database.
 
