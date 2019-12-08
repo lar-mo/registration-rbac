@@ -343,6 +343,12 @@ This view displays the Purchase Membership page. Various checks are performed be
 
 When a Plus user visits the form, "Premium" is the only available option. (The "Plus" is disabled and "Premium" is selected.)
 
+Credit Card validation - There are four checks for the three fields (credit card number, expiration date, CVC):
+1. The form uses "pattern" with a regex expression that covers the formats of all the major credit cards.
+2. There is a credit card validator script on the backend that is performed when the form is submitted.
+3. An expiration date must be current month and current year, or later. This is done with Javascript on the form.
+4. The CVC number cannot be longer than 4 digits. Note: There is an issue with the regex "pattern" to ensure the CVC is at least 3 digits.
+
 _Note: This logic needs to be optimized, maybe to match `Create Membership`._
 
 ### Validate Credit Card ###
