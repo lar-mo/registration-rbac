@@ -290,6 +290,27 @@ def purchase_membership(request):
     else:
         return render(request, 'clc_reg/purchase_membership.html')
 
+def validate_credit_card(cc_number):            #
+    numbers = list(cc_number)                   # Convert the input string into a list
+    check_digit = numbers.pop()                 # Slice off the last digit, aka. check digit
+
+    for i in range(len(numbers)):               #
+        numbers[i] = int(numbers[i])            # Convert list of strings to integers
+
+    numbers.reverse()                           # Reverse the list of numbers
+
+    for i in range(0, len(numbers), 2):         #
+        numbers[i] = numbers[i] * 2             # Double every other element in the reversed list
+
+    for i in range(len(numbers)):               #
+        if numbers[i] > 9:                      #
+            numbers[i] -= 9                     # Subtract 9 from numbers over 9
+
+    total = str(sum(numbers))                   # Add all the numbers and convert to string
+
+    return check_digit == total[-1]             # If ones digit of that sum matches the check digit, returns True
+
+
 @login_required
 def create_membership(request):
     # Get the form values from request.POST
@@ -326,6 +347,10 @@ def create_membership(request):
     # Redirect when membership is inactive
     if not isactive:
         return HttpResponseRedirect(reverse('clc_reg:inactive'))
+
+    # Check if credit card is valid
+    if not validate_credit_card(creditcard):
+        return HttpResponseRedirect(reverse('clc_reg:purchase_membership')+'?message=creditcardissue')
 
     # Redirect if there is a current (not expired), valid Premium membership
     if level == "Premium" and not isexpired:
