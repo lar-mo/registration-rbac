@@ -144,7 +144,7 @@
             <span>
               <!-- the REGEX pattern does not work.-->
               <!-- Tried changing input type=number but <3, >4 is still accepted -->
-              <input type="text" name="cid" required !pattern="/^[0-9]{3,4}$/" !title="3 or 4 digits" value="563"/>
+              <input type="text" name="cid" maxlength="4" required !pattern="/^[0-9]{3,4}$/" !title="3 or 4 digits" value="563"/>
             </span>
           </div>
         </div>

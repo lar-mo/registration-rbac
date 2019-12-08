@@ -341,6 +341,8 @@ This view displays the Purchase Membership page. Various checks are performed be
 2. If user has an Inactive membership (not `request.user.membership_isactive()`)
 3. If user is not confirmed (not `request.user.is_confirmed()`)
 
+When a Plus user visits the form, "Premium" is the only available option. (The "Plus" is disabled and "Premium" is selected.)
+
 _Note: This logic needs to be optimized, maybe to match `Create Membership`._
 
 ### Validate Credit Card ###
