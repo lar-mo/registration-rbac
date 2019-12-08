@@ -20,22 +20,22 @@ It's been a great learning tool and hopefully architected to be a flexible skele
 - An unsecured page (anonymous visitors ok)
 - Two secured pages (both require a logged in/confirmed user):
   - **VERSION 1** - <i>Confirmation status is calculated in views.py.</i>
-    - <u>If confirmed=False</u>, user is redirected to the index page with a small error message and a link to resend the CLC link.
-    - <u>If confirmed=True</u>, user is passed through to the secure page.
+    - If confirmed=False, user is redirected to the index page with a small error message and a link to resend the CLC link.
+    - If confirmed=True, user is passed through to the secure page.
     - This implementation is used for directing users to different pages based on their confirmation status.
     - It is available on pages where it has been implemented in the view.
     - It could easily be retooled to return an integer for different member levels.
     - Then, be used for sending users to an upgrade/upsell page, for example.
   - **VERSION 2** - <i>Confirmation status is calculated in models.py and passed to the template.</i>
-    - <u>If confirmed=False</u>, an error message is shown on the secure page.
-    - <u>If confirmed=True</u>, the secure page content is visible.
+    - If confirmed=False, an error message is shown on the secure page.
+    - If confirmed=True, the secure page content is visible.
     - This implementation is used for showing different content on the same page based on user's confirmation status.
     - It is available globally via an extension to the built-in user system.
     - It could easily be retooled to return an integer for different member levels.
     - Then, be used for showing different content or unlocking member-specific features, for example.
 
 ### Version 2 ###
-**<u>Update</u>: A simple three-tiered membership system was added to this app.**
+**Update: A simple three-tiered membership system was added to this app.**
 <pre>
 --------------------------------------------------------
 <b>Features        Basic   Plus    Premium   (page)</b>
@@ -359,21 +359,21 @@ This view handles the form submission for the `purchase_membership` form. The sa
 
 If all these checks succeed, the membership is created and saved in the database.
 
-<u>First</u>, (a) the current membership (object) is fetched, (b) the membership_type object is fetched based on selection made on the form, and (c) the date/time one year for current date (`timezone.now()`).
+First, (a) the current membership (object) is fetched, (b) the membership_type object is fetched based on selection made on the form, and (c) the date/time one year for current date (`timezone.now()`).
 
-<u>Second</u>, the user's membership record is updated in the database.
+Second, the user's membership record is updated in the database.
 
-<u>Third</u>, the Transaction table is update is the purchase date, membership purchase, and the current user.
+Third, the Transaction table is update is the purchase date, membership purchase, and the current user.
 
-<u>Fourth</u>, the user's first and last name is added to their User record.
+Fourth, the user's first and last name is added to their User record.
 
-<u>Fifth</u>, the Billing Information is added to the database. Some improvements need to be made here:
+Fifth, the Billing Information is added to the database. Some improvements need to be made here:
 - Short-term: Implement in the View: If the record exists, destroy and recreate. This is inefficient but works.
 - Long-term: Implement in Template and View: if the record exists, populate the form. Then, fetch and update the record. This is the best user experience and proper way to handle this kind of data.
 
-<u>Sixth</u>, the Membership Purchase email is sent.
+Sixth, the Membership Purchase email is sent.
 
-<u>Lastly</u>, the user is redirected to the page that matches the Membership purchased.
+Lastly, the user is redirected to the page that matches the Membership purchased.
 
 ### Inactive Account ###
 
