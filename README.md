@@ -343,6 +343,8 @@ This view displays the Purchase Membership page. Various checks are performed be
 
 When a Plus user visits the form, "Premium" is the only available option. (The "Plus" is disabled and "Premium" is selected.)
 
+If there is a record for this user in `BillingInformation` then that data is loaded into the form. This is done with the template rendering and template literals on the value parameters for each field on the form.
+
 Credit Card validation - There are three checks for the three fields (credit card number, expiration date, CVC):
 1. The form uses "pattern" with a regex expression that covers the formats of all the major credit cards.
 2. There is a credit card validator script on the backend that is performed when the form is submitted.
