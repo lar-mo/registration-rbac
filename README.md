@@ -157,7 +157,7 @@ This is an example of view-level evaluation of user's confirmation status. The `
 
 ### Special Page 2 ###
 
-`
+```
 - Purpose: Displays protected page 2
 - Template: special_page2.html
 - View: special_page2
