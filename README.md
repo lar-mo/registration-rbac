@@ -20,15 +20,15 @@ It's been a great learning tool and hopefully architected to be a flexible skele
 - An unsecured page (anonymous visitors ok)
 - Two secured pages (both require a logged in/confirmed user):
   - **VERSION 1** - <i>Confirmation status is calculated in views.py.</i>
-    - If confirmed=False, user is redirected to the index page with a small error message and a link to resend the CLC link.
-    - If confirmed=True, user is passed through to the secure page.
+    - If `confirmed=False`, user is redirected to the index page with a small error message and a link to resend the CLC link.
+    - If `confirmed=True`, user is passed through to the secure page.
     - This implementation is used for directing users to different pages based on their confirmation status.
     - It is available on pages where it has been implemented in the view.
     - It could easily be retooled to return an integer for different member levels.
     - Then, be used for sending users to an upgrade/upsell page, for example.
   - **VERSION 2** - <i>Confirmation status is calculated in models.py and passed to the template.</i>
-    - If confirmed=False, an error message is shown on the secure page.
-    - If confirmed=True, the secure page content is visible.
+    - If `confirmed=False`, an error message is shown on the secure page.
+    - If `confirmed=True`, the secure page content is visible.
     - This implementation is used for showing different content on the same page based on user's confirmation status.
     - It is available globally via an extension to the built-in user system.
     - It could easily be retooled to return an integer for different member levels.
