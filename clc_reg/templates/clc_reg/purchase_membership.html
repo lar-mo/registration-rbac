@@ -109,27 +109,28 @@
           <span class="form_title">Payment Information:</span>
           <div>
             <span>Card Number:</span>
-            <span><input type="text" name="creditcard" placeholder="" required pattern="^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$" title="Invalid Card Number" value="4444333322221111"/></span>
+            <span><input type="text" name="creditcard" placeholder="" required pattern="^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$" title="Invalid Card Number" value="4556737586899855"/></span>
           </div>
           <div>
             <span>Expiration:</span>
-            <span><select name="expiration_month">
+            <span><select name="expiration_month" id="exp_month" required>
                 <option value="---" disabled selected>---</option>
-                <option value="01">January</option>
-                <option value="02">February</option>
-                <option value="03">March</option>
-                <option value="04">April</option>
-                <option value="05">May</option>
-                <option value="06">June</option>
-                <option value="07">July</option>
-                <option value="08">August</option>
-                <option value="09">September</option>
-                <option value="10">October</option>
-                <option value="11">November</option>
-                <option value="12" selected>December</option>
+                <option value="01">01</option>
+                <option value="02">02</option>
+                <option value="03">03</option>
+                <option value="04">04</option>
+                <option value="05">05</option>
+                <option value="06">06</option>
+                <option value="07">07</option>
+                <option value="08">08</option>
+                <option value="09">09</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12" selected>12</option>
               </select>
-              <select name="expiration_year" placeholder="" required>
+              <select name="expiration_year" id="exp_year" placeholder="" required>
                 <option value="---" disabled selected>---</option>
+                <option value="2018">2018</option>
                 <option value="2019">2019</option>
                 <option value="2020">2020</option>
                 <option value="2021">2021</option>
@@ -154,5 +155,23 @@
     </div>
     <br/>
   </div> <!-- end of 'container'-->
+
+  <script type="text/javascript">
+    let exp_month = document.querySelector('#exp_month')
+    let exp_year = document.querySelector('#exp_year')
+    let btnPurchase = document.querySelector('#btnPurchase')
+    let date = new Date()
+    let month = date.getMonth() + 1 // "+ 1" is offset since function returns 0-11
+    let year = date.getFullYear()
+    btnPurchase.onclick = function(event) {
+      if (exp_year.value < year) {
+          alert("You have to select a valid expiration date.")
+          event.preventDefault()
+      } else if (exp_year.value == year && exp_month.value < month) {
+        alert("You have to select a valid expiration date.")
+        event.preventDefault()
+      }
+    }
+  </script>
 
 {% endblock %}
