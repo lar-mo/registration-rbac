@@ -343,7 +343,7 @@ This view displays the Purchase Membership page. Various checks are performed be
 2. If user has an Inactive membership (not `request.user.membership_isactive()`)
 3. If user is not confirmed (not `request.user.is_confirmed()`)
 
-Note: This logic might need to be optimized.
+Note: This logic needs to be optimized.
 
 ### Create Membership ###
 
