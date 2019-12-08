@@ -288,7 +288,25 @@ def purchase_membership(request):
         return HttpResponseRedirect(reverse('clc_reg:index')+'?message=pending')
     # otherwise, render the purchase page
     else:
-        return render(request, 'clc_reg/purchase_membership.html')
+        existing_billing_info = BillingInformation.objects.get(purchaser_id=request.user.id)
+        if existing_billing_info is not None:
+            # print("existing billing information")
+            context = {
+                'address1': existing_billing_info.address1,
+                'address2': existing_billing_info.address2,
+                'city': existing_billing_info.city,
+                'state': existing_billing_info.state,
+                'zipcode': existing_billing_info.zipcode,
+                'creditcard': existing_billing_info.creditcard,
+                'expiration_month': existing_billing_info.expiration_month,
+                'expiration_year': existing_billing_info.expiration_year,
+                'cid': existing_billing_info.cid,
+                'billing_exists': True,
+            }
+            return render(request, 'clc_reg/purchase_membership.html', context)
+        else:
+            # print("no billing information")
+            return render(request, 'clc_reg/purchase_membership.html')
 
 def validate_credit_card(cc_number):            #
     numbers = list(cc_number)                   # Convert the input string into a list

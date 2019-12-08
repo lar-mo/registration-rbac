@@ -32,76 +32,76 @@
           </div>
           <div>
             <span>Address 1:</span>
-            <span><input type="text" name="address1" placeholder="" required value="1234 Any Street"/></span>
+            <span><input type="text" name="address1" placeholder="" required value="{% if billing_exists %}{{address1}}{%endif%}"/></span>
           </div>
           <div>
             <span>Address 2:</span>
-            <span><input type="text" name="address2" placeholder=""/></span>
+            <span><input type="text" name="address2" placeholder="" value="{% if billing_exists %}{{address2}}{%endif%}"/></span>
           </div>
           <div>
             <span>City:</span>
-            <span><input type="text" name="city" placeholder="" required value="Portland"/></span>
+            <span><input type="text" name="city" placeholder="" required value="{% if billing_exists %}{{city}}{%endif%}"/></span>
           </div>
           <div>
             <span>State:</span>
             <span><select name="state" required>
               <option value="---" disabled selected>---</option>
-              <option value="AL">Alabama</option>
-            	<option value="AK">Alaska</option>
-            	<option value="AZ">Arizona</option>
-            	<option value="AR">Arkansas</option>
-            	<option value="CA">California</option>
-            	<option value="CO">Colorado</option>
-            	<option value="CT">Connecticut</option>
-            	<option value="DE">Delaware</option>
-            	<option value="DC">District Of Columbia</option>
-            	<option value="FL">Florida</option>
-            	<option value="GA">Georgia</option>
-            	<option value="HI">Hawaii</option>
-            	<option value="ID">Idaho</option>
-            	<option value="IL">Illinois</option>
-            	<option value="IN">Indiana</option>
-            	<option value="IA">Iowa</option>
-            	<option value="KS">Kansas</option>
-            	<option value="KY">Kentucky</option>
-            	<option value="LA">Louisiana</option>
-            	<option value="ME">Maine</option>
-            	<option value="MD">Maryland</option>
-            	<option value="MA">Massachusetts</option>
-            	<option value="MI">Michigan</option>
-            	<option value="MN">Minnesota</option>
-            	<option value="MS">Mississippi</option>
-            	<option value="MO">Missouri</option>
-            	<option value="MT">Montana</option>
-            	<option value="NE">Nebraska</option>
-            	<option value="NV">Nevada</option>
-            	<option value="NH">New Hampshire</option>
-            	<option value="NJ">New Jersey</option>
-            	<option value="NM">New Mexico</option>
-            	<option value="NY">New York</option>
-            	<option value="NC">North Carolina</option>
-            	<option value="ND">North Dakota</option>
-            	<option value="OH">Ohio</option>
-            	<option value="OK">Oklahoma</option>
-            	<option value="OR" selected>Oregon</option>
-            	<option value="PA">Pennsylvania</option>
-            	<option value="RI">Rhode Island</option>
-            	<option value="SC">South Carolina</option>
-            	<option value="SD">South Dakota</option>
-            	<option value="TN">Tennessee</option>
-            	<option value="TX">Texas</option>
-            	<option value="UT">Utah</option>
-            	<option value="VT">Vermont</option>
-            	<option value="VA">Virginia</option>
-            	<option value="WA">Washington</option>
-            	<option value="WV">West Virginia</option>
-            	<option value="WI">Wisconsin</option>
-            	<option value="WY">Wyoming</option>
+              <option value="AL" {% if billing_exists and state == 'AL' %}selected{%endif%}>Alabama</option>
+            	<option value="AK" {% if billing_exists and state == 'AK' %}selected{%endif%}>Alaska</option>
+            	<option value="AZ" {% if billing_exists and state == 'AZ' %}selected{%endif%}>Arizona</option>
+            	<option value="AR" {% if billing_exists and state == 'AR' %}selected{%endif%}>Arkansas</option>
+            	<option value="CA" {% if billing_exists and state == 'CA' %}selected{%endif%}>California</option>
+            	<option value="CO" {% if billing_exists and state == 'CO' %}selected{%endif%}>Colorado</option>
+            	<option value="CT" {% if billing_exists and state == 'CT' %}selected{%endif%}>Connecticut</option>
+            	<option value="DE" {% if billing_exists and state == 'DE' %}selected{%endif%}>Delaware</option>
+            	<option value="DC" {% if billing_exists and state == 'DC' %}selected{%endif%}>District Of Columbia</option>
+            	<option value="FL" {% if billing_exists and state == 'FL' %}selected{%endif%}>Florida</option>
+            	<option value="GA" {% if billing_exists and state == 'GA' %}selected{%endif%}>Georgia</option>
+            	<option value="HI" {% if billing_exists and state == 'HI' %}selected{%endif%}>Hawaii</option>
+            	<option value="ID" {% if billing_exists and state == 'ID' %}selected{%endif%}>Idaho</option>
+            	<option value="IL" {% if billing_exists and state == 'IL' %}selected{%endif%}>Illinois</option>
+            	<option value="IN" {% if billing_exists and state == 'IN' %}selected{%endif%}>Indiana</option>
+            	<option value="IA" {% if billing_exists and state == 'IA' %}selected{%endif%}>Iowa</option>
+            	<option value="KS" {% if billing_exists and state == 'KS' %}selected{%endif%}>Kansas</option>
+            	<option value="KY" {% if billing_exists and state == 'KY' %}selected{%endif%}>Kentucky</option>
+            	<option value="LA" {% if billing_exists and state == 'LA' %}selected{%endif%}>Louisiana</option>
+            	<option value="ME" {% if billing_exists and state == 'ME' %}selected{%endif%}>Maine</option>
+            	<option value="MD" {% if billing_exists and state == 'MD' %}selected{%endif%}>Maryland</option>
+            	<option value="MA" {% if billing_exists and state == 'MA' %}selected{%endif%}>Massachusetts</option>
+            	<option value="MI" {% if billing_exists and state == 'MI' %}selected{%endif%}>Michigan</option>
+            	<option value="MN" {% if billing_exists and state == 'MN' %}selected{%endif%}>Minnesota</option>
+            	<option value="MS" {% if billing_exists and state == 'MS' %}selected{%endif%}>Mississippi</option>
+            	<option value="MO" {% if billing_exists and state == 'MO' %}selected{%endif%}>Missouri</option>
+            	<option value="MT" {% if billing_exists and state == 'MT' %}selected{%endif%}>Montana</option>
+            	<option value="NE" {% if billing_exists and state == 'NE' %}selected{%endif%}>Nebraska</option>
+            	<option value="NV" {% if billing_exists and state == 'NV' %}selected{%endif%}>Nevada</option>
+            	<option value="NH" {% if billing_exists and state == 'NH' %}selected{%endif%}>New Hampshire</option>
+            	<option value="NJ" {% if billing_exists and state == 'NJ' %}selected{%endif%}>New Jersey</option>
+            	<option value="NM" {% if billing_exists and state == 'NM' %}selected{%endif%}>New Mexico</option>
+            	<option value="NY" {% if billing_exists and state == 'NY' %}selected{%endif%}>New York</option>
+            	<option value="NC" {% if billing_exists and state == 'NC' %}selected{%endif%}>North Carolina</option>
+            	<option value="ND" {% if billing_exists and state == 'ND' %}selected{%endif%}>North Dakota</option>
+            	<option value="OH" {% if billing_exists and state == 'OH' %}selected{%endif%}>Ohio</option>
+            	<option value="OK" {% if billing_exists and state == 'OK' %}selected{%endif%}>Oklahoma</option>
+            	<option value="OR" {% if billing_exists and state == 'OR' %}selected{%endif%}>Oregon</option>
+            	<option value="PA" {% if billing_exists and state == 'PA' %}selected{%endif%}>Pennsylvania</option>
+            	<option value="RI" {% if billing_exists and state == 'RI' %}selected{%endif%}>Rhode Island</option>
+            	<option value="SC" {% if billing_exists and state == 'SC' %}selected{%endif%}>South Carolina</option>
+            	<option value="SD" {% if billing_exists and state == 'SD' %}selected{%endif%}>South Dakota</option>
+            	<option value="TN" {% if billing_exists and state == 'TN' %}selected{%endif%}>Tennessee</option>
+            	<option value="TX" {% if billing_exists and state == 'TX' %}selected{%endif%}>Texas</option>
+            	<option value="UT" {% if billing_exists and state == 'UT' %}selected{%endif%}>Utah</option>
+            	<option value="VT" {% if billing_exists and state == 'VT' %}selected{%endif%}>Vermont</option>
+            	<option value="VA" {% if billing_exists and state == 'VA' %}selected{%endif%}>Virginia</option>
+            	<option value="WA" {% if billing_exists and state == 'WA' %}selected{%endif%}>Washington</option>
+            	<option value="WV" {% if billing_exists and state == 'WV' %}selected{%endif%}>West Virginia</option>
+            	<option value="WI" {% if billing_exists and state == 'WI' %}selected{%endif%}>Wisconsin</option>
+            	<option value="WY" {% if billing_exists and state == 'WY' %}selected{%endif%}>Wyoming</option>
           </select></span>
           </div>
           <div>
             <span>Zip Code:</span>
-            <span><input type="text" name="zipcode" placeholder="" required value="97217"/></span>
+            <span><input type="text" name="zipcode" placeholder="" required value="{% if billing_exists %}{{zipcode}}{%endif%}"/></span>
           </div>
         </div>
         <br>
@@ -109,34 +109,34 @@
           <span class="form_title">Payment Information:</span>
           <div>
             <span>Card Number:</span>
-            <span><input type="text" name="creditcard" placeholder="" required pattern="^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$" title="Invalid Card Number" value="4556737586899855"/></span>
+            <span><input type="text" name="creditcard" placeholder="" required pattern="^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$" title="Invalid Card Number" value="{% if billing_exists %}{{creditcard}}{%endif%}"/></span>
           </div>
           <div>
             <span>Expiration:</span>
             <span><select name="expiration_month" id="exp_month" required>
                 <option value="---" disabled selected>---</option>
-                <option value="01">01</option>
-                <option value="02">02</option>
-                <option value="03">03</option>
-                <option value="04">04</option>
-                <option value="05">05</option>
-                <option value="06">06</option>
-                <option value="07">07</option>
-                <option value="08">08</option>
-                <option value="09">09</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12" selected>12</option>
+                <option value="01" {% if billing_exists and expiration_month == '01' %}selected{%endif%}>01</option>
+                <option value="02" {% if billing_exists and expiration_month == '02' %}selected{%endif%}>02</option>
+                <option value="03" {% if billing_exists and expiration_month == '03' %}selected{%endif%}>03</option>
+                <option value="04" {% if billing_exists and expiration_month == '04' %}selected{%endif%}>04</option>
+                <option value="05" {% if billing_exists and expiration_month == '05' %}selected{%endif%}>05</option>
+                <option value="06" {% if billing_exists and expiration_month == '06' %}selected{%endif%}>06</option>
+                <option value="07" {% if billing_exists and expiration_month == '07' %}selected{%endif%}>07</option>
+                <option value="08" {% if billing_exists and expiration_month == '08' %}selected{%endif%}>08</option>
+                <option value="09" {% if billing_exists and expiration_month == '09' %}selected{%endif%}>09</option>
+                <option value="10" {% if billing_exists and expiration_month == '10' %}selected{%endif%}>10</option>
+                <option value="11" {% if billing_exists and expiration_month == '11' %}selected{%endif%}>11</option>
+                <option value="12" {% if billing_exists and expiration_month == '12' %}selected{%endif%}>12</option>
               </select>
               <select name="expiration_year" id="exp_year" placeholder="" required>
                 <option value="---" disabled selected>---</option>
-                <option value="2019">2019</option>
-                <option value="2020">2020</option>
-                <option value="2021">2021</option>
-                <option value="2022" selected>2022</option>
-                <option value="2023">2023</option>
-                <option value="2024">2024</option>
-                <option value="2025">2025</option>
+                <option value="2019" {% if billing_exists and expiration_year == '2019' %}selected{%endif%}>2019</option>
+                <option value="2020" {% if billing_exists and expiration_year == '2020' %}selected{%endif%}>2020</option>
+                <option value="2021" {% if billing_exists and expiration_year == '2021' %}selected{%endif%}>2021</option>
+                <option value="2022" {% if billing_exists and expiration_year == '2022' %}selected{%endif%}>2022</option>
+                <option value="2023" {% if billing_exists and expiration_year == '2023' %}selected{%endif%}>2023</option>
+                <option value="2024" {% if billing_exists and expiration_year == '2024' %}selected{%endif%}>2024</option>
+                <option value="2025" {% if billing_exists and expiration_year == '2025' %}selected{%endif%}>2025</option>
               </select></span>
           </div>
           <div>
@@ -144,7 +144,7 @@
             <span>
               <!-- the REGEX pattern does not work.-->
               <!-- Tried changing input type=number but <3, >4 is still accepted -->
-              <input type="text" name="cid" maxlength="4" required !pattern="/^[0-9]{3,4}$/" !title="3 or 4 digits" value="563"/>
+              <input type="text" name="cid" maxlength="4" required !pattern="/^[0-9]{3,4}$/" !title="3 or 4 digits" value="{% if billing_exists %}{{cid}}{%endif%}"/>
             </span>
           </div>
         </div>
