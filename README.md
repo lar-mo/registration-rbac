@@ -313,7 +313,7 @@ It is shown when (1) a Plus user tries to access a Premium page, (2) a user with
 ```
 This view displays the Inactive membership page which is used for customer service purposes.
 
-It is shown when a user with an inactive membership of any level tries to access and Plus or Premium page. [^1]
+It is shown when a user with an inactive membership of any level tries to access and Plus or Premium page.
 
 ### Account Error ###
 
@@ -327,8 +327,6 @@ This view displays the Account Error page which is used for customer services pu
 
 It is shown when the membership lookup for a user fails when they try to access a Plus or Premium page.
 
-
-
 ### Purchase Membership ###
 
 ```
@@ -339,11 +337,11 @@ It is shown when the membership lookup for a user fails when they try to access 
 ```
 
 This view displays the Purchase Membership page. Various checks are performed before allowing a user to reach the page:
-1. If logged-in (`@login_required`), confirmed user (`request.user.is_confirmed()`) already has a valid (not `request.user.membership_isexpired()`), active (`request.user.is_confirmed()`) Premium membership (`request.user.membership_level()`)
+1. If logged-in (`@login_required`), confirmed user (`request.user.is_confirmed()`) already has a valid (not `request.user.membership_isexpired()`), active (`request.user.membership_isactive()`) Premium membership (`request.user.membership_level()`)
 2. If user has an Inactive membership (not `request.user.membership_isactive()`)
 3. If user is not confirmed (not `request.user.is_confirmed()`)
 
-Note: This logic needs to be optimized.
+_Note: This logic needs to be optimized, maybe to match `Create Membership`._
 
 ### Create Membership ###
 
@@ -354,7 +352,7 @@ Note: This logic needs to be optimized.
 - Path: create_membership/
 ```
 
-This view handles the form submission for the `purchase_membership` form. There are similar checks performed here, 'belt and suspenders'.
+This view handles the form submission for the `purchase_membership` form. The same checks done for the template view `Purchase Membership` are performed here, *belt and suspenders*.
 1. `is not isconfirmed`
 2. `is not isactive`
 3. `level == "Premium" and not isexpired`
@@ -460,4 +458,3 @@ expiration_year             CharField
 cid                         CharField
 purchaser                   ForeignKey(User)
 ```
-[^1]: This is the footnote.
