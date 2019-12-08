@@ -4,7 +4,7 @@
 
 **Two Step Registration and Three-Tier Membership**
 
-After experiment with the ```django-registation``` (https://django-registration.readthedocs.io/en/3.0.1/), I wanted to create my own solution. My intention is implement a two-step registration process to my Community Lending Library app.
+After experiment with the `django-registation` (https://django-registration.readthedocs.io/en/3.0.1/), I wanted to create my own solution. My intention is implement a two-step registration process to my Community Lending Library app.
 
 Once the original concept was coded and working, I set out to add a Membership system. I naively thought I could convert the simple "confirmed" Boolean to an integer denoting different "levels". It became a much more involved undertaking with several new Views, tables (models), new Member pages, error handling, and a purchase form.
 
@@ -76,12 +76,12 @@ amazing thing                     x       (premium.html)
 - Path: /
 ```
 
-This view displays the front door of the app. Anyone can access this page, anonymous, logged in, any membership level, and even users with inactive memberships. Error messages can be passed via ```request.GET.get('message', '')```.
+This view displays the front door of the app. Anyone can access this page, anonymous, logged in, any membership level, and even users with inactive memberships. Error messages can be passed via `request.GET.get('message', '')`.
 
 #### base.html ####
-Note: The CSS rules, ```navbar``` and ```blurb``` are defined in a base template (base.html). Confirmation and membership related information is written to the console for debugging & troubleshooting.
+Note: The CSS rules, `navbar` and `blurb` are defined in a base template (base.html). Confirmation and membership related information is written to the console for debugging & troubleshooting.
 
-This data is powered by User methods defined in ```models.py```:
+This data is powered by User methods defined in `models.py`:
 ```
 - user.is_confirmed
 - user.membership_isactive
@@ -99,11 +99,11 @@ This data is powered by User methods defined in ```models.py```:
 - Path: register_login/
 ```
 
-This view displays the combined login & registration page. Registration and login-related error messages can be passed via ```request.GET.get('message', '')```.
+This view displays the combined login & registration page. Registration and login-related error messages can be passed via `request.GET.get('message', '')`.
 
 Users are redirected to the homepage when they are already authenticated.
 
-All the form fields on login and registration forms are **required** except the ```address2```. The password fields have ```autocomplete``` explicitly turned off.
+All the form fields on login and registration forms are **required** except the `address2`. The password fields have `autocomplete` explicitly turned off.
 
 ### Login User ###
 
@@ -114,9 +114,9 @@ All the form fields on login and registration forms are **required** except the 
 - Path: login_user/
 ```
 
-This view handles the login form submission. The supplied credentials are evaluated via the ```authenticate``` method of the User class. If this check fails, an error message is shown. If the check succeeds, users is logged in (with built-in ```login``` method of the User class) and redirected to the home page or the value of the ```next``` parameter.
+This view handles the login form submission. The supplied credentials are evaluated via the `authenticate` method of the User class. If this check fails, an error message is shown. If the check succeeds, users is logged in (with built-in `login` method of the User class) and redirected to the home page or the value of the `next` parameter.
 
-Note: I originally tried to leverage the ```is_active``` Boolean in the User model but an inactive user is treated as unrecognized.
+Note: I originally tried to leverage the `is_active` Boolean in the User model but an inactive user is treated as unrecognized.
 See: https://stackoverflow.com/questions/29742845/django-how-do-i-use-is-active-of-auth-user-table
 
 ### Register ###
@@ -128,10 +128,10 @@ See: https://stackoverflow.com/questions/29742845/django-how-do-i-use-is-active-
 - Path: register_user/
 ```
 
-This view handles the registration form submission. If the ```username``` already existing in the database, an error message is shown. Additional validation (_all fields are required_) is enforced only on the front-end.
+This view handles the registration form submission. If the `username` already existing in the database, an error message is shown. Additional validation (_all fields are required_) is enforced only on the front-end.
 
 If those checks succeed, the following actions occur:
-1. Account is created (built-in ```create_user``` model of User class)
+1. Account is created (built-in `create_user` model of User class)
 2. New user is logged in
 3. Confirmation key is created
 4. New key is fetched
@@ -149,15 +149,15 @@ If those checks succeed, the following actions occur:
 
 This view displays the special page. This page is only accessible for logged-in + confirmed users. If the user is not logged-in and/or confirmed, they are redirect to the index page. (As of writing this, no error message has been implemented.)
 
-The logged-in requirement is enforced by the ```@login_required``` decorator from: ```django.contrib.auth.decorators```
+The logged-in requirement is enforced by the `@login_required` decorator from: `django.contrib.auth.decorators`
 
-The confirmation requirement is enforced by the view. If ```confirmed``` is True and the user is sent to the special page.
+The confirmation requirement is enforced by the view. If `confirmed` is True and the user is sent to the special page.
 
-This is an example of view-level evaluation of user's confirmation status. The ```special_page.html``` template is only rendered when the condition is met.
+This is an example of view-level evaluation of user's confirmation status. The `special_page.html` template is only rendered when the condition is met.
 
 ### Special Page 2 ###
 
-```
+`
 - Purpose: Displays protected page 2
 - Template: special_page2.html
 - View: special_page2
@@ -166,9 +166,9 @@ This is an example of view-level evaluation of user's confirmation status. The `
 
 This view displays another version of the special page. This page is accessible for logged-in users but unconfirmed users will see different content than confirmed users.
 
-The template checks the user's confirmation status via the ```user.is_confirmed``` method for the User class and shows the appropriate content (if/else).
+The template checks the user's confirmation status via the `user.is_confirmed` method for the User class and shows the appropriate content (if/else).
 
-This is an example of page-level evaluation of user's confirmation status. The ```special_page2.html``` template is always rendered.
+This is an example of page-level evaluation of user's confirmation status. The `special_page2.html` template is always rendered.
 
 ### Logout User ###
 
@@ -179,7 +179,7 @@ This is an example of page-level evaluation of user's confirmation status. The `
 - Path: logout_user/
 ```
 
-This view handles the logout process (via ```logout``` method of the User class) and redirects user back to the homepage.
+This view handles the logout process (via `logout` method of the User class) and redirects user back to the homepage.
 
 ### Create Key ###
 
@@ -190,7 +190,7 @@ This view handles the logout process (via ```logout``` method of the User class)
 - Path: create_key/
 ```
 
-This view handles generating the account confirmation code. First, a date/time is calculated 3 days in the future. Then, a 32-digit number is generated by ```secrets.token_hex(16)``` via ```secrets```, a built-in Python module. Finally, the record is assembled and saved to the database. Then, the ```bignumber``` is passed back to the calling view for use in the 'Confirm Your Account' email.
+This view handles generating the account confirmation code. First, a date/time is calculated 3 days in the future. Then, a 32-digit number is generated by `secrets.token_hex(16)` via `secrets`, a built-in Python module. Finally, the record is assembled and saved to the database. Then, the `bignumber` is passed back to the calling view for use in the 'Confirm Your Account' email.
 
 Note: There is only one record per user which gets overwritten when a new one is requested, therefore no history of them is maintained.
 
@@ -203,9 +203,9 @@ Note: There is only one record per user which gets overwritten when a new one is
 - Path: send_new_key/
 ```
 
-This view handles the destruction & regeneration of the account confirmation code. First, the current code is deleted from the database. Then, the ```create_key``` method is called which add a new code to the database and returned the code to the calling view. Then, an email is sent to the registered user with a CLC link. Then, the users is redirected to the index and a message is displayed confirming new code was generated.
+This view handles the destruction & regeneration of the account confirmation code. First, the current code is deleted from the database. Then, the `create_key` method is called which add a new code to the database and returned the code to the calling view. Then, an email is sent to the registered user with a CLC link. Then, the users is redirected to the index and a message is displayed confirming new code was generated.
 
-This view is only called from the ```homepage``` when an expired confirmation is used or some other issue is found. See ```message == "expired"``` or ```message == "error"```.
+This view is only called from the `homepage` when an expired confirmation is used or some other issue is found. See `message == "expired"` or `message == "error"`.
 
 ### Send Notification ###
 
@@ -217,12 +217,12 @@ This view is only called from the ```homepage``` when an expired confirmation is
 ```
 
 This view handles sending the various notification emails:
-- Confirm Your Account (called by ```register_user```)
-- Confirm Your Account (called by ```send_new_key```)
-- Account Confirmed (called by ```confirmation```)
-- Membership purchased (called by ```create_membership```)
+- Confirm Your Account (called by `register_user`)
+- Confirm Your Account (called by `send_new_key`)
+- Account Confirmed (called by `confirmation`)
+- Membership purchased (called by `create_membership`)
 
-The functionality is built around ```send_mail``` from ```django.core.mail``` and ```render_to_string``` from ```django.template.loader```. ```render_to_string``` contains two parts, the template and data (variables) which are merged when (```send_mail```) is called. ```send_mail``` takes six parameters:
+The functionality is built around `send_mail` from `django.core.mail` and `render_to_string` from `django.template.loader`. `render_to_string` contains two parts, the template and data (variables) which are merged when (`send_mail`) is called. `send_mail` takes six parameters:
 1. subject
 2. msg_plain (string)
 3. sender
@@ -243,7 +243,7 @@ This view handles the validation of a 32-digit code that was sent to the registe
 
 The value is taken from the url parameter (clc_code). There are a couple short-circuit evaluations first: (1) if account is already confirmed, (2) if the code in the URL doesn't match code in the database.
 
-Then, if the expiration date greater than the current date/time, the ```confirmed``` Boolean is switched to ```True```.
+Then, if the expiration date greater than the current date/time, the `confirmed` Boolean is switched to `True`.
 
 Finally, a Welcome message is sent upon successfully confirming the account.
 
@@ -256,7 +256,7 @@ Finally, a Welcome message is sent upon successfully confirming the account.
 - Path: None
 ```
 
-This view is called by membership specific pages like Plus and Premium. Since the ```user.membership_level``` method of the User class only returns [Basic, Plus, Premium], this function extends the possible return values to ```Expired```, ```Inactive```, ```Error```. (Of course, this functionality could be added to the custom User methods.)
+This view is called by membership specific pages like Plus and Premium. Since the `user.membership_level` method of the User class only returns [Basic, Plus, Premium], this function extends the possible return values to `Expired`, `Inactive`, `Error`. (Of course, this functionality could be added to the custom User methods.)
 
 Note: This app design has a single entry per user for the Membership. There is no history at present. Additionally, a presumption is made that the Membership level is above Basic since expiration is set to New Year's Eve, 2099. Lastly, this evaluation is not done at login and only when access to a restricted page is attempted by design.
 
@@ -277,7 +277,7 @@ This gives the calling view flexibility to do whatever is best with the returned
 - Path: plus/
 ```
 
-This view displays an example of a page that requires as Plus or Premium membership. The membership is validated by calling the ```check_membership(request)``` function. The redirect logic is handled here for Basic and non-valid memberships (Inactive, Expired, Other). This templates supports URL ```messages```.
+This view displays an example of a page that requires as Plus or Premium membership. The membership is validated by calling the `check_membership(request)` function. The redirect logic is handled here for Basic and non-valid memberships (Inactive, Expired, Other). This templates supports URL `messages`.
 
 ### Premium ###
 
@@ -288,7 +288,7 @@ This view displays an example of a page that requires as Plus or Premium members
 - Path: premium/
 ```
 
-This view displays an example of a page that requires as Premium membership. The membership is validated by calling the ```check_membership(request)``` function. The redirect logic is handled here for Basic, Plus and non-valid memberships (Inactive, Expired, Other). This templates supports URL ```messages```.
+This view displays an example of a page that requires as Premium membership. The membership is validated by calling the `check_membership(request)` function. The redirect logic is handled here for Basic, Plus and non-valid memberships (Inactive, Expired, Other). This templates supports URL `messages`.
 
 ### Upsell / Marketing ###
 
@@ -303,8 +303,6 @@ This view displays the Upsell page which is used for marketing purposes.
 
 It is shown when (1) a Plus user tries to access a Premium page, (2) a user with an expired Plus or Premium membership tries to access a Plus or Premium page.
 
-<i>Page in-progress</i>
-
 ### Inactive Membership ###
 
 ```
@@ -315,9 +313,7 @@ It is shown when (1) a Plus user tries to access a Premium page, (2) a user with
 ```
 This view displays the Inactive membership page which is used for customer service purposes.
 
-It is shown when a user with an inactive membership of any level tries to access and Plus or Premium page.
-
-<i>Page in-progress</i>
+It is shown when a user with an inactive membership of any level tries to access and Plus or Premium page. [^1]
 
 ### Account Error ###
 
@@ -331,7 +327,7 @@ This view displays the Account Error page which is used for customer services pu
 
 It is shown when the membership lookup for a user fails when they try to access a Plus or Premium page.
 
-<i>Page in-progress</i>
+
 
 ### Purchase Membership ###
 
@@ -343,9 +339,9 @@ It is shown when the membership lookup for a user fails when they try to access 
 ```
 
 This view displays the Purchase Membership page. Various checks are performed before allowing a user to reach the page:
-1. If logged-in (```@login_required```), confirmed user (```request.user.is_confirmed()```) already has a valid (not ```request.user.membership_isexpired()```), active (```request.user.is_confirmed()```) Premium membership (```request.user.membership_level()```)
-2. If user has an Inactive membership (not ```request.user.membership_isactive()```)
-3. If user is not confirmed (not ```request.user.is_confirmed()```)
+1. If logged-in (`@login_required`), confirmed user (`request.user.is_confirmed()`) already has a valid (not `request.user.membership_isexpired()`), active (`request.user.is_confirmed()`) Premium membership (`request.user.membership_level()`)
+2. If user has an Inactive membership (not `request.user.membership_isactive()`)
+3. If user is not confirmed (not `request.user.is_confirmed()`)
 
 Note: This logic might need to be optimized.
 
@@ -358,14 +354,14 @@ Note: This logic might need to be optimized.
 - Path: create_membership/
 ```
 
-This view handles the form submission for the ```purchase_membership``` form. There are similar checks performed here, 'belt and suspenders'.
-1. ```is not isconfirmed```
-2. ```is not isactive```
-3. ```level == "Premium" and not isexpired```
+This view handles the form submission for the `purchase_membership` form. There are similar checks performed here, 'belt and suspenders'.
+1. `is not isconfirmed`
+2. `is not isactive`
+3. `level == "Premium" and not isexpired`
 
 If all these checks succeed, the membership is created and saved in the database.
 
-First, (a) the current membership (object) is fetched, (b) the membership_type object is fetched based on selection made on the form, and (c) the date/time one year for current date (```timezone.now()```).
+First, (a) the current membership (object) is fetched, (b) the membership_type object is fetched based on selection made on the form, and (c) the date/time one year for current date (`timezone.now()`).
 
 Second, the user's membership record is updated in the database.
 
@@ -464,3 +460,4 @@ expiration_year             CharField
 cid                         CharField
 purchaser                   ForeignKey(User)
 ```
+[^1]: This is the footnote.
