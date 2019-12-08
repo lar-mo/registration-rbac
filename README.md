@@ -35,7 +35,7 @@ It's been a great learning tool and hopefully architected to be a flexible skele
     - Then, be used for showing different content or unlocking member-specific features, for example.
 
 ### Version 2 ###
-**Update: A simple three-tiered membership system was added to this app.**
+**Update: A simple three-tiered membership system (RBAC) was added to this app.**
 <pre>
 --------------------------------------------------------
 <b>Features        Basic   Plus    Premium   (page)</b>
