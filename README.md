@@ -363,7 +363,7 @@ _Note: This logic needs to be optimized, maybe to match `Create Membership`._
 | 6. Sum all values                                    | 85                                   |
 | 7. Take the second digit of that sum                 | 5                                    |
 +------------------------------------------------------+--------------------------------------+
-| Result: If that matches the check digit, the whole card number is valid.                    |
+| Result: If the resulting number matches the check digit, the whole card number is valid.    |
 +---------------------------------------------------------------------------------------------+
 ```
 Note: This is copied verbatim from the PDX Code Guild Bootcamp Python Lab 20.
