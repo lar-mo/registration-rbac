@@ -26,8 +26,10 @@
   let dt = new Date()
   let tz = dt.getTimezoneOffset()
   let formatted = -(tz / 60)
+  let curr_time = new Date()
+  curr_time.setHours(8,0,0,0)
   console.log(formatted)
-  console.log(utcDate)
+  console.log(curr_time)
 </script>
 
 {% endblock %}
