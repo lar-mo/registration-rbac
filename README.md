@@ -347,11 +347,11 @@ If there is a record for this user in `BillingInformation` then that data is loa
 
 Credit Card validation - There are three checks for the three fields (credit card number, expiration date, CVC):
 
-\*\*\* *This is just for demonstration purposes. The transmission and storage of a credit card number, expiration date, and CVC should be handled securely to protect against fraudulent use.* \*\*\*
-
 1. The form uses "pattern" with a regex expression that covers the formats of all the major credit cards.
-2. There is a credit card validator script on the backend that is performed when the form is submitted.
+2. \*\*\* There is a credit card validator script on the backend that is performed when the form is submitted. \*\*\*
 3. An expiration date must be current month and current year, or later. This is done with Javascript on the form.
+
+> *#2 - This is just for demonstration purposes. The transmission and storage of a credit card number, expiration date, and CVC should be handled securely to protect against fraudulent use. Only the creditcard is sent with the form but no information is saved in the database.*
 
 The month will not be in the past currently as the first year is the current year, 2019. Future enhancement might be to dynamically populate the year pull-down and only include current and future years.
 
@@ -412,9 +412,8 @@ If all these checks succeed, the membership is created and saved in the database
 
 **Fourth**, the user's first and last name is added to their User record.
 
-**Fifth**, the Billing Information is added to the database. Some improvements need to be made here:
-- Short-term: Implement in the View: If the record exists, destroy and recreate. This is inefficient but works.
-- Long-term: Implement in Template and View: if the record exists, populate the form. Then, fetch and update the record. This is the best user experience and proper way to handle this kind of data.
+**Fifth**, the Billing (address) Information is added to the database. Some improvements need to be made here:
+If a record for the user already exists, the form will have been pre-populated. The data transmitted via the form submission is used to update the record. If a records does not exist, the data transmitted will be used to create a new record.
 
 **Sixth**, the Membership Purchase email is sent.
 
