@@ -60,7 +60,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        /* align-items: center; */
+        align-items: center;
         padding: 15px
       }
       .purchase_form {
@@ -142,8 +142,18 @@
         {% block content %}{% endblock %}
 
         <div class="blurb">
-          <span><b>Documentation for this Application:</b> <a href="https://github.com/lar-mo/registration-rbac>" target="_blank">https://github.com/lar-mo/registration-rbac</a> [ <a href="https://github.com/lar-mo/registration-rbac/blob/master/README.md" target="_blank">README.md</a> ]
-          </span>
+          <div>
+            <h3>Django app with 2-step registration flow and three-tier membership (RBAC)</h3>
+          </div>
+          <div>
+            <h2>For demonstration purposes only.</h2>
+          </div>
+          <div>
+            <b>GitHub:</b> <a href="https://github.com/lar-mo/registration-rbac>" target="_blank">https://github.com/lar-mo/registration-rbac</a>
+          </div>
+          <div>
+            <b>Documentation for this Application:</b>&nbsp;&nbsp;<a href="https://github.com/lar-mo/registration-rbac/blob/master/README.md" target="_blank">README.md</a>
+          </div>
         </div>
       </main>
       <script type="text/javascript">
