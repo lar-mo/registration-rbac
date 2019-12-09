@@ -19,17 +19,11 @@
 
 <h3>You have a {{ user.membership_level }} membership which is valid until {{ user.membership_expiry|timezone:"US/Pacific" }}</h3>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
   let utcDate = "{{ user.membership_expiry }}"
-  console.log(utcDate)
-  let localDate = utcDate;
-  let dt = new Date()
-  let tz = dt.getTimezoneOffset()
-  let formatted = -(tz / 60)
-  let curr_time = new Date()
-  curr_time.setHours(8,0,0,0)
-  console.log(formatted)
-  console.log(curr_time)
-</script>
+  let dt = new(Date)
+  let nd = utcDate - (dt.getTimezoneOffset() * 60000)
+  console.log(nd)
+</script> -->
 
 {% endblock %}
