@@ -88,20 +88,45 @@
         -moz-box-shadow:      3px 3px 5px 0 rgba(25,25,25,0.4);
         -webkit-box-shadow:   3px 3px 5px 0 rgba(25,25,25,0.4);
       }
-      .purchase_form, .purchase_form > * {
+      .purchase_form {
+        display: flex;
+        flex-direction: column;
+        justify-content: right;
+        /* align-items: right; */
+        padding: 10px;
+      }
+      .purchase_form > * {
         padding: 5px;
+        /* border: 1px solid black; */
+        align-self: center;
+        width: 68%;
       }
       .form_title {
         font-size: 1.5em;
         background-color: lightblue;
+        width: 100%;
+
       }
       .form_field_heading {
         font-weight: bold;
+        width: 100%;
+      }
+      .field_title {
+        font-weight: bold;
+      }
+      .field_title_newaddr {
+        font-style: italic;
       }
       .page_title {
         font-size: 1.8em;
         font-weight: bold;
         text-align: center;
+        width: 100%;
+      }
+      .fine_print {
+        font-size: .8em;
+        background: #DEF;
+        width: 100%;
       }
     </style>
   </head>

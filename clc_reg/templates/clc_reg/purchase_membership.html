@@ -10,41 +10,50 @@
   <div id="container_purchase">
     <div class="page_title">Purchase Membership</div>
     <div>
-      <form action="{% url 'clc_reg:create_membership' %}" method="post">
+      <form id="formPurchase" action="{% url 'clc_reg:create_membership' %}" method="post">
         {% csrf_token %}
         <input type="hidden" name="next" value="{{next}}"/>
         <div class="purchase_form">
           <span class="form_title">Member Information:</span>
+          <div class="fine_print"><u>Note</u>: This information is retrieved from the database.</div>
           <div>
             <span>
-              <span>Membership Type</span>:
+              <span class="field_title">Membership Type</span>:
               <span><input type="radio" name="membership_type" required value="Plus"{% if user.membership_level == "Plus" %}disabled{% endif %}/> Plus</span>
               <span><input type="radio" name="membership_type" required value="Premium" {% if user.membership_level == "Plus" %}checked{% endif %}/> Premium</span>
             </span>
           </div>
+          {% if billing_exists %}
           <div>
-            <span>First Name:</span>
-            <span><input type="text" name="firstname" placeholder="" required value="Larry"/></span>
+            <span class="field_title_newaddr">New Address?</span>
+            <span>
+              <button id="btnResetForm">Reset form</button>
+            </span>
+          </div>
+          {% endif %}
+          <div>
+            <span class="field_title">First Name:</span>
+            <span><input type="text" name="firstname" id="firstname" placeholder="" required value="{{request.user.first_name}}"/></span>
           </div>
           <div>
-            <span>Last Name:</span>
-            <span><input type="text" name="lastname" placeholder="" required value="Moiola"/></span>
+            <span class="field_title">Last Name:</span>
+            <span><input type="text" name="lastname" id="lastname" placeholder="" required value="{{request.user.last_name}}"/></span>
           </div>
           <div>
-            <span>Address 1:</span>
-            <span><input type="text" name="address1" placeholder="" required value="{% if billing_exists %}{{address1}}{%endif%}"/></span>
+            <span class="field_title">Address 1:</span>
+            <span><input type="text" name="address1" id="address1" placeholder="" required value="{% if billing_exists %}{{address1}}{%endif%}"/></span>
           </div>
           <div>
-            <span>Address 2:</span>
-            <span><input type="text" name="address2" placeholder="" value="{% if billing_exists %}{{address2}}{%endif%}"/></span>
+            <span class="field_title">Address 2:</span>
+            <span><input type="text" name="address2" id="address2" placeholder="" value="{% if billing_exists %}{{address2}}{%endif%}"/></span>
           </div>
           <div>
-            <span>City:</span>
-            <span><input type="text" name="city" placeholder="" required value="{% if billing_exists %}{{city}}{%endif%}"/></span>
+            <span class="field_title">City:</span>
+            <span><input type="text" name="city" id="city" placeholder="" required value="{% if billing_exists %}{{city}}{%endif%}"/></span>
           </div>
           <div>
-            <span>State:</span>
-            <span><select name="state" required>
+            <span class="field_title">State:</span>
+            <span><select name="state" required id="state">
               <option value="---" disabled selected>---</option>
               <option value="AL" {% if billing_exists and state == 'AL' %}selected{%endif%}>Alabama</option>
             	<option value="AK" {% if billing_exists and state == 'AK' %}selected{%endif%}>Alaska</option>
@@ -100,21 +109,24 @@
           </select></span>
           </div>
           <div>
-            <span>Zip Code:</span>
-            <span><input type="text" name="zipcode" placeholder="" required value="{% if billing_exists %}{{zipcode}}{%endif%}"/></span>
+            <span class="field_title">Zip Code:</span>
+            <span><input type="text" name="zipcode" id="zipcode" placeholder="" required value="{% if billing_exists %}{{zipcode}}{%endif%}"/></span>
           </div>
         </div>
         <br>
         <div class="purchase_form">
           <span class="form_title">Payment Information:</span>
+          <div class="fine_print"><u>Note</u>: This information is not stored, it's hardcoded in the HTML for testing.</div>
           <div>
-            <span>Card Number:</span>
-            <span><input type="text" name="creditcard" placeholder="" required pattern="^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$" title="Invalid Card Number" value="4556737586899855"/></span>
+            <span class="field_title">Card Number:</span>
+            <span>
+              <input type="text" name="creditcard" placeholder="" required pattern="^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$" title="Invalid Card Number" value="4556737586899855"/>
+            </span>
           </div>
           <div>
-            <span>Expiration:</span>
+            <span class="field_title">Expiration:</span>
             <span><select name="expiration_month" id="exp_month" required>
-                <option value="---" disabled selected>---</option>
+                <option value="---" disabled !selected>---</option>
                 <option value="01">01</option>
                 <option value="02">02</option>
                 <option value="03">03</option>
@@ -129,7 +141,7 @@
                 <option value="12">12</option>
               </select>
               <select name="expiration_year" id="exp_year" placeholder="" required>
-                <option value="---" disabled selected>---</option>
+                <option value="---" disabled !selected>---</option>
                 <option value="2019">2019</option>
                 <option value="2020">2020</option>
                 <option value="2021">2021</option>
@@ -137,10 +149,11 @@
                 <option value="2023">2023</option>
                 <option value="2024">2024</option>
                 <option value="2025">2025</option>
-              </select></span>
+              </select>
+            </span>
           </div>
           <div>
-            <span>CVV:</span>
+            <span class="field_title">CVV:</span>
             <span>
               <!-- the REGEX pattern does not work.-->
               <!-- Tried changing input type=number but <3, >4 is still accepted -->
@@ -172,5 +185,29 @@
       }
     }
   </script>
+
+  {% if billing_exists %}
+    <script type="text/javascript">
+      let btnResetForm = document.querySelector('#btnResetForm')
+      let firstname = document.querySelector('#firstname')
+      let lastname = document.querySelector('#lastname')
+      let address1 = document.querySelector('#address1')
+      let address2 = document.querySelector('#address2')
+      let city = document.querySelector('#city')
+      let state = document.querySelector('#state')
+      let zipcode = document.querySelector('#zipcode')
+      btnResetForm.onclick = function(event) {
+        firstname.value = ''
+        lastname.value = ''
+        address1.value = ''
+        address2.value = ''
+        city.value = ''
+        state.value = '---'
+        zipcode.value = ''
+        event.preventDefault()
+      }
+    </script>
+  {% endif %}
+
 
 {% endblock %}
