@@ -2,6 +2,8 @@
 
 {% block content %}
 
+{% load tz %}
+
 <h1>Plus page</h1>
 <h2>Hello {% if user.first_name %}{{ user.first_name }}{% else %}{{ user.username }}{% endif %},</h2>
 
@@ -15,6 +17,17 @@
   <div style="background-color:green;color:white;">You have successfully upgraded to Plus.</div>
 {% endif %}
 
-<h3>You have a {{ user.membership_level }} membership which is valid until {{ user.membership_expiry }}</h3>
+<h3>You have a {{ user.membership_level }} membership which is valid until {{ user.membership_expiry|timezone:"US/Pacific" }}</h3>
+
+<script type="text/javascript">
+  let utcDate = "{{ user.membership_expiry }}"
+  console.log(utcDate)
+  let localDate = utcDate;
+  let dt = new Date()
+  let tz = dt.getTimezoneOffset()
+  let formatted = -(tz / 60)
+  console.log(formatted)
+  console.log(utcDate)
+</script>
 
 {% endblock %}
