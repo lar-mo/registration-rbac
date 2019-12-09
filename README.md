@@ -408,7 +408,7 @@ This view handles the form submission for the `purchase_membership` form. The sa
 
 If all these checks succeed, the membership is created and saved in the database.
 
-**First**, (a) the current membership (object) is fetched, (b) the membership_type object is fetched based on selection made on the form, and (c) the date/time one year for current date (`timezone.now()`).
+**First**, (a) the current membership (object) is fetched, (b) the membership_type object is fetched based on selection made on the form, and (c) the date/time one year from current date (`timezone.now()`) (+366 days).
 
 **Second**, the user's membership record is updated in the database.
 

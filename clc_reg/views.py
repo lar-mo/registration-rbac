@@ -369,7 +369,7 @@ def create_membership(request):
     else:
         membership = Membership.objects.get(user_id=request.user.id) # lookup Membership by user.id
         type = MembershipType.objects.get(name=membership_type) # get Plus or Premium object from MembershipType
-        one_year_term = timezone.now() + timezone.timedelta(days=365) # # calculate 1-year in future
+        one_year_term = timezone.now() + timezone.timedelta(days=366) # # calculate 1-year in future
 
         # Update Membership table - update existing record
         membership.membership_type = type                   # set membership_type to Plus or Premium
