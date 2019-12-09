@@ -2,8 +2,6 @@
 
 {% block content %}
 
-{% load tz %}
-
 <h1>Plus page</h1>
 <h2>Hello {% if user.first_name %}{{ user.first_name }}{% else %}{{ user.username }}{% endif %},</h2>
 
@@ -18,21 +16,5 @@
 {% endif %}
 
 <h3>You have a {{ user.membership_level }} membership which is valid until <span id="expiry_date"></span></h3>
-  <!-- {{ user.membership_expiry|timezone:"US/Pacific" }} (UTC: {{ user.membership_expiry }})</h3> -->
-
-<script type="text/javascript">
-  let expiry_date = document.querySelector('#expiry_date')
-  window.onload = convertExpiryToLocal
-  function convertExpiryToLocal() {
-    let utcDate = "{{ user.membership_expiry|date:'Y-m-d H:i:s' }}" // Format stored Membership Expiry date
-    let mytime_utc = new Date(utcDate)                              // Create new Date object from Expiry
-    let mytime_unix = mytime_utc.getTime()                          // Convert to Epoch time (milliseconds)
-    let dt = new (Date)                                             // Create new Date object
-    let tz = dt.getTimezoneOffset() * 60000                         // Calculate timezone offset (milliseconds)
-    let mytime_local = mytime_unix - tz                             // Calculate local time (seconds)
-    let localtime = new Date(mytime_local)                          // Create new Date obj from local Epoch time
-    expiry_date.innerText = localtime.toLocaleString()              // Simplify date format & show on page
-  }
-</script>
 
 {% endblock %}
