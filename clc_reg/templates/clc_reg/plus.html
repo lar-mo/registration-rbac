@@ -3,16 +3,18 @@
 {% block content %}
 
 <h1>Plus page</h1>
+<h2>Hello {% if user.first_name %}{{ user.first_name }}{% else %}{{ user.username }}{% endif %},</h2>
 
-  {% if message == "redir_from_premium" %}
-    <h3>
-      Looks like you're looking for the Premium page.
-      <br>
-      <a href="{% url 'clc_reg:purchase_membership' %}">Click here</a> to upgrade.
-    </h3>
-  {% elif message == "membership_upgraded" %}
-    <div style="background-color:green;color:white;">You have successfully upgraded to Plus.</div>
-  {% endif %}
+{% if message == "redir_from_premium" %}
+  <h3>
+    Looks like you're looking for the Premium page.
+    <br>
+    <a href="{% url 'clc_reg:purchase_membership' %}">Click here</a> to upgrade.
+  </h3>
+{% elif message == "membership_upgraded" %}
+  <div style="background-color:green;color:white;">You have successfully upgraded to Plus.</div>
+{% endif %}
 
+<h3>You have a {{ user.membership_level }} membership which is valid until {{ user.membership_expiry }}</h3>
 
 {% endblock %}

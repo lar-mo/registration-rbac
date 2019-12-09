@@ -3,6 +3,7 @@
 {% block content %}
 
 <h1>Upsell page</h1>
+<h2>Hello {% if user.first_name %}{{ user.first_name }}{% else %}{{ user.username }}{% endif %},</h2>
 
 <h3><a href="{% url 'clc_reg:purchase_membership' %}">Purchase a membership</a></h3>
 

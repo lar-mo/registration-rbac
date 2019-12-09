@@ -3,9 +3,12 @@
 {% block content %}
 
 <h1>Premium page</h1>
+<h2>Hello {% if user.first_name %}{{ user.first_name }}{% else %}{{ user.username }}{% endif %},</h2>
 
 {% if message == "membership_upgraded" %}
   <div style="background-color:green;color:white;">You have successfully upgraded to Premium.</div>
 {% endif %}
+
+<h3>You have a {{ user.membership_level }} membership which is valid until {{ user.membership_expiry }}</h3>
 
 {% endblock %}

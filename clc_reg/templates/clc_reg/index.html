@@ -17,7 +17,7 @@
       <div style="background-color:blue;color:white;">Your new code was sent.</div>
     {% endif %}
     <h1>Unsecured page, anonymous ok</h1>
-    <h2>Hello, {{ user.username }}</h2>
+    <h2>Hello {% if user.first_name %}{{ user.first_name }}{% else %}{{ user.username }}{% endif %},</h2>
     <h3>Go to: <a href="{% url 'clc_reg:special_page' %}">Secured Page</a> <i>version 1</i></h3>
     <h3>Go to: <a href="{% url 'clc_reg:special_page2' %}">Secured Page</a> <i>version 2</i></h3>
     {% if user.is_confirmed %}
