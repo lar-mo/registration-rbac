@@ -68,10 +68,6 @@ class BillingInformation(models.Model):
      city               = models.CharField(max_length=200)
      state              = models.CharField(max_length=20)
      zipcode            = models.CharField(max_length=10)
-     creditcard         = models.CharField(max_length=20)
-     expiration_month   = models.CharField(max_length=20)
-     expiration_year    = models.CharField(max_length=20)
-     cid                = models.CharField(max_length=20)
      purchaser          = models.ForeignKey(User, on_delete=models.PROTECT, related_name='BillingInfo')
 
      def __str__(self):

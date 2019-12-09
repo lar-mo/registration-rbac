@@ -288,25 +288,20 @@ def purchase_membership(request):
         return HttpResponseRedirect(reverse('clc_reg:index')+'?message=pending')
     # otherwise, render the purchase page
     else:
-        existing_billing_info = BillingInformation.objects.get(purchaser_id=request.user.id)
-        if existing_billing_info is not None:
-            # print("existing billing information")
+        try:
+            existing_billing_info = BillingInformation.objects.get(purchaser_id=request.user.id)
             context = {
                 'address1': existing_billing_info.address1,
                 'address2': existing_billing_info.address2,
                 'city': existing_billing_info.city,
                 'state': existing_billing_info.state,
                 'zipcode': existing_billing_info.zipcode,
-                'creditcard': existing_billing_info.creditcard,
-                'expiration_month': existing_billing_info.expiration_month,
-                'expiration_year': existing_billing_info.expiration_year,
-                'cid': existing_billing_info.cid,
                 'billing_exists': True,
             }
             return render(request, 'clc_reg/purchase_membership.html', context)
-        else:
-            # print("no billing information")
-            return render(request, 'clc_reg/purchase_membership.html')
+        except:
+            context = {'billing_exists': False}
+            return render(request, 'clc_reg/purchase_membership.html', context)
 
 def validate_credit_card(cc_number):            #
     numbers = list(cc_number)                   # Convert the input string into a list
@@ -341,9 +336,6 @@ def create_membership(request):
     state = request.POST['state']
     zipcode = request.POST['zipcode'].strip()
     creditcard = request.POST['creditcard'].strip()
-    expiration_month = request.POST['expiration_month']
-    expiration_year = request.POST['expiration_year']
-    cid = request.POST['cid'].strip()
     next = request.POST['next'].strip()
 
     ###
@@ -410,20 +402,24 @@ def create_membership(request):
         # else
         #  create a new recording (add operation)
         ###
+        try:
+            billing_info = BillingInformation.objects.get(purchaser_id=request.user.id)
+            billing_info.address1=address1                      # set values from FORM values
+            billing_info.address2=address2                      #
+            billing_info.city=city                              #
+            billing_info.state=state                            #
+            billing_info.zipcode=zipcode                        #
+            billing_info.save()                                 # save to the database
+        except:
+            billing_info = BillingInformation(                  # build an new object from following values
+                address1=address1,                              # set values from FORM values
+                address2=address2,                              #
+                city=city,                                      #
+                state=state,                                    #
+                zipcode=zipcode,                                #
+                purchaser_id=request.user.id)                   #
+            billing_info.save()                                 # save to the database
 
-        # Update Billing Information table - CREATE new record
-        billing_info = BillingInformation(                  # create record in the database
-            address1=address1,                              # set values from FORM values
-            address2=address2,                              #
-            city=city,                                      #
-            state=state,                                    #
-            zipcode=zipcode,                                #
-            creditcard=creditcard,                          # *** maybe shouldn't save cc# info ***
-            expiration_month=expiration_month,              # *** maybe shouldn't save cc# info ***
-            expiration_year=expiration_year,                # *** maybe shouldn't save cc# info ***
-            cid=cid,                                        # *** maybe shouldn't save cc# info ***
-            purchaser_id=request.user.id)                   #
-        billing_info.save()                                 # save to the database
 
         # Send purchase confirmation email
         subject = 'Membership purchased'

@@ -27,7 +27,7 @@
             <span><input type="text" name="firstname" placeholder="" required value="Larry"/></span>
           </div>
           <div>
-            <span>Last Name: </span>
+            <span>Last Name:</span>
             <span><input type="text" name="lastname" placeholder="" required value="Moiola"/></span>
           </div>
           <div>
@@ -109,34 +109,34 @@
           <span class="form_title">Payment Information:</span>
           <div>
             <span>Card Number:</span>
-            <span><input type="text" name="creditcard" placeholder="" required pattern="^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$" title="Invalid Card Number" value="{% if billing_exists %}{{creditcard}}{%endif%}"/></span>
+            <span><input type="text" name="creditcard" placeholder="" required pattern="^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$" title="Invalid Card Number" value="4556737586899855"/></span>
           </div>
           <div>
             <span>Expiration:</span>
             <span><select name="expiration_month" id="exp_month" required>
                 <option value="---" disabled selected>---</option>
-                <option value="01" {% if billing_exists and expiration_month == '01' %}selected{%endif%}>01</option>
-                <option value="02" {% if billing_exists and expiration_month == '02' %}selected{%endif%}>02</option>
-                <option value="03" {% if billing_exists and expiration_month == '03' %}selected{%endif%}>03</option>
-                <option value="04" {% if billing_exists and expiration_month == '04' %}selected{%endif%}>04</option>
-                <option value="05" {% if billing_exists and expiration_month == '05' %}selected{%endif%}>05</option>
-                <option value="06" {% if billing_exists and expiration_month == '06' %}selected{%endif%}>06</option>
-                <option value="07" {% if billing_exists and expiration_month == '07' %}selected{%endif%}>07</option>
-                <option value="08" {% if billing_exists and expiration_month == '08' %}selected{%endif%}>08</option>
-                <option value="09" {% if billing_exists and expiration_month == '09' %}selected{%endif%}>09</option>
-                <option value="10" {% if billing_exists and expiration_month == '10' %}selected{%endif%}>10</option>
-                <option value="11" {% if billing_exists and expiration_month == '11' %}selected{%endif%}>11</option>
-                <option value="12" {% if billing_exists and expiration_month == '12' %}selected{%endif%}>12</option>
+                <option value="01">01</option>
+                <option value="02">02</option>
+                <option value="03">03</option>
+                <option value="04">04</option>
+                <option value="05">05</option>
+                <option value="06">06</option>
+                <option value="07">07</option>
+                <option value="08">08</option>
+                <option value="09">09</option>
+                <option value="10" selected>10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
               </select>
               <select name="expiration_year" id="exp_year" placeholder="" required>
                 <option value="---" disabled selected>---</option>
-                <option value="2019" {% if billing_exists and expiration_year == '2019' %}selected{%endif%}>2019</option>
-                <option value="2020" {% if billing_exists and expiration_year == '2020' %}selected{%endif%}>2020</option>
-                <option value="2021" {% if billing_exists and expiration_year == '2021' %}selected{%endif%}>2021</option>
-                <option value="2022" {% if billing_exists and expiration_year == '2022' %}selected{%endif%}>2022</option>
-                <option value="2023" {% if billing_exists and expiration_year == '2023' %}selected{%endif%}>2023</option>
-                <option value="2024" {% if billing_exists and expiration_year == '2024' %}selected{%endif%}>2024</option>
-                <option value="2025" {% if billing_exists and expiration_year == '2025' %}selected{%endif%}>2025</option>
+                <option value="2019">2019</option>
+                <option value="2020">2020</option>
+                <option value="2021">2021</option>
+                <option value="2022" selected>2022</option>
+                <option value="2023">2023</option>
+                <option value="2024">2024</option>
+                <option value="2025">2025</option>
               </select></span>
           </div>
           <div>
@@ -144,7 +144,7 @@
             <span>
               <!-- the REGEX pattern does not work.-->
               <!-- Tried changing input type=number but <3, >4 is still accepted -->
-              <input type="text" name="cid" maxlength="4" required !pattern="/^[0-9]{3,4}$/" !title="3 or 4 digits" value="{% if billing_exists %}{{cid}}{%endif%}"/>
+              <input type="text" name="cid" maxlength="4" required !pattern="/^[0-9]{3,4}$/" !title="3 or 4 digits" value="567"/>
             </span>
           </div>
         </div>

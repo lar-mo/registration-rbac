@@ -346,6 +346,9 @@ When a Plus user visits the form, "Premium" is the only available option. (The "
 If there is a record for this user in `BillingInformation` then that data is loaded into the form. This is done with the template rendering and template literals on the value parameters for each field on the form.
 
 Credit Card validation - There are three checks for the three fields (credit card number, expiration date, CVC):
+
+\*\*\* *This is just for demonstration purposes. The transmission and storage of a credit card number, expiration date, and CVC should be handled securely to protect against fraudulent use.* \*\*\*
+
 1. The form uses "pattern" with a regex expression that covers the formats of all the major credit cards.
 2. There is a credit card validator script on the backend that is performed when the form is submitted.
 3. An expiration date must be current month and current year, or later. This is done with Javascript on the form.
@@ -357,6 +360,9 @@ The CVC number cannot be longer than 4 digits on the form. Note: Unfortunately, 
 _Note: This logic needs to be optimized, maybe to match `Create Membership`._
 
 ### Validate Credit Card ###
+
+*Disclaimer*:
+*This is just for demonstration purposes. The transmission and storage of a credit card number, expiration date, and CVC should be handled securely to protect against fraudulent use.*
 
 ```
 - Purpose: Handles credit card validation for Create Membership
@@ -491,9 +497,5 @@ address2                    CharField
 city                        CharField
 state                       CharField
 zipcode                     CharField
-creditcard                  CharField
-expiration_month            CharField
-expiration_year             CharField
-cid                         CharField
 purchaser                   ForeignKey(User)
 ```
