@@ -63,16 +63,6 @@
         /* align-items: center; */
         padding: 15px
       }
-      .blurb_blue_bold {
-        color:blue;
-        font-weight:bold
-      }
-      .blurb_bold {
-        font-weight:bold
-      }
-      #no-li-bullet {
-        list-style-type: none
-      }
       .purchase_form {
         width: 500px;
         background-color: lightblue;
@@ -150,81 +140,10 @@
         </div>
 
         {% block content %}{% endblock %}
+
         <div class="blurb">
-          Originally, this application was a simple registration and login system (URS) which included:
-          <ul>
-            <li>A two-step registration system and login,</li>
-            <li>Token generator and confirmation emails,</li>
-            <li>Simple error handling and messaging via url parameters,</li>
-            <li>
-              {% url 'clc_reg:index' as index_url %}
-              {% if request.path == index_url %}<span class="blurb_blue_bold">{% endif %}
-              An unsecured page (anonymous visitors ok)
-              {% if request.path == index_url %}</span>{% endif %}
-            <li>
-              {% if "special_page" in request.path %}<span class="blurb_blue_bold">{% endif %}
-              Two secured pages (both require a logged in/confirmed user):
-              {% if "special_page" in request.path %}</span>{% endif %}
-              <ul>
-                <li>
-                  {% url 'clc_reg:special_page' as sp_url %}
-                  {% if request.path == sp_url %}<span class="blurb_bold">{% endif %}
-                  VERSION 1 - Confirmation status is calculated in views.py.
-                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>If confirmed=False</u>, user is redirected to the index page with a small error message and a link to resend the CLC link.
-                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>If confirmed=True</u>, user is passed through to the secure page.
-                  <br>This implementation is used for directing users to different pages based on their confirmation status.
-                  <br>It is available on pages where it has been implemented in the view.
-                  <br>It could easily be retooled to return an integer for different member levels.
-                  <br>Then, be used for sending users to an upgrade/upsell page, for example.
-                  {% if request.path == sp_url %}</span>{% endif %}
-                </li>
-                <li>
-                  {% url 'clc_reg:special_page2' as sp2_url %}
-                  {% if request.path == sp2_url %}<span class="blurb_bold">{% endif %}
-                  VERSION 2 - Confirmation status is calculated in models.py and passed to the template.
-                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>If confirmed=False</u>, an error message is shown on the secure page.
-                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>If confirmed=True</u>, the secure page content is visible.
-                  <br>This implementation is used for showing different content on the same page based on user's confirmation status.
-                  <br>It is available globally via an extension to the built-in user system.
-                  <br>It could easily be retooled to return an integer for different member levels.
-                  <br>Then, be used for showing different content or unlocking member-specific features, for example.
-                  {% if request.path == sp2_url %}</span>{% endif %}
-                </li>
-              </ul>
-            </li>
-          </ul>
-          Update: A simple three-tiered membership system has been added to this app.
-          <ul>
-            <li>All registered users automatically have a Basic membership.</li>
-            <li>The middle level is Plus and the top level is Premium.</li>
-            <li>Premium users can see the Plus user's page(s).</li>
-            <li>Basic memberships have an expiration of 2099-12-31 at midnight.</li>
-            <li>Plus and Premium memberships must have a expiration date.
-            <li>When a Plus or Premium membership expires it reverts a Basic membership.</li>
-            <li>The is_active flag is meant as a way to temporarily disable an account.</li>
-            <li>There are 4 additional page types:
-              <ul>
-                <li>Plus - content that is available to Plus members (and Premium)</li>
-                <li>Premium - content that is available to Premium members</li>
-                <li>Account Error - landing page for Inactive accounts when trying to access a membership page</li>
-                <li>Expired Account - landing page for Expired accounts when trying to access a membership page</li>
-              </ul>
-            </li>
-          </ul>
-            <li id="no-li-bullet">
-              <pre>
-  --------------------------------------------------------
-  <b>Features        Basic   Plus    Premium   (page)</b>
-  --------------------------------------------------------
-  cool thing        x       x       x       (index.html)
-  --------------------------------------------------------
-  special thing             x       x       (plus.html)
-  --------------------------------------------------------
-  amazing thing                     x       (premium.html)
-  --------------------------------------------------------
-              </pre>
-            </li>
-          </ul>
+          <span><b>Documentation for this Application:</b> <a href="https://github.com/lar-mo/registration-rbac>" target="_blank">https://github.com/lar-mo/registration-rbac</a> [ <a href="https://github.com/lar-mo/registration-rbac/blob/master/README.md" target="_blank">README.md</a> ]
+          </span>
         </div>
       </main>
       <script type="text/javascript">
