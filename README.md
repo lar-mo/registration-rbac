@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-**Two Step Registration and Three-Tier Membership (RBAC)**
+**Two-Step Registration and Three-Tier Membership (RBAC)**
 
 After experimenting with the `django-registation` (https://django-registration.readthedocs.io/en/3.0.1/), I wanted to create my own solution. My intention is implement a two-step registration process to my Community Lending Library app.
 
@@ -89,6 +89,8 @@ This data is powered by User methods defined in `models.py`:
 - user.membership_expiry
 - user.membership_isexpired
 ```
+
+## Two-Step Registration ##
 
 ### Registration / Login ###
 
@@ -222,6 +224,8 @@ This view handles sending the various notification emails:
 - Account Confirmed (called by `confirmation`)
 - Membership purchased (called by `create_membership`)
 
+`send_notification` takes these parameters are: (1) subject, (2) page, (3) clc_code, (4) host, (5) level, (6) expiration
+
 The functionality is built around `send_mail` from `django.core.mail` and `render_to_string` from `django.template.loader`. `render_to_string` contains two parts, the template and data (variables) which are merged when (`send_mail`) is called. `send_mail` takes six parameters:
 1. subject
 2. msg_plain (string)
@@ -229,6 +233,12 @@ The functionality is built around `send_mail` from `django.core.mail` and `rende
 4. recipient
 5. fail_silently=False
 6. html_message=msg_html (string)
+
+***I would like to make these four optional: clc_code, host, level, expiration
+The issue is here: render_to_string() and the dictionary, the template’s context for rendering.
+Lookup:*** `**args` and `**kwargs`
+
+***Currently, an empty string is passed when value is not needed, as a workaround.***
 
 ### Confirmation ###
 
@@ -246,6 +256,8 @@ The value is taken from the url parameter (clc_code). There are a couple short-c
 Then, if the expiration date greater than the current date/time, the `confirmed` Boolean is switched to `True`.
 
 Finally, a Welcome message is sent upon successfully confirming the account.
+
+## Three-Tier Membership (RBAC) ##
 
 ### Check Membership ###
 
