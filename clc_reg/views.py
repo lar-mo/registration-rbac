@@ -447,3 +447,6 @@ def account_error(request):
 @login_required
 def upsell(request):
     return render(request, 'clc_reg/upsell.html')
+
+def about(request):
+    return render(request, 'clc_reg/about.html')

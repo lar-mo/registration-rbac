@@ -1,4 +1,4 @@
-# Registration project
+# Registration & Membership project
 
 ## Project Overview
 

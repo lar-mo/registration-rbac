@@ -38,6 +38,9 @@ urlpatterns = [
     # Displays Upsell page
     path('upsell/', views.upsell, name='upsell'),
 
+    # Displays About page
+    path('about/', views.about, name='about'),    
+
     # Displays Plus page
     path('plus/', views.plus, name='plus'),
 
