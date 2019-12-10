@@ -413,7 +413,7 @@ If all these checks succeed, the membership is created and saved in the database
 
 **Second**, the user's membership record is updated in the database.
 
-**Third**, the Transaction table is update is the purchase date, membership purchase, and the current user.
+**Third**, the Transaction table is updated with the purchase date, membership purchase, and the current user.
 
 **Fourth**, the user's first and last name is added to their User record.
 
