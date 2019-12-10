@@ -16,5 +16,6 @@
 {% endif %}
 
 <h3>You have a {{ user.membership_level }} membership which is valid until <span id="expiry_date"></span></h3>
+<h3>Go to: <a href="{% url 'clc_reg:premium' %}">Premium</a></h3>
 
 {% endblock %}
