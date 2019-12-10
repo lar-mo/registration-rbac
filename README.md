@@ -224,7 +224,7 @@ This view handles sending the various notification emails:
 - Account Confirmed (called by `confirmation`)
 - Membership purchased (called by `create_membership`)
 
-`send_notification` takes these parameters are: (1) subject, (2) page, (3) clc_code, (4) host, (5) level, (6) expiration
+`send_notification` takes these additional parameters: (1) subject, (2) page, (3) clc_code, (4) host, (5) level, (6) expiration
 
 The functionality is built around `send_mail` from `django.core.mail` and `render_to_string` from `django.template.loader`. `render_to_string` contains two parts, the template and data (variables) which are merged when (`send_mail`) is called. `send_mail` takes six parameters:
 1. subject
