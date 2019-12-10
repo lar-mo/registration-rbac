@@ -132,6 +132,8 @@ See: https://stackoverflow.com/questions/29742845/django-how-do-i-use-is-active-
 
 This view handles the registration form submission. If the `username` already existing in the database, an error message is shown. Additional validation (_all fields are required_) is enforced only on the front-end.
 
+Note: Password strength can be validated in the input field parameter `pattern` and `title`. Unfortunately, it's not working but the regex is confirmed working. See: <a href="https://www.thepolyglotdeveloper.com/2015/05/use-regex-to-test-password-strength-in-javascript/" target="\_new">https://www.thepolyglotdeveloper.com/2015/05/use-regex-to-test-password-strength-in-javascript/</a>
+
 If those checks succeed, the following actions occur:
 1. Account is created (built-in `create_user` model of User class)
 2. New user is logged in
