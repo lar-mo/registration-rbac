@@ -207,7 +207,6 @@ def confirmation(request):
         # if valid_code is expired, redirect to home page and tell user account is expired
         return HttpResponseRedirect(reverse('clc_reg:index')+'?message=expired')
 
-
 @login_required
 def check_membership(request):
     try:
