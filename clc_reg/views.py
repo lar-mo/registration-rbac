@@ -142,7 +142,7 @@ def special_page(request):
     confirmed = VerifyRegistration.objects.get(user_id=request.user.id) # lookup VerifyRegistration by user.id
     if confirmed.confirmed:                                     # if confirmed.confirmed (boolean) = true (1)
         return render(request, 'clc_reg/special_page.html')     # then go to special_page
-    else:                                                       # else go to index?message=pending
+    else:                                                       # else go to index page with message=pending
         return HttpResponseRedirect(reverse('clc_reg:index')+'?message=pending')
 
 @login_required
@@ -155,7 +155,8 @@ def logout_user(request):
 
 # Can clc_code, host, level, expiration be optional?
 # The problem seems to be with render_to_string (see lines 167, 168).
-# Possible solution: https://stackoverflow.com/questions/9539921/how-do-i-create-a-python-function-with-optional-arguments
+# Possible solution:
+# https://stackoverflow.com/questions/9539921/how-do-i-create-a-python-function-with-optional-arguments
 def send_notification(request, subject, page, clc_code, host, level, expiration):
     username = request.user.username
     msg_plain = render_to_string('clc_reg/email.txt', {'username': username, 'page': page, 'clc_code': clc_code, 'host': host, 'level': level, 'expiration': expiration})
@@ -389,18 +390,7 @@ def create_membership(request):
         user_info.last_name = lastname                      # set new last name
         user_info.save()                                    # save to the database
 
-        ### Account for existing record
-        ### pre-populate this form (use case: upgrading from Plus to Premium)
-        ### This should be done on the client side - when rendering purchase_membership()
-
-        ### Need to pass something from the form to determine whether to create or update record:
-        ### hidden form value => request.POST['update'] - true/false?
-        ### Or, check for existing record here and adjust accordingly
-        # if record exists in BillingInformation for user_id
-        #  save any changes (update operation)
-        # else
-        #  create a new recording (add operation)
-        ###
+        ### Check for existing record
         try:
             billing_info = BillingInformation.objects.get(purchaser_id=request.user.id)
             billing_info.address1=address1                      # set values from FORM values
