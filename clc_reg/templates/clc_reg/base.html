@@ -124,6 +124,15 @@
         margin: 30px;
         background-color: #FFF;
       }
+      .two_column {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+      }
+      .page_image {
+        padding: 15px;
+      }
     </style>
   </head>
     <body>
@@ -182,6 +191,7 @@
       {% endif %}
 
       <script type="text/javascript">
+        console.log("username: {{ user.username }}")
         console.log("isConfirmed? {{ user.is_confirmed }}")
         console.log("isActive? {{ user.membership_isactive }}")
         console.log("Level: {{ user.membership_level }}")

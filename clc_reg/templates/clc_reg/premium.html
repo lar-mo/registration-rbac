@@ -2,14 +2,22 @@
 
 {% block content %}
 
-<h1>Premium page</h1>
-<h2>Hello {% if user.first_name %}{{ user.first_name }}{% else %}{{ user.username }}{% endif %},</h2>
+<div class="two_column">
+  <div class="page_image">
+    <img src="https://lar-mo.com/images/pigs2_brick_prem.png"/>
+  </div>
+  <div class="page_content">
 
-{% if message == "membership_upgraded" %}
-  <div style="background-color:green;color:white;">You have successfully upgraded to Premium.</div>
-{% endif %}
+    <h1>Premium page</h1>
+    <h2>Hello {% if user.first_name %}{{ user.first_name }}{% else %}{{ user.username }}{% endif %},</h2>
 
-<h3>You have a {{ user.membership_level }} membership which is valid until <span id="expiry_date"></span></h3>
-<h3>Go to: <a href="{% url 'clc_reg:plus' %}">Plus</a></h3>
+    {% if message == "membership_upgraded" %}
+      <div style="background-color:green;color:white;">You have successfully upgraded to Premium.</div>
+    {% endif %}
+
+    <h3>You have a {{ user.membership_level }} membership which is valid until <span id="expiry_date"></span></h3>
+    <h3>Go to: <a href="{% url 'clc_reg:plus' %}">Plus</a></h3>
+  </div>
+</div>
 
 {% endblock %}

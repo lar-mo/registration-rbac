@@ -2,9 +2,15 @@
 
 {% block content %}
 
-<h1>Upsell page</h1>
-<h2>Hello {% if user.first_name %}{{ user.first_name }}{% else %}{{ user.username }}{% endif %},</h2>
-
-<h3><a href="{% url 'clc_reg:purchase_membership' %}">Purchase a membership</a></h3>
+<div class="two_column">
+  <div class="page_image">
+    <img src="https://lar-mo.com/images/pigs_all_three-basic-in-color.png"/>
+  </div>
+  <div class="page_content">
+    <h1>Upsell page</h1>
+    <h2>Hello {% if user.first_name %}{{ user.first_name }}{% else %}{{ user.username }}{% endif %},</h2>
+    <h3><a href="{% url 'clc_reg:purchase_membership' %}">Purchase a membership</a></h3>
+  </div>
+</div>
 
 {% endblock %}
