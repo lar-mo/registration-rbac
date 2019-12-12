@@ -2,6 +2,10 @@
 
 {% block content %}
 
+{% if message == "membership_upgraded" %}
+  <div style="background-color:green;color:white;">You have successfully upgraded to Plus.</div>
+{% endif %}
+
 <div class="two_column">
   <div class="page_image">
     <img src="https://lar-mo.com/images/pigs1_wood_plus.png"/>
@@ -12,14 +16,8 @@
       Are you're looking for the <b>Premium</b> page? <a href="{% url 'clc_reg:purchase_membership' %}">Click here</a> to upgrade.
     </div>
     {% endif %}
-
     <h1>Plus page</h1>
     <h2>Hello {% if user.first_name %}{{ user.first_name }}{% else %}{{ user.username }}{% endif %},</h2>
-
-    {% if message == "membership_upgraded" %}
-      <div style="background-color:green;color:white;">You have successfully upgraded to Plus.</div>
-    {% endif %}
-
     <h3>You have a {{ user.membership_level }} membership which is valid until <span id="expiry_date"></span></h3>
     {% if user.membership_level == "Premium" %}
     <h3>Go to: <a href="{% url 'clc_reg:premium' %}">Premium</a></h3>

@@ -2,25 +2,28 @@
 
 {% block content %}
 
+{% if message == "pending" %}
+  <div style="background-color:orange;color:white;">You need to confirm your account. <a href="{% url 'clc_reg:send_new_key' %}">Send new key</a></div>
+{% elif message == "confirmed" %}
+  <div style="background-color:green;color:white;">Your account is confirmed.</div>
+{% elif message == "expired" %}
+  <div style="background-color:red;color:white;">Your confirmation code is expired. <a href="{% url 'clc_reg:send_new_key' %}">Send new key</a></div>
+{% elif message == "error" %}
+  <div style="background-color:red;color:white;">There was a problem confirming your account. <a href="{% url 'clc_reg:send_new_key' %}">Send new key</a></div>
+{% elif message == "verified" %}
+  <div style="background-color:blue;color:white;">Your account is already verified.</div>
+{% elif message == "resent" %}
+  <div style="background-color:blue;color:white;">Your new code was sent.</div>
+{% elif message == "logout" %}
+  <div style="background-color:blue;color:white;">You've been logged out.</div>
+{% endif %}
+
 <div class="two_column">
   <div class="page_image">
     <img src="https://lar-mo.com/images/pigs0_straw_basic.png"/>
   </div>
   <div class="page_content">
     {% if user.is_authenticated %}
-      {% if message == "pending" %}
-        <div style="background-color:orange;color:white;">You need to confirm your account. <a href="{% url 'clc_reg:send_new_key' %}">Send new key</a></div>
-      {% elif message == "confirmed" %}
-        <div style="background-color:green;color:white;">Your account is confirmed.</div>
-      {% elif message == "expired" %}
-        <div style="background-color:red;color:white;">Your confirmation code is expired. <a href="{% url 'clc_reg:send_new_key' %}">Send new key</a></div>
-      {% elif message == "error" %}
-        <div style="background-color:red;color:white;">There was a problem confirming your account. <a href="{% url 'clc_reg:send_new_key' %}">Send new key</a></div>
-      {% elif message == "verified" %}
-        <div style="background-color:blue;color:white;">Your account is already verified.</div>
-      {% elif message == "resent" %}
-        <div style="background-color:blue;color:white;">Your new code was sent.</div>
-      {% endif %}
       <h1>Unsecured page, anonymous ok</h1>
       <h2>Hello {% if user.first_name %}{{ user.first_name }}{% else %}{{ user.username }}{% endif %},</h2>
       <h3>Go to: <a href="{% url 'clc_reg:special_page' %}">Secured Page</a> <i>version 1</i></h3>
@@ -29,11 +32,7 @@
       <h3>Go to: <a href="{% url 'clc_reg:plus' %}">Plus</a></h3>
       <h3>Go to: <a href="{% url 'clc_reg:premium' %}">Premium</a></h3>
       {% endif %}
-
     {% else %}
-      {% if message == "logout" %}
-        <div style="background-color:blue;color:white;">You've been logged out.</div>
-      {% endif %}
       <h1>Unsecured page, anonymous ok</h1>
       <h2>Hello, friend</h2>
     {% endif %}
