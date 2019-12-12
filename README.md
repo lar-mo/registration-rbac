@@ -291,7 +291,7 @@ This gives the calling view flexibility to do whatever is best with the returned
 - Path: plus/
 ```
 
-This view displays an example of a page that requires as Plus or Premium membership. The membership is validated by calling the `check_membership(request)` function. The redirect logic is handled here for Basic and non-valid memberships (Inactive, Expired, Other). This templates supports URL `messages`.
+This view displays an example of a page that requires as Plus or Premium membership. Registration must be confirmed to access the page. The membership is validated by calling the `check_membership(request)` function. The redirect logic is handled here for Basic and non-valid memberships (Inactive, Expired, Other). This templates supports URL `messages`.
 
 The `membership_level` and `expiration` are displayed here. The expiration date is stored as UTC in the database but is converted to the user's local timezone via Javascript. The JS is included in the `base.html` template and is conditionally loaded based on the `request.path`.
 
@@ -304,7 +304,7 @@ The `membership_level` and `expiration` are displayed here. The expiration date 
 - Path: premium/
 ```
 
-This view displays an example of a page that requires as Premium membership. The membership is validated by calling the `check_membership(request)` function. The redirect logic is handled here for Basic, Plus and non-valid memberships (Inactive, Expired, Other). This templates supports URL `messages`.
+This view displays an example of a page that requires as Premium membership. Registration must be confirmed to access the page. The membership is validated by calling the `check_membership(request)` function. The redirect logic is handled here for Basic, Plus and non-valid memberships (Inactive, Expired, Other). This templates supports URL `messages`.
 
 The `membership_level` and `expiration` are displayed here. The expiration date is stored as UTC in the database but is converted to the user's local timezone via Javascript. The JS is included in the `base.html` template and is conditionally loaded based on the `request.path`.
 
