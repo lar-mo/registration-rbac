@@ -2,9 +2,16 @@
 
 {% block content %}
 
-  <h1>Secured page <i>version 1</i>, verified account required</h1>
-  <h2>Hello {% if user.first_name %}{{ user.first_name }}{% else %}{{ user.username }}{% endif %},</h2>
-  <h3>Go to: <a href="{% url 'clc_reg:index' %}">Unsecured Page</a></h3>
-  <h3>Go to: <a href="{% url 'clc_reg:special_page2' %}">Secured Page</a> <i>version 2</i></h3>
+<div class="two_column">
+  <div class="page_image">
+    <img src="https://lar-mo.com/images/special_page_confirmed.png"/>
+  </div>
+  <div class="page_content">
+    <h1>Secured page <i>version 1</i>, verified account required</h1>
+    <h2>Hello {% if user.first_name %}{{ user.first_name }}{% else %}{{ user.username }}{% endif %},</h2>
+    <h3>Go to: <a href="{% url 'clc_reg:index' %}">Unsecured Page</a></h3>
+    <h3>Go to: <a href="{% url 'clc_reg:special_page2' %}">Secured Page</a> <i>version 2</i></h3>
+  </div>
+</div>
 
 {% endblock %}

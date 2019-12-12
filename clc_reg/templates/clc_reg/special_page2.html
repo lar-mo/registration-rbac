@@ -2,16 +2,27 @@
 
 {% block content %}
 
-{% if user.is_confirmed %}
-  <h1>Secured page <i>version 2</i>, verified account required</h1>
-  <h2>Hello {% if user.first_name %}{{ user.first_name }}{% else %}{{ user.username }}{% endif %},</h2>
-  <h3>Go to: <a href="{% url 'clc_reg:index' %}">Unsecured Page</a></h3>
-  <h3>Go to: <a href="{% url 'clc_reg:special_page' %}">Secured Page</a> <i>version 1</i></h3>
-{% else %}
-  <h1>Secured page <i>version 2</i>, verified account required</h1>
-  <h2>Hello {% if user.first_name %}{{ user.first_name }}{% else %}{{ user.username }}{% endif %},</h2>
-  <h3>Your account is not confirmed. <a href="{% url 'clc_reg:send_new_key' %}">Send new key</a></h3>
-  <h3>Go to: <a href="{% url 'clc_reg:index' %}">Unsecured Page</a></h3>
-{% endif %}
+<div class="two_column">
+  <div class="page_image">
+    {% if user.is_confirmed %}
+      <img src="https://lar-mo.com/images/special_page_confirmed.png"/>
+    {% else %}
+      <img src="https://lar-mo.com/images/special_page_pending.png"/>
+    {% endif %}
+  </div>
+  <div class="page_content">
+    {% if user.is_confirmed %}
+      <h1>Secured page <i>version 2</i>, verified account required</h1>
+      <h2>Hello {% if user.first_name %}{{ user.first_name }}{% else %}{{ user.username }}{% endif %},</h2>
+      <h3>Go to: <a href="{% url 'clc_reg:index' %}">Unsecured Page</a></h3>
+      <h3>Go to: <a href="{% url 'clc_reg:special_page' %}">Secured Page</a> <i>version 1</i></h3>
+    {% else %}
+      <h1>Secured page <i>version 2</i>, verified account required</h1>
+      <h2>Hello {% if user.first_name %}{{ user.first_name }}{% else %}{{ user.username }}{% endif %},</h2>
+      <h3>Your account is not confirmed. <a href="{% url 'clc_reg:send_new_key' %}">Send new key</a></h3>
+      <h3>Go to: <a href="{% url 'clc_reg:index' %}">Unsecured Page</a></h3>
+    {% endif %}
+  </div>
+</div>
 
 {% endblock %}
