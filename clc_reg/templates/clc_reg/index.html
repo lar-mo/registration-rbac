@@ -20,7 +20,17 @@
 
 <div class="two_column">
   <div class="page_image">
-    <img src="https://lar-mo.com/images/pigs0_straw_basic.png"/>
+    {% if user.is_authenticated %}
+      {% if user.membership_level == "Basic" %}
+        <img src="https://lar-mo.com/images/pigs_all_three0-basic_color.png"/>
+      {% elif user.membership_level == "Plus" %}
+        <img src="https://lar-mo.com/images/pigs_all_three1-plus_color.png"/>
+      {% elif user.membership_level == "Premium" %}
+        <img src="https://lar-mo.com/images/pigs_all_three2-premium_color.png"/>
+      {% endif %}
+    {% else %}
+    <img src="https://lar-mo.com/images/pigs_all_three-anonymous.png"/>
+    {% endif %}
   </div>
   <div class="page_content">
     {% if user.is_authenticated %}
