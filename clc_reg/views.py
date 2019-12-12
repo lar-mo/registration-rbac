@@ -139,8 +139,7 @@ def send_new_key(request):
 
 @login_required
 def special_page(request):
-    confirmed = VerifyRegistration.objects.get(user_id=request.user.id) # lookup VerifyRegistration by user.id
-    if confirmed.confirmed:                                     # if confirmed.confirmed (boolean) = true (1)
+    if request.user.is_confirmed():                             # if request.user.is_confirmed = true
         return render(request, 'clc_reg/special_page.html')     # then go to special_page
     else:                                                       # else go to index page with message=pending
         return HttpResponseRedirect(reverse('clc_reg:index')+'?message=pending')
@@ -233,6 +232,9 @@ def plus(request):
         'message': message,
         'next': next
     }
+    if not request.user.is_confirmed():
+        return HttpResponseRedirect(reverse('clc_reg:index')+'?message=pending')
+
     level = check_membership(request)
     if level in ['Plus', 'Premium']:                            # check if membership type is Plus
         return render(request, 'clc_reg/plus.html', context)    # then proceed to Plus page
@@ -253,6 +255,9 @@ def premium(request):
         'message': message,
         'next': next
     }
+    if not request.user.is_confirmed():
+        return HttpResponseRedirect(reverse('clc_reg:index')+'?message=pending')
+
     level = check_membership(request)
     ### level = request.user.membership_level() # this won't work for Expired or Inactive accounts
     if level == 'Premium':                                      # check if membership type is Premium
