@@ -58,10 +58,10 @@ amazing thing                     x       (premium.html)
 - There are 6 additional page types:
   - **Plus** - content that is available to Plus members (and Premium)
   - **Premium** - content that is available to Premium members
-  - **Account Error** - landing page for Inactive accounts when trying to access a membership page
-  - **Inactive Account** - landing page for Inactive accounts when trying to access a membership page
-  - **Upsell/Marketing** - landing page for when Basic or Expired accounts when trying to access a membership page
-  - **Error** - Error page for account with other errors when trying to access a membership page
+  - **Account Error** - a path to the technical support funnel for any account
+  - **Inactive Account** - a path to the customer service funnel for Inactive accounts
+  - **Upsell/Marketing** - a path to the marketing funnel for Basic or Expired accounts
+  - **Purchase** - the form to purchase a membership
 
 <div style="height:25px">&nbsp;</div>
 
@@ -415,8 +415,8 @@ Note: This is copied verbatim from the PDX Code Guild Bootcamp Python Lab 20.
 ```
 
 This view handles the form submission for the `purchase_membership` form. The same checks done for the template view `Purchase Membership` are performed here, *belt and suspenders*.
-1. `is not isconfirmed`
-2. `is not isactive`
+1. `is isconfirmed`
+2. `is isactive`
 3. `validate_credit_card`
 4. `level == "Premium" and not isexpired`
 
