@@ -1,0 +1,33 @@
+{% extends 'clc_reg/base.html' %}
+
+{% block content %}
+
+{% if message == "fubar" %}
+  <div style="background-color:green;color:white;">FUBAR</div>
+{% endif %}
+
+<div class="two_column">
+  <div class="page_image">
+    <img src="https://lar-mo.com/images/pigs_all_three-anonymous.png"/>
+  </div>
+  <div class="page_content">
+    <h1>Purchase History</h1>
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>Date of Purchase</th>
+        <th>Item Purchased</th>
+      </tr>
+      {% for purchase in purchases %}
+      <tr>
+        <td>{{purchase.id}}</td>
+        <td>{{purchase.transaction_date}}</td>
+        <td>{{purchase.item_purchased}}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    <p>&nbsp;</p>
+  </div>
+</div>
+
+{% endblock %}

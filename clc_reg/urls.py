@@ -39,7 +39,7 @@ urlpatterns = [
     path('upsell/', views.upsell, name='upsell'),
 
     # Displays About page
-    path('about/', views.about, name='about'),    
+    path('about/', views.about, name='about'),
 
     # Displays Plus page
     path('plus/', views.plus, name='plus'),
@@ -58,4 +58,7 @@ urlpatterns = [
 
     # Handles creation of membership
     path('create_membership/', views.create_membership, name='create_membership'),
+
+    # Displays Purchase History page
+    path('purchases/', views.purchases, name='purchases'),
 ]

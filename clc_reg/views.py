@@ -445,3 +445,11 @@ def upsell(request):
 
 def about(request):
     return render(request, 'clc_reg/about.html')
+
+@login_required
+def purchases(request):
+    purchases = Transaction.objects.filter(purchaser_id=request.user.id)
+    context = {
+        'purchases': purchases,
+    }
+    return render(request, 'clc_reg/purchases.html', context)
