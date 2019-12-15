@@ -132,7 +132,7 @@ See: https://stackoverflow.com/questions/29742845/django-how-do-i-use-is-active-
 
 This view handles the registration form submission. If the `username` already existing in the database, an error message is shown. Additional validation (_all fields are required_) is enforced only on the front-end.
 
-Note: Password strength can be validated in the input field parameter `pattern` and `title`. Unfortunately, it's not working but the regex is confirmed working. See: <a href="https://www.thepolyglotdeveloper.com/2015/05/use-regex-to-test-password-strength-in-javascript/" target="\_new">https://www.thepolyglotdeveloper.com/2015/05/use-regex-to-test-password-strength-in-javascript/</a>
+Note: Password strength can be validated in the input field parameter `pattern` and `title`. Unfortunately, it's not working but the regex is confirmed working. I might need to go with another method: <a href="https://www.thepolyglotdeveloper.com/2015/05/use-regex-to-test-password-strength-in-javascript/" target="\_new">https://www.thepolyglotdeveloper.com/2015/05/use-regex-to-test-password-strength-in-javascript/</a>
 
 If those checks succeed, the following actions occur:
 1. Account is created (built-in `create_user` model of User class)
@@ -463,6 +463,17 @@ It is shown when a user with an inactive membership tries to access a member-onl
 This view displays the Error page which is used as a path to the customer service funnel.
 
 It is shown when a user with an inactive membership tries to access a member-only page.
+
+### Purchases ###
+
+```
+- Purpose: Displays User's Transaction History page
+- Template: purchases.html
+- View: purchases
+- Path: purchases/
+```
+
+This view displays the User's Transaction History.
 
 <div style="height:25px">&nbsp;</div>
 
