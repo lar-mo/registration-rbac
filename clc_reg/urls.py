@@ -61,4 +61,7 @@ urlpatterns = [
 
     # Displays Purchase History page
     path('purchases/', views.purchases, name='purchases'),
+
+    # Displays My Profile page
+    path('my_profile/', views.my_profile, name='my_profile'),
 ]

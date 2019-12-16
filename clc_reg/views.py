@@ -450,6 +450,20 @@ def about(request):
 def purchases(request):
     purchases = Transaction.objects.filter(purchaser_id=request.user.id)
     context = {
-        'purchases': purchases,
+    'purchases': purchases,
     }
     return render(request, 'clc_reg/purchases.html', context)
+
+@login_required
+def my_profile(request):
+    user_info = request.user
+    billing_info = BillingInformation.objects.get(purchaser_id=request.user.id)
+    context = {
+    'user_info': user_info,
+    'billing_info': billing_info,
+    }
+    return render(request, 'clc_reg/my_profile.html', context)
+
+@login_required
+def save_profile(request):
+    return HttpResponseRedirect(reverse('clc_reg:my_profile')+'?message=my_profile_updated')

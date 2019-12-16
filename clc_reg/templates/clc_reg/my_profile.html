@@ -1,0 +1,51 @@
+{% extends 'clc_reg/base.html' %}
+
+{% block content %}
+
+{% if message == "fubar" %}
+  <div style="background-color:green;color:white;">FUBAR</div>
+{% endif %}
+
+<div class="two_column">
+  <div class="page_image">
+    <img src="https://lar-mo.com/images/pigs_all_three-anonymous.png"/>
+  </div>
+  <div class="page_content">
+    <h1>My Profile</h1>
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>Date of Purchase</th>
+        <th>Item Purchased</th>
+      </tr>
+      {% if user_info %}
+      <tr>
+        <td>{{user_info.id}}</td>
+        <td>{{user_info.first_name}}</td>
+        <td>{{user_info.last_name}}</td>
+      </tr>
+      {% endif %}
+    </table>
+    <table>
+      <tr>
+        <th>Address1</th>
+        <th>Address2</th>
+        <th>City</th>
+        <th>State</th>
+        <th>Zip Code</th>
+      </tr>
+      {% if billing_info %}
+      <tr>
+        <td>{{billing_info.address1}}</td>
+        <td>{{billing_info.address2}}</td>
+        <td>{{billing_info.city}}</td>
+        <td>{{billing_info.state}}</td>
+        <td>{{billing_info.zipcode}}</td>
+      </tr>
+      {% endif %}
+    </table>
+    <p>&nbsp;</p>
+  </div>
+</div>
+
+{% endblock %}
