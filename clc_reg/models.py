@@ -68,6 +68,7 @@ class BillingInformation(models.Model):
      city               = models.CharField(max_length=200)
      state              = models.CharField(max_length=20)
      zipcode            = models.CharField(max_length=10)
+     country            = models.CharField(max_length=200)
      purchaser          = models.ForeignKey(User, on_delete=models.PROTECT, related_name='BillingInfo')
 
      def __str__(self):

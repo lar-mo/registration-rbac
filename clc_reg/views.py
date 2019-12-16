@@ -281,8 +281,8 @@ def purchase_membership(request):
     isexpired = request.user.membership_isexpired()
 
     # Redirect to index page if user already has active Premium membership (***Plus members can upgrade***)
-    if level == "Premium" and not isexpired and isconfirmed:
-        return HttpResponseRedirect(reverse('clc_reg:premium')+'?message=valid_membership')
+    # if level == "Premium" and not isexpired and isconfirmed:
+    #     return HttpResponseRedirect(reverse('clc_reg:premium')+'?message=valid_membership')
 
     # Redirect to Inactive page
     if not isactive:
@@ -301,6 +301,7 @@ def purchase_membership(request):
                 'city': existing_billing_info.city,
                 'state': existing_billing_info.state,
                 'zipcode': existing_billing_info.zipcode,
+                'country': existing_billing_info.country,
                 'billing_exists': True,
             }
             return render(request, 'clc_reg/purchase_membership.html', context)
@@ -340,6 +341,7 @@ def create_membership(request):
     city = request.POST['city'].strip()
     state = request.POST['state']
     zipcode = request.POST['zipcode'].strip()
+    country = request.POST['country']
     creditcard = request.POST['creditcard'].strip()
     next = request.POST['next'].strip()
 
@@ -403,6 +405,7 @@ def create_membership(request):
             billing_info.city=city                              #
             billing_info.state=state                            #
             billing_info.zipcode=zipcode                        #
+            billing_info.country=country                        #
             billing_info.save()                                 # save to the database
         except:
             billing_info = BillingInformation(                  # build an new object from following values
@@ -411,6 +414,7 @@ def create_membership(request):
                 city=city,                                      #
                 state=state,                                    #
                 zipcode=zipcode,                                #
+                country=country,                                #
                 purchaser_id=request.user.id)                   #
             billing_info.save()                                 # save to the database
 

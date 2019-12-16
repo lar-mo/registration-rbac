@@ -475,6 +475,17 @@ It is shown when a user with an inactive membership tries to access a member-onl
 
 This view displays the User's Transaction History.
 
+### My Profile ###
+
+```
+- Purpose: Displays User Information page
+- Template: my_profile.html
+- View: my_profile
+- Path: my_profile/
+```
+
+This view displays the User's Name and Address used for billing purposes.
+
 <div style="height:25px">&nbsp;</div>
 
 ## Data Model
@@ -526,5 +537,6 @@ address2                    CharField
 city                        CharField
 state                       CharField
 zipcode                     CharField
+country                     CharField
 purchaser                   ForeignKey(User)
 ```
