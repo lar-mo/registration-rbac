@@ -8,7 +8,13 @@
 
 <div class="two_column">
   <div class="page_image">
-    <img src="https://lar-mo.com/images/pigs_all_three-anonymous.png"/>
+    {% if user.membership_level == "Basic" %}
+      <img src="https://lar-mo.com/images/pigs_all_three0-basic_color.png"/>
+    {% elif user.membership_level == "Plus" %}
+      <img src="https://lar-mo.com/images/pigs_all_three1-plus_color.png"/>
+    {% elif user.membership_level == "Premium" %}
+      <img src="https://lar-mo.com/images/pigs_all_three2-premium_color.png"/>
+    {% endif %}
   </div>
   <div class="page_content">
     <h1>Purchase History</h1>
@@ -18,7 +24,7 @@
         <th>Date of Purchase</th>
         <th>Item Purchased</th>
       </tr>
-      {% for purchase in purchases %}
+      {% for purchase in purchases|dictsortreversed:"transaction_date" %}
       <tr>
         <td>{{purchase.id}}</td>
         <td>{{purchase.transaction_date}}</td>

@@ -8,7 +8,13 @@
 
 <div class="two_column">
   <div class="page_image">
-    <img src="https://lar-mo.com/images/pigs_all_three-anonymous.png"/>
+    {% if user.membership_level == "Basic" %}
+      <img src="https://lar-mo.com/images/pigs_all_three0-basic_color.png"/>
+    {% elif user.membership_level == "Plus" %}
+      <img src="https://lar-mo.com/images/pigs_all_three1-plus_color.png"/>
+    {% elif user.membership_level == "Premium" %}
+      <img src="https://lar-mo.com/images/pigs_all_three2-premium_color.png"/>
+    {% endif %}
   </div>
   <div class="page_content">
     <h1>My Profile</h1>
@@ -44,7 +50,7 @@
       <span class="my_profile_label">Zip Code</span>
       <span><input type="text" name="zipcode" value="{{billing_info.zipcode}}"><span>
     </div>
-    <p>&nbsp;</p>
+    <p><a href="{% url 'clc_reg:purchases' %}">My Purchases</a></p>
   </div>
 </div>
 
