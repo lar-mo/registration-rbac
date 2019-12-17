@@ -64,4 +64,7 @@ urlpatterns = [
 
     # Displays My Profile page
     path('my_profile/', views.my_profile, name='my_profile'),
+
+    # Handles My Profile updates
+    path('save_profile/', views.save_profile, name='save_profile'),
 ]

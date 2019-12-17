@@ -2,8 +2,8 @@
 
 {% block content %}
 
-{% if message == "fubar" %}
-  <div style="background-color:green;color:white;">FUBAR</div>
+{% if message == "profile_updated" %}
+  <div style="background-color:green;color:white;">Your profile was successfully updated.</div>
 {% endif %}
 
 <div class="two_column">
@@ -17,18 +17,20 @@
     {% endif %}
   </div>
   <div class="page_content">
-    <h1>My Profile</h1>
+    <div class="page_title">My Profile</div>
+    <form id="formMyProfile" action="{% url 'clc_reg:save_profile' %}" method="post">
+      {% csrf_token %}
     <div>
       <span class="my_profile_label">First Name</span>
-      <span><input type="text" name="first_name" value="{{user_info.first_name}}"></span>
+      <span><input type="text" name="firstname" value="{{user_info.first_name}}"></span>
     </div>
     <div>
       <span class="my_profile_label">Last Name</span>
-      <span><input type="text" name="last_name" value="{{user_info.last_name}}"></span>
+      <span><input type="text" name="lastname" value="{{user_info.last_name}}"></span>
     </div>
     <div>
       <span class="my_profile_label">Address 1</span>
-      <span><input type="text" name="address2" value="{{billing_info.address1}}"></span>
+      <span><input type="text" name="address1" value="{{billing_info.address1}}"></span>
     </div>
     <div>
       <span class="my_profile_label">Address 2</span>
@@ -352,6 +354,9 @@
       <span class="my_profile_label">Zip Code</span>
       <span><input type="text" name="zipcode" value="{{billing_info.zipcode}}"></span>
     </div>
+    <br>
+    <div class="myprofile"><button type="submit" id="btnUpdateProfile">Update Profile</button></div>
+  </form>
     <p><a href="{% url 'clc_reg:purchases' %}">My Purchases</a></p>
   </div>
 </div>
