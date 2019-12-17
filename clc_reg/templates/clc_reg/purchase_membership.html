@@ -17,14 +17,14 @@
           <span class="form_title">Member Information:</span>
           <div>
             <span>
-              <span class="field_title">Membership Type</span>:
+              <span class="field_title">Membership:</span>
               <span><input type="radio" name="membership_type" required value="Plus"{% if user.membership_level == "Plus" %}disabled{% endif %}/> Plus</span>
               <span><input type="radio" name="membership_type" required value="Premium" {% if user.membership_level == "Plus" %}checked{% endif %}/> Premium</span>
             </span>
           </div>
           {% if billing_exists %}
           <div>
-            <span class="field_title_newaddr">New Address?</span>
+            <span class="field_title_newaddr field_title">New Address?</span>
             <span>
               <button id="btnResetForm">Reset form</button>
             </span>

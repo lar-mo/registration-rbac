@@ -20,344 +20,346 @@
     <div class="page_title">My Profile</div>
     <form id="formMyProfile" action="{% url 'clc_reg:save_profile' %}" method="post">
       {% csrf_token %}
-    <div>
-      <span class="my_profile_label">First Name</span>
-      <span><input type="text" name="firstname" value="{{user_info.first_name}}"></span>
-    </div>
-    <div>
-      <span class="my_profile_label">Last Name</span>
-      <span><input type="text" name="lastname" value="{{user_info.last_name}}"></span>
-    </div>
-    <div>
-      <span class="my_profile_label">Address 1</span>
-      <span><input type="text" name="address1" value="{{billing_info.address1}}"></span>
-    </div>
-    <div>
-      <span class="my_profile_label">Address 2</span>
-      <span><input type="text" name="address2" value="{{billing_info.address2}}"></span>
-    </div>
-    <div>
-      <span class="my_profile_label">City</span>
-      <span><input type="text" name="city" value="{{billing_info.city}}"></span>
-    </div>
-    <div>
-      <span class="my_profile_label">State</span>
-      <span>
-        <span><select name="state" required id="state">
-          <option value="---" disabled selected>---</option>
-          <option value="AL"{% if billing_info.state == 'AL' %} selected{%endif%}>Alabama</option>
-          <option value="AK"{% if billing_info.state == 'AK' %} selected{%endif%}>Alaska</option>
-          <option value="AZ"{% if billing_info.state == 'AZ' %} selected{%endif%}>Arizona</option>
-          <option value="AR"{% if billing_info.state == 'AR' %} selected{%endif%}>Arkansas</option>
-          <option value="CA"{% if billing_info.state == 'CA' %} selected{%endif%}>California</option>
-          <option value="CO"{% if billing_info.state == 'CO' %} selected{%endif%}>Colorado</option>
-          <option value="CT"{% if billing_info.state == 'CT' %} selected{%endif%}>Connecticut</option>
-          <option value="DE"{% if billing_info.state == 'DE' %} selected{%endif%}>Delaware</option>
-          <option value="DC"{% if billing_info.state == 'DC' %} selected{%endif%}>District Of Columbia</option>
-          <option value="FL"{% if billing_info.state == 'FL' %} selected{%endif%}>Florida</option>
-          <option value="GA"{% if billing_info.state == 'GA' %} selected{%endif%}>Georgia</option>
-          <option value="HI"{% if billing_info.state == 'HI' %} selected{%endif%}>Hawaii</option>
-          <option value="ID"{% if billing_info.state == 'ID' %} selected{%endif%}>Idaho</option>
-          <option value="IL"{% if billing_info.state == 'IL' %} selected{%endif%}>Illinois</option>
-          <option value="IN"{% if billing_info.state == 'IN' %} selected{%endif%}>Indiana</option>
-          <option value="IA"{% if billing_info.state == 'IA' %} selected{%endif%}>Iowa</option>
-          <option value="KS"{% if billing_info.state == 'KS' %} selected{%endif%}>Kansas</option>
-          <option value="KY"{% if billing_info.state == 'KY' %} selected{%endif%}>Kentucky</option>
-          <option value="LA"{% if billing_info.state == 'LA' %} selected{%endif%}>Louisiana</option>
-          <option value="ME"{% if billing_info.state == 'ME' %} selected{%endif%}>Maine</option>
-          <option value="MD"{% if billing_info.state == 'MD' %} selected{%endif%}>Maryland</option>
-          <option value="MA"{% if billing_info.state == 'MA' %} selected{%endif%}>Massachusetts</option>
-          <option value="MI"{% if billing_info.state == 'MI' %} selected{%endif%}>Michigan</option>
-          <option value="MN"{% if billing_info.state == 'MN' %} selected{%endif%}>Minnesota</option>
-          <option value="MS"{% if billing_info.state == 'MS' %} selected{%endif%}>Mississippi</option>
-          <option value="MO"{% if billing_info.state == 'MO' %} selected{%endif%}>Missouri</option>
-          <option value="MT"{% if billing_info.state == 'MT' %} selected{%endif%}>Montana</option>
-          <option value="NE"{% if billing_info.state == 'NE' %} selected{%endif%}>Nebraska</option>
-          <option value="NV"{% if billing_info.state == 'NV' %} selected{%endif%}>Nevada</option>
-          <option value="NH"{% if billing_info.state == 'NH' %} selected{%endif%}>New Hampshire</option>
-          <option value="NJ"{% if billing_info.state == 'NJ' %} selected{%endif%}>New Jersey</option>
-          <option value="NM"{% if billing_info.state == 'NM' %} selected{%endif%}>New Mexico</option>
-          <option value="NY"{% if billing_info.state == 'NY' %} selected{%endif%}>New York</option>
-          <option value="NC"{% if billing_info.state == 'NC' %} selected{%endif%}>North Carolina</option>
-          <option value="ND"{% if billing_info.state == 'ND' %} selected{%endif%}>North Dakota</option>
-          <option value="OH"{% if billing_info.state == 'OH' %} selected{%endif%}>Ohio</option>
-          <option value="OK"{% if billing_info.state == 'OK' %} selected{%endif%}>Oklahoma</option>
-          <option value="OR"{% if billing_info.state == 'OR' %} selected{%endif%}>Oregon</option>
-          <option value="PA"{% if billing_info.state == 'PA' %} selected{%endif%}>Pennsylvania</option>
-          <option value="RI"{% if billing_info.state == 'RI' %} selected{%endif%}>Rhode Island</option>
-          <option value="SC"{% if billing_info.state == 'SC' %} selected{%endif%}>South Carolina</option>
-          <option value="SD"{% if billing_info.state == 'SD' %} selected{%endif%}>South Dakota</option>
-          <option value="TN"{% if billing_info.state == 'TN' %} selected{%endif%}>Tennessee</option>
-          <option value="TX"{% if billing_info.state == 'TX' %} selected{%endif%}>Texas</option>
-          <option value="UT"{% if billing_info.state == 'UT' %} selected{%endif%}>Utah</option>
-          <option value="VT"{% if billing_info.state == 'VT' %} selected{%endif%}>Vermont</option>
-          <option value="VA"{% if billing_info.state == 'VA' %} selected{%endif%}>Virginia</option>
-          <option value="WA"{% if billing_info.state == 'WA' %} selected{%endif%}>Washington</option>
-          <option value="WV"{% if billing_info.state == 'WV' %} selected{%endif%}>West Virginia</option>
-          <option value="WI"{% if billing_info.state == 'WI' %} selected{%endif%}>Wisconsin</option>
-          <option value="WY"{% if billing_info.state == 'WY' %} selected{%endif%}>Wyoming</option>
-        </select>
-      <span>
-    </div>
-    <div>
-      <span class="my_profile_label">Country</span>
-      <span>
-        <select id="country" name="country" required>
-          <option value="AF"{% if billing_info.country == 'AF' %} selected{%endif%}>Afghanistan</option>
-        	<option value="AX"{% if billing_info.country == 'AX' %} selected{%endif%}>Åland Islands</option>
-        	<option value="AL"{% if billing_info.country == 'AL' %} selected{%endif%}>Albania</option>
-        	<option value="DZ"{% if billing_info.country == 'DZ' %} selected{%endif%}>Algeria</option>
-        	<option value="AS"{% if billing_info.country == 'AS' %} selected{%endif%}>American Samoa</option>
-        	<option value="AD"{% if billing_info.country == 'AD' %} selected{%endif%}>Andorra</option>
-        	<option value="AO"{% if billing_info.country == 'AO' %} selected{%endif%}>Angola</option>
-        	<option value="AI"{% if billing_info.country == 'AI' %} selected{%endif%}>Anguilla</option>
-        	<option value="AQ"{% if billing_info.country == 'AQ' %} selected{%endif%}>Antarctica</option>
-        	<option value="AG"{% if billing_info.country == 'AG' %} selected{%endif%}>Antigua and Barbuda</option>
-        	<option value="AR"{% if billing_info.country == 'AR' %} selected{%endif%}>Argentina</option>
-        	<option value="AM"{% if billing_info.country == 'AM' %} selected{%endif%}>Armenia</option>
-        	<option value="AW"{% if billing_info.country == 'AW' %} selected{%endif%}>Aruba</option>
-        	<option value="AU"{% if billing_info.country == 'AU' %} selected{%endif%}>Australia</option>
-        	<option value="AT"{% if billing_info.country == 'AT' %} selected{%endif%}>Austria</option>
-        	<option value="AZ"{% if billing_info.country == 'AZ' %} selected{%endif%}>Azerbaijan</option>
-        	<option value="BS"{% if billing_info.country == 'BS' %} selected{%endif%}>Bahamas</option>
-        	<option value="BH"{% if billing_info.country == 'BH' %} selected{%endif%}>Bahrain</option>
-        	<option value="BD"{% if billing_info.country == 'BD' %} selected{%endif%}>Bangladesh</option>
-        	<option value="BB"{% if billing_info.country == 'BB' %} selected{%endif%}>Barbados</option>
-        	<option value="BY"{% if billing_info.country == 'BY' %} selected{%endif%}>Belarus</option>
-        	<option value="BE"{% if billing_info.country == 'BE' %} selected{%endif%}>Belgium</option>
-        	<option value="BZ"{% if billing_info.country == 'BZ' %} selected{%endif%}>Belize</option>
-        	<option value="BJ"{% if billing_info.country == 'BJ' %} selected{%endif%}>Benin</option>
-        	<option value="BM"{% if billing_info.country == 'BM' %} selected{%endif%}>Bermuda</option>
-        	<option value="BT"{% if billing_info.country == 'BT' %} selected{%endif%}>Bhutan</option>
-        	<option value="BO"{% if billing_info.country == 'BO' %} selected{%endif%}>Bolivia, Plurinational State of</option>
-        	<option value="BQ"{% if billing_info.country == 'BQ' %} selected{%endif%}>Bonaire, Sint Eustatius and Saba</option>
-        	<option value="BA"{% if billing_info.country == 'BA' %} selected{%endif%}>Bosnia and Herzegovina</option>
-        	<option value="BW"{% if billing_info.country == 'BW' %} selected{%endif%}>Botswana</option>
-        	<option value="BV"{% if billing_info.country == 'BV' %} selected{%endif%}>Bouvet Island</option>
-        	<option value="BR"{% if billing_info.country == 'BR' %} selected{%endif%}>Brazil</option>
-        	<option value="IO"{% if billing_info.country == 'IO' %} selected{%endif%}>British Indian Ocean Territory</option>
-        	<option value="BN"{% if billing_info.country == 'BN' %} selected{%endif%}>Brunei Darussalam</option>
-        	<option value="BG"{% if billing_info.country == 'BG' %} selected{%endif%}>Bulgaria</option>
-        	<option value="BF"{% if billing_info.country == 'BF' %} selected{%endif%}>Burkina Faso</option>
-        	<option value="BI"{% if billing_info.country == 'BI' %} selected{%endif%}>Burundi</option>
-        	<option value="KH"{% if billing_info.country == 'KH' %} selected{%endif%}>Cambodia</option>
-        	<option value="CM"{% if billing_info.country == 'CM' %} selected{%endif%}>Cameroon</option>
-        	<option value="CA"{% if billing_info.country == 'CA' %} selected{%endif%}>Canada</option>
-        	<option value="CV"{% if billing_info.country == 'CV' %} selected{%endif%}>Cape Verde</option>
-        	<option value="KY"{% if billing_info.country == 'KY' %} selected{%endif%}>Cayman Islands</option>
-        	<option value="CF"{% if billing_info.country == 'CF' %} selected{%endif%}>Central African Republic</option>
-        	<option value="TD"{% if billing_info.country == 'TD' %} selected{%endif%}>Chad</option>
-        	<option value="CL"{% if billing_info.country == 'CL' %} selected{%endif%}>Chile</option>
-        	<option value="CN"{% if billing_info.country == 'CN' %} selected{%endif%}>China</option>
-        	<option value="CX"{% if billing_info.country == 'CX' %} selected{%endif%}>Christmas Island</option>
-        	<option value="CC"{% if billing_info.country == 'CC' %} selected{%endif%}>Cocos (Keeling) Islands</option>
-        	<option value="CO"{% if billing_info.country == 'CO' %} selected{%endif%}>Colombia</option>
-        	<option value="KM"{% if billing_info.country == 'KM' %} selected{%endif%}>Comoros</option>
-        	<option value="CG"{% if billing_info.country == 'CG' %} selected{%endif%}>Congo</option>
-        	<option value="CD"{% if billing_info.country == 'CD' %} selected{%endif%}>Congo, the Democratic Republic of the</option>
-        	<option value="CK"{% if billing_info.country == 'CK' %} selected{%endif%}>Cook Islands</option>
-        	<option value="CR"{% if billing_info.country == 'CR' %} selected{%endif%}>Costa Rica</option>
-        	<option value="CI"{% if billing_info.country == 'CI' %} selected{%endif%}>Côte d'Ivoire</option>
-        	<option value="HR"{% if billing_info.country == 'HR' %} selected{%endif%}>Croatia</option>
-        	<option value="CU"{% if billing_info.country == 'CU' %} selected{%endif%}>Cuba</option>
-        	<option value="CW"{% if billing_info.country == 'CW' %} selected{%endif%}>Curaçao</option>
-        	<option value="CY"{% if billing_info.country == 'CY' %} selected{%endif%}>Cyprus</option>
-        	<option value="CZ"{% if billing_info.country == 'CZ' %} selected{%endif%}>Czech Republic</option>
-        	<option value="DK"{% if billing_info.country == 'DK' %} selected{%endif%}>Denmark</option>
-        	<option value="DJ"{% if billing_info.country == 'DJ' %} selected{%endif%}>Djibouti</option>
-        	<option value="DM"{% if billing_info.country == 'DM' %} selected{%endif%}>Dominica</option>
-        	<option value="DO"{% if billing_info.country == 'DO' %} selected{%endif%}>Dominican Republic</option>
-        	<option value="EC"{% if billing_info.country == 'EC' %} selected{%endif%}>Ecuador</option>
-        	<option value="EG"{% if billing_info.country == 'EG' %} selected{%endif%}>Egypt</option>
-        	<option value="SV"{% if billing_info.country == 'SV' %} selected{%endif%}>El Salvador</option>
-        	<option value="GQ"{% if billing_info.country == 'GQ' %} selected{%endif%}>Equatorial Guinea</option>
-        	<option value="ER"{% if billing_info.country == 'ER' %} selected{%endif%}>Eritrea</option>
-        	<option value="EE"{% if billing_info.country == 'EE' %} selected{%endif%}>Estonia</option>
-        	<option value="ET"{% if billing_info.country == 'ET' %} selected{%endif%}>Ethiopia</option>
-        	<option value="FK"{% if billing_info.country == 'FK' %} selected{%endif%}>Falkland Islands (Malvinas)</option>
-        	<option value="FO"{% if billing_info.country == 'FO' %} selected{%endif%}>Faroe Islands</option>
-        	<option value="FJ"{% if billing_info.country == 'FJ' %} selected{%endif%}>Fiji</option>
-        	<option value="FI"{% if billing_info.country == 'FI' %} selected{%endif%}>Finland</option>
-        	<option value="FR"{% if billing_info.country == 'FR' %} selected{%endif%}>France</option>
-        	<option value="GF"{% if billing_info.country == 'GF' %} selected{%endif%}>French Guiana</option>
-        	<option value="PF"{% if billing_info.country == 'PF' %} selected{%endif%}>French Polynesia</option>
-        	<option value="TF"{% if billing_info.country == 'TF' %} selected{%endif%}>French Southern Territories</option>
-        	<option value="GA"{% if billing_info.country == 'GA' %} selected{%endif%}>Gabon</option>
-        	<option value="GM"{% if billing_info.country == 'GM' %} selected{%endif%}>Gambia</option>
-        	<option value="GE"{% if billing_info.country == 'GE' %} selected{%endif%}>Georgia</option>
-        	<option value="DE"{% if billing_info.country == 'DE' %} selected{%endif%}>Germany</option>
-        	<option value="GH"{% if billing_info.country == 'GH' %} selected{%endif%}>Ghana</option>
-        	<option value="GI"{% if billing_info.country == 'GI' %} selected{%endif%}>Gibraltar</option>
-        	<option value="GR"{% if billing_info.country == 'GR' %} selected{%endif%}>Greece</option>
-        	<option value="GL"{% if billing_info.country == 'GL' %} selected{%endif%}>Greenland</option>
-        	<option value="GD"{% if billing_info.country == 'GD' %} selected{%endif%}>Grenada</option>
-        	<option value="GP"{% if billing_info.country == 'GP' %} selected{%endif%}>Guadeloupe</option>
-        	<option value="GU"{% if billing_info.country == 'GU' %} selected{%endif%}>Guam</option>
-        	<option value="GT"{% if billing_info.country == 'GT' %} selected{%endif%}>Guatemala</option>
-        	<option value="GG"{% if billing_info.country == 'GG' %} selected{%endif%}>Guernsey</option>
-        	<option value="GN"{% if billing_info.country == 'GN' %} selected{%endif%}>Guinea</option>
-        	<option value="GW"{% if billing_info.country == 'GW' %} selected{%endif%}>Guinea-Bissau</option>
-        	<option value="GY"{% if billing_info.country == 'GY' %} selected{%endif%}>Guyana</option>
-        	<option value="HT"{% if billing_info.country == 'HT' %} selected{%endif%}>Haiti</option>
-        	<option value="HM"{% if billing_info.country == 'HM' %} selected{%endif%}>Heard Island and McDonald Islands</option>
-        	<option value="VA"{% if billing_info.country == 'VA' %} selected{%endif%}>Holy See (Vatican City State)</option>
-        	<option value="HN"{% if billing_info.country == 'HN' %} selected{%endif%}>Honduras</option>
-        	<option value="HK"{% if billing_info.country == 'HK' %} selected{%endif%}>Hong Kong</option>
-        	<option value="HU"{% if billing_info.country == 'HU' %} selected{%endif%}>Hungary</option>
-        	<option value="IS"{% if billing_info.country == 'IS' %} selected{%endif%}>Iceland</option>
-        	<option value="IN"{% if billing_info.country == 'IN' %} selected{%endif%}>India</option>
-        	<option value="ID"{% if billing_info.country == 'ID' %} selected{%endif%}>Indonesia</option>
-        	<option value="IR"{% if billing_info.country == 'IR' %} selected{%endif%}>Iran, Islamic Republic of</option>
-        	<option value="IQ"{% if billing_info.country == 'IQ' %} selected{%endif%}>Iraq</option>
-        	<option value="IE"{% if billing_info.country == 'IE' %} selected{%endif%}>Ireland</option>
-        	<option value="IM"{% if billing_info.country == 'IM' %} selected{%endif%}>Isle of Man</option>
-        	<option value="IL"{% if billing_info.country == 'IL' %} selected{%endif%}>Israel</option>
-        	<option value="IT"{% if billing_info.country == 'IT' %} selected{%endif%}>Italy</option>
-        	<option value="JM"{% if billing_info.country == 'JM' %} selected{%endif%}>Jamaica</option>
-        	<option value="JP"{% if billing_info.country == 'JP' %} selected{%endif%}>Japan</option>
-        	<option value="JE"{% if billing_info.country == 'JE' %} selected{%endif%}>Jersey</option>
-        	<option value="JO"{% if billing_info.country == 'JO' %} selected{%endif%}>Jordan</option>
-        	<option value="KZ"{% if billing_info.country == 'KZ' %} selected{%endif%}>Kazakhstan</option>
-        	<option value="KE"{% if billing_info.country == 'KE' %} selected{%endif%}>Kenya</option>
-        	<option value="KI"{% if billing_info.country == 'KI' %} selected{%endif%}>Kiribati</option>
-        	<option value="KP"{% if billing_info.country == 'KP' %} selected{%endif%}>Korea, Democratic People's Republic of</option>
-        	<option value="KR"{% if billing_info.country == 'KR' %} selected{%endif%}>Korea, Republic of</option>
-        	<option value="KW"{% if billing_info.country == 'KW' %} selected{%endif%}>Kuwait</option>
-        	<option value="KG"{% if billing_info.country == 'KG' %} selected{%endif%}>Kyrgyzstan</option>
-        	<option value="LA"{% if billing_info.country == 'LA' %} selected{%endif%}>Lao People's Democratic Republic</option>
-        	<option value="LV"{% if billing_info.country == 'LV' %} selected{%endif%}>Latvia</option>
-        	<option value="LB"{% if billing_info.country == 'LB' %} selected{%endif%}>Lebanon</option>
-        	<option value="LS"{% if billing_info.country == 'LS' %} selected{%endif%}>Lesotho</option>
-        	<option value="LR"{% if billing_info.country == 'LR' %} selected{%endif%}>Liberia</option>
-        	<option value="LY"{% if billing_info.country == 'LY' %} selected{%endif%}>Libya</option>
-        	<option value="LI"{% if billing_info.country == 'LI' %} selected{%endif%}>Liechtenstein</option>
-        	<option value="LT"{% if billing_info.country == 'LT' %} selected{%endif%}>Lithuania</option>
-        	<option value="LU"{% if billing_info.country == 'LU' %} selected{%endif%}>Luxembourg</option>
-        	<option value="MO"{% if billing_info.country == 'MO' %} selected{%endif%}>Macao</option>
-        	<option value="MK"{% if billing_info.country == 'MK' %} selected{%endif%}>Macedonia, the former Yugoslav Republic of</option>
-        	<option value="MG"{% if billing_info.country == 'MG' %} selected{%endif%}>Madagascar</option>
-        	<option value="MW"{% if billing_info.country == 'MW' %} selected{%endif%}>Malawi</option>
-        	<option value="MY"{% if billing_info.country == 'MY' %} selected{%endif%}>Malaysia</option>
-        	<option value="MV"{% if billing_info.country == 'MV' %} selected{%endif%}>Maldives</option>
-        	<option value="ML"{% if billing_info.country == 'ML' %} selected{%endif%}>Mali</option>
-        	<option value="MT"{% if billing_info.country == 'MT' %} selected{%endif%}>Malta</option>
-        	<option value="MH"{% if billing_info.country == 'MH' %} selected{%endif%}>Marshall Islands</option>
-        	<option value="MQ"{% if billing_info.country == 'MQ' %} selected{%endif%}>Martinique</option>
-        	<option value="MR"{% if billing_info.country == 'MR' %} selected{%endif%}>Mauritania</option>
-        	<option value="MU"{% if billing_info.country == 'MU' %} selected{%endif%}>Mauritius</option>
-        	<option value="YT"{% if billing_info.country == 'YT' %} selected{%endif%}>Mayotte</option>
-        	<option value="MX"{% if billing_info.country == 'MX' %} selected{%endif%}>Mexico</option>
-        	<option value="FM"{% if billing_info.country == 'FM' %} selected{%endif%}>Micronesia, Federated States of</option>
-        	<option value="MD"{% if billing_info.country == 'MD' %} selected{%endif%}>Moldova, Republic of</option>
-        	<option value="MC"{% if billing_info.country == 'MC' %} selected{%endif%}>Monaco</option>
-        	<option value="MN"{% if billing_info.country == 'MN' %} selected{%endif%}>Mongolia</option>
-        	<option value="ME"{% if billing_info.country == 'ME' %} selected{%endif%}>Montenegro</option>
-        	<option value="MS"{% if billing_info.country == 'MS' %} selected{%endif%}>Montserrat</option>
-        	<option value="MA"{% if billing_info.country == 'MA' %} selected{%endif%}>Morocco</option>
-        	<option value="MZ"{% if billing_info.country == 'MZ' %} selected{%endif%}>Mozambique</option>
-        	<option value="MM"{% if billing_info.country == 'MM' %} selected{%endif%}>Myanmar</option>
-        	<option value="NA"{% if billing_info.country == 'NA' %} selected{%endif%}>Namibia</option>
-        	<option value="NR"{% if billing_info.country == 'NR' %} selected{%endif%}>Nauru</option>
-        	<option value="NP"{% if billing_info.country == 'NP' %} selected{%endif%}>Nepal</option>
-        	<option value="NL"{% if billing_info.country == 'NL' %} selected{%endif%}>Netherlands</option>
-        	<option value="NC"{% if billing_info.country == 'NC' %} selected{%endif%}>New Caledonia</option>
-        	<option value="NZ"{% if billing_info.country == 'NZ' %} selected{%endif%}>New Zealand</option>
-        	<option value="NI"{% if billing_info.country == 'NI' %} selected{%endif%}>Nicaragua</option>
-        	<option value="NE"{% if billing_info.country == 'NE' %} selected{%endif%}>Niger</option>
-        	<option value="NG"{% if billing_info.country == 'NG' %} selected{%endif%}>Nigeria</option>
-        	<option value="NU"{% if billing_info.country == 'NU' %} selected{%endif%}>Niue</option>
-        	<option value="NF"{% if billing_info.country == 'NF' %} selected{%endif%}>Norfolk Island</option>
-        	<option value="MP"{% if billing_info.country == 'MP' %} selected{%endif%}>Northern Mariana Islands</option>
-        	<option value="NO"{% if billing_info.country == 'NO' %} selected{%endif%}>Norway</option>
-        	<option value="OM"{% if billing_info.country == 'OM' %} selected{%endif%}>Oman</option>
-        	<option value="PK"{% if billing_info.country == 'PK' %} selected{%endif%}>Pakistan</option>
-        	<option value="PW"{% if billing_info.country == 'PW' %} selected{%endif%}>Palau</option>
-        	<option value="PS"{% if billing_info.country == 'PS' %} selected{%endif%}>Palestinian Territory, Occupied</option>
-        	<option value="PA"{% if billing_info.country == 'PA' %} selected{%endif%}>Panama</option>
-        	<option value="PG"{% if billing_info.country == 'PG' %} selected{%endif%}>Papua New Guinea</option>
-        	<option value="PY"{% if billing_info.country == 'PY' %} selected{%endif%}>Paraguay</option>
-        	<option value="PE"{% if billing_info.country == 'PE' %} selected{%endif%}>Peru</option>
-        	<option value="PH"{% if billing_info.country == 'PH' %} selected{%endif%}>Philippines</option>
-        	<option value="PN"{% if billing_info.country == 'PN' %} selected{%endif%}>Pitcairn</option>
-        	<option value="PL"{% if billing_info.country == 'PL' %} selected{%endif%}>Poland</option>
-        	<option value="PT"{% if billing_info.country == 'PT' %} selected{%endif%}>Portugal</option>
-        	<option value="PR"{% if billing_info.country == 'PR' %} selected{%endif%}>Puerto Rico</option>
-        	<option value="QA"{% if billing_info.country == 'QA' %} selected{%endif%}>Qatar</option>
-        	<option value="RE"{% if billing_info.country == 'RE' %} selected{%endif%}>Réunion</option>
-        	<option value="RO"{% if billing_info.country == 'RO' %} selected{%endif%}>Romania</option>
-        	<option value="RU"{% if billing_info.country == 'RU' %} selected{%endif%}>Russian Federation</option>
-        	<option value="RW"{% if billing_info.country == 'RW' %} selected{%endif%}>Rwanda</option>
-        	<option value="BL"{% if billing_info.country == 'BL' %} selected{%endif%}>Saint Barthélemy</option>
-        	<option value="SH"{% if billing_info.country == 'SH' %} selected{%endif%}>Saint Helena, Ascension and Tristan da Cunha</option
-        	<option value="KN"{% if billing_info.country == 'KN' %} selected{%endif%}>Saint Kitts and Nevis</option>
-        	<option value="LC"{% if billing_info.country == 'LC' %} selected{%endif%}>Saint Lucia</option>
-        	<option value="MF"{% if billing_info.country == 'MF' %} selected{%endif%}>Saint Martin (French part)</option>
-        	<option value="PM"{% if billing_info.country == 'PM' %} selected{%endif%}>Saint Pierre and Miquelon</option>
-        	<option value="VC"{% if billing_info.country == 'VC' %} selected{%endif%}>Saint Vincent and the Grenadines</option>
-        	<option value="WS"{% if billing_info.country == 'WS' %} selected{%endif%}>Samoa</option>
-        	<option value="SM"{% if billing_info.country == 'SM' %} selected{%endif%}>San Marino</option>
-        	<option value="ST"{% if billing_info.country == 'ST' %} selected{%endif%}>Sao Tome and Principe</option>
-        	<option value="SA"{% if billing_info.country == 'SA' %} selected{%endif%}>Saudi Arabia</option>
-        	<option value="SN"{% if billing_info.country == 'SN' %} selected{%endif%}>Senegal</option>
-        	<option value="RS"{% if billing_info.country == 'RS' %} selected{%endif%}>Serbia</option>
-        	<option value="SC"{% if billing_info.country == 'SC' %} selected{%endif%}>Seychelles</option>
-        	<option value="SL"{% if billing_info.country == 'SL' %} selected{%endif%}>Sierra Leone</option>
-        	<option value="SG"{% if billing_info.country == 'SG' %} selected{%endif%}>Singapore</option>
-        	<option value="SX"{% if billing_info.country == 'SX' %} selected{%endif%}>Sint Maarten (Dutch part)</option>
-        	<option value="SK"{% if billing_info.country == 'SK' %} selected{%endif%}>Slovakia</option>
-        	<option value="SI"{% if billing_info.country == 'SI' %} selected{%endif%}>Slovenia</option>
-        	<option value="SB"{% if billing_info.country == 'SB' %} selected{%endif%}>Solomon Islands</option>
-        	<option value="SO"{% if billing_info.country == 'SO' %} selected{%endif%}>Somalia</option>
-        	<option value="ZA"{% if billing_info.country == 'ZA' %} selected{%endif%}>South Africa</option>
-        	<option value="GS"{% if billing_info.country == 'GS' %} selected{%endif%}>South Georgia and the South Sandwich Islands</option>
-        	<option value="SS"{% if billing_info.country == 'SS' %} selected{%endif%}>South Sudan</option>
-        	<option value="ES"{% if billing_info.country == 'ES' %} selected{%endif%}>Spain</option>
-        	<option value="LK"{% if billing_info.country == 'LK' %} selected{%endif%}>Sri Lanka</option>
-        	<option value="SD"{% if billing_info.country == 'SD' %} selected{%endif%}>Sudan</option>
-        	<option value="SR"{% if billing_info.country == 'SR' %} selected{%endif%}>Suriname</option>
-        	<option value="SJ"{% if billing_info.country == 'SJ' %} selected{%endif%}>Svalbard and Jan Mayen</option>
-        	<option value="SZ"{% if billing_info.country == 'SZ' %} selected{%endif%}>Swaziland</option>
-        	<option value="SE"{% if billing_info.country == 'SE' %} selected{%endif%}>Sweden</option>
-        	<option value="CH"{% if billing_info.country == 'CH' %} selected{%endif%}>Switzerland</option>
-        	<option value="SY"{% if billing_info.country == 'SY' %} selected{%endif%}>Syrian Arab Republic</option>
-        	<option value="TW"{% if billing_info.country == 'TW' %} selected{%endif%}>Taiwan, Province of China</option>
-        	<option value="TJ"{% if billing_info.country == 'TJ' %} selected{%endif%}>Tajikistan</option>
-        	<option value="TZ"{% if billing_info.country == 'TZ' %} selected{%endif%}>Tanzania, United Republic of</option>
-        	<option value="TH"{% if billing_info.country == 'TH' %} selected{%endif%}>Thailand</option>
-        	<option value="TL"{% if billing_info.country == 'TL' %} selected{%endif%}>Timor-Leste</option>
-        	<option value="TG"{% if billing_info.country == 'TG' %} selected{%endif%}>Togo</option>
-        	<option value="TK"{% if billing_info.country == 'TK' %} selected{%endif%}>Tokelau</option>
-        	<option value="TO"{% if billing_info.country == 'TO' %} selected{%endif%}>Tonga</option>
-        	<option value="TT"{% if billing_info.country == 'TT' %} selected{%endif%}>Trinidad and Tobago</option>
-        	<option value="TN"{% if billing_info.country == 'TN' %} selected{%endif%}>Tunisia</option>
-        	<option value="TR"{% if billing_info.country == 'TR' %} selected{%endif%}>Turkey</option>
-        	<option value="TM"{% if billing_info.country == 'TM' %} selected{%endif%}>Turkmenistan</option>
-        	<option value="TC"{% if billing_info.country == 'TC' %} selected{%endif%}>Turks and Caicos Islands</option>
-        	<option value="TV"{% if billing_info.country == 'TV' %} selected{%endif%}>Tuvalu</option>
-        	<option value="UG"{% if billing_info.country == 'UG' %} selected{%endif%}>Uganda</option>
-        	<option value="UA"{% if billing_info.country == 'UA' %} selected{%endif%}>Ukraine</option>
-        	<option value="AE"{% if billing_info.country == 'AE' %} selected{%endif%}>United Arab Emirates</option>
-        	<option value="GB"{% if billing_info.country == 'GB' %} selected{%endif%}>United Kingdom</option>
-        	<option value="US"{% if billing_info.country == 'US' %} selected{%endif%}>United States</option>
-        	<option value="UM"{% if billing_info.country == 'UM' %} selected{%endif%}>United States Minor Outlying Islands</option>
-        	<option value="UY"{% if billing_info.country == 'UY' %} selected{%endif%}>Uruguay</option>
-        	<option value="UZ"{% if billing_info.country == 'UZ' %} selected{%endif%}>Uzbekistan</option>
-        	<option value="VU"{% if billing_info.country == 'VU' %} selected{%endif%}>Vanuatu</option>
-        	<option value="VE"{% if billing_info.country == 'VE' %} selected{%endif%}>Venezuela, Bolivarian Republic of</option>
-        	<option value="VN"{% if billing_info.country == 'VN' %} selected{%endif%}>Viet Nam</option>
-        	<option value="VG"{% if billing_info.country == 'VG' %} selected{%endif%}>Virgin Islands, British</option>
-        	<option value="VI"{% if billing_info.country == 'VI' %} selected{%endif%}>Virgin Islands, U.S.</option>
-        	<option value="WF"{% if billing_info.country == 'WF' %} selected{%endif%}>Wallis and Futuna</option>
-        	<option value="EH"{% if billing_info.country == 'EH' %} selected{%endif%}>Western Sahara</option>
-        	<option value="YE"{% if billing_info.country == 'YE' %} selected{%endif%}>Yemen</option>
-        	<option value="ZM"{% if billing_info.country == 'ZM' %} selected{%endif%}>Zambia</option>
-        	<option value="ZW"{% if billing_info.country == 'ZW' %} selected{%endif%}>Zimbabwe</option>
-        </select>
-      </span>
-    </div>
-    <div>
-      <span class="my_profile_label">Zip Code</span>
-      <span><input type="text" name="zipcode" value="{{billing_info.zipcode}}"></span>
+    <div class="myprofile_form">  
+      <div>
+        <span class="my_profile_label">First Name</span>
+        <span><input type="text" name="firstname" value="{{user_info.first_name}}"></span>
+      </div>
+      <div>
+        <span class="my_profile_label">Last Name</span>
+        <span><input type="text" name="lastname" value="{{user_info.last_name}}"></span>
+      </div>
+      <div>
+        <span class="my_profile_label">Address 1</span>
+        <span><input type="text" name="address1" value="{{billing_info.address1}}"></span>
+      </div>
+      <div>
+        <span class="my_profile_label">Address 2</span>
+        <span><input type="text" name="address2" value="{{billing_info.address2}}"></span>
+      </div>
+      <div>
+        <span class="my_profile_label">City</span>
+        <span><input type="text" name="city" value="{{billing_info.city}}"></span>
+      </div>
+      <div>
+        <span class="my_profile_label">State</span>
+        <span>
+          <span><select name="state" required id="state">
+            <option value="---" disabled selected>---</option>
+            <option value="AL"{% if billing_info.state == 'AL' %} selected{%endif%}>Alabama</option>
+            <option value="AK"{% if billing_info.state == 'AK' %} selected{%endif%}>Alaska</option>
+            <option value="AZ"{% if billing_info.state == 'AZ' %} selected{%endif%}>Arizona</option>
+            <option value="AR"{% if billing_info.state == 'AR' %} selected{%endif%}>Arkansas</option>
+            <option value="CA"{% if billing_info.state == 'CA' %} selected{%endif%}>California</option>
+            <option value="CO"{% if billing_info.state == 'CO' %} selected{%endif%}>Colorado</option>
+            <option value="CT"{% if billing_info.state == 'CT' %} selected{%endif%}>Connecticut</option>
+            <option value="DE"{% if billing_info.state == 'DE' %} selected{%endif%}>Delaware</option>
+            <option value="DC"{% if billing_info.state == 'DC' %} selected{%endif%}>District Of Columbia</option>
+            <option value="FL"{% if billing_info.state == 'FL' %} selected{%endif%}>Florida</option>
+            <option value="GA"{% if billing_info.state == 'GA' %} selected{%endif%}>Georgia</option>
+            <option value="HI"{% if billing_info.state == 'HI' %} selected{%endif%}>Hawaii</option>
+            <option value="ID"{% if billing_info.state == 'ID' %} selected{%endif%}>Idaho</option>
+            <option value="IL"{% if billing_info.state == 'IL' %} selected{%endif%}>Illinois</option>
+            <option value="IN"{% if billing_info.state == 'IN' %} selected{%endif%}>Indiana</option>
+            <option value="IA"{% if billing_info.state == 'IA' %} selected{%endif%}>Iowa</option>
+            <option value="KS"{% if billing_info.state == 'KS' %} selected{%endif%}>Kansas</option>
+            <option value="KY"{% if billing_info.state == 'KY' %} selected{%endif%}>Kentucky</option>
+            <option value="LA"{% if billing_info.state == 'LA' %} selected{%endif%}>Louisiana</option>
+            <option value="ME"{% if billing_info.state == 'ME' %} selected{%endif%}>Maine</option>
+            <option value="MD"{% if billing_info.state == 'MD' %} selected{%endif%}>Maryland</option>
+            <option value="MA"{% if billing_info.state == 'MA' %} selected{%endif%}>Massachusetts</option>
+            <option value="MI"{% if billing_info.state == 'MI' %} selected{%endif%}>Michigan</option>
+            <option value="MN"{% if billing_info.state == 'MN' %} selected{%endif%}>Minnesota</option>
+            <option value="MS"{% if billing_info.state == 'MS' %} selected{%endif%}>Mississippi</option>
+            <option value="MO"{% if billing_info.state == 'MO' %} selected{%endif%}>Missouri</option>
+            <option value="MT"{% if billing_info.state == 'MT' %} selected{%endif%}>Montana</option>
+            <option value="NE"{% if billing_info.state == 'NE' %} selected{%endif%}>Nebraska</option>
+            <option value="NV"{% if billing_info.state == 'NV' %} selected{%endif%}>Nevada</option>
+            <option value="NH"{% if billing_info.state == 'NH' %} selected{%endif%}>New Hampshire</option>
+            <option value="NJ"{% if billing_info.state == 'NJ' %} selected{%endif%}>New Jersey</option>
+            <option value="NM"{% if billing_info.state == 'NM' %} selected{%endif%}>New Mexico</option>
+            <option value="NY"{% if billing_info.state == 'NY' %} selected{%endif%}>New York</option>
+            <option value="NC"{% if billing_info.state == 'NC' %} selected{%endif%}>North Carolina</option>
+            <option value="ND"{% if billing_info.state == 'ND' %} selected{%endif%}>North Dakota</option>
+            <option value="OH"{% if billing_info.state == 'OH' %} selected{%endif%}>Ohio</option>
+            <option value="OK"{% if billing_info.state == 'OK' %} selected{%endif%}>Oklahoma</option>
+            <option value="OR"{% if billing_info.state == 'OR' %} selected{%endif%}>Oregon</option>
+            <option value="PA"{% if billing_info.state == 'PA' %} selected{%endif%}>Pennsylvania</option>
+            <option value="RI"{% if billing_info.state == 'RI' %} selected{%endif%}>Rhode Island</option>
+            <option value="SC"{% if billing_info.state == 'SC' %} selected{%endif%}>South Carolina</option>
+            <option value="SD"{% if billing_info.state == 'SD' %} selected{%endif%}>South Dakota</option>
+            <option value="TN"{% if billing_info.state == 'TN' %} selected{%endif%}>Tennessee</option>
+            <option value="TX"{% if billing_info.state == 'TX' %} selected{%endif%}>Texas</option>
+            <option value="UT"{% if billing_info.state == 'UT' %} selected{%endif%}>Utah</option>
+            <option value="VT"{% if billing_info.state == 'VT' %} selected{%endif%}>Vermont</option>
+            <option value="VA"{% if billing_info.state == 'VA' %} selected{%endif%}>Virginia</option>
+            <option value="WA"{% if billing_info.state == 'WA' %} selected{%endif%}>Washington</option>
+            <option value="WV"{% if billing_info.state == 'WV' %} selected{%endif%}>West Virginia</option>
+            <option value="WI"{% if billing_info.state == 'WI' %} selected{%endif%}>Wisconsin</option>
+            <option value="WY"{% if billing_info.state == 'WY' %} selected{%endif%}>Wyoming</option>
+          </select>
+        <span>
+      </div>
+      <div>
+        <span class="my_profile_label">Country</span>
+        <span>
+          <select id="country" name="country" required>
+            <option value="AF"{% if billing_info.country == 'AF' %} selected{%endif%}>Afghanistan</option>
+          	<option value="AX"{% if billing_info.country == 'AX' %} selected{%endif%}>Åland Islands</option>
+          	<option value="AL"{% if billing_info.country == 'AL' %} selected{%endif%}>Albania</option>
+          	<option value="DZ"{% if billing_info.country == 'DZ' %} selected{%endif%}>Algeria</option>
+          	<option value="AS"{% if billing_info.country == 'AS' %} selected{%endif%}>American Samoa</option>
+          	<option value="AD"{% if billing_info.country == 'AD' %} selected{%endif%}>Andorra</option>
+          	<option value="AO"{% if billing_info.country == 'AO' %} selected{%endif%}>Angola</option>
+          	<option value="AI"{% if billing_info.country == 'AI' %} selected{%endif%}>Anguilla</option>
+          	<option value="AQ"{% if billing_info.country == 'AQ' %} selected{%endif%}>Antarctica</option>
+          	<option value="AG"{% if billing_info.country == 'AG' %} selected{%endif%}>Antigua and Barbuda</option>
+          	<option value="AR"{% if billing_info.country == 'AR' %} selected{%endif%}>Argentina</option>
+          	<option value="AM"{% if billing_info.country == 'AM' %} selected{%endif%}>Armenia</option>
+          	<option value="AW"{% if billing_info.country == 'AW' %} selected{%endif%}>Aruba</option>
+          	<option value="AU"{% if billing_info.country == 'AU' %} selected{%endif%}>Australia</option>
+          	<option value="AT"{% if billing_info.country == 'AT' %} selected{%endif%}>Austria</option>
+          	<option value="AZ"{% if billing_info.country == 'AZ' %} selected{%endif%}>Azerbaijan</option>
+          	<option value="BS"{% if billing_info.country == 'BS' %} selected{%endif%}>Bahamas</option>
+          	<option value="BH"{% if billing_info.country == 'BH' %} selected{%endif%}>Bahrain</option>
+          	<option value="BD"{% if billing_info.country == 'BD' %} selected{%endif%}>Bangladesh</option>
+          	<option value="BB"{% if billing_info.country == 'BB' %} selected{%endif%}>Barbados</option>
+          	<option value="BY"{% if billing_info.country == 'BY' %} selected{%endif%}>Belarus</option>
+          	<option value="BE"{% if billing_info.country == 'BE' %} selected{%endif%}>Belgium</option>
+          	<option value="BZ"{% if billing_info.country == 'BZ' %} selected{%endif%}>Belize</option>
+          	<option value="BJ"{% if billing_info.country == 'BJ' %} selected{%endif%}>Benin</option>
+          	<option value="BM"{% if billing_info.country == 'BM' %} selected{%endif%}>Bermuda</option>
+          	<option value="BT"{% if billing_info.country == 'BT' %} selected{%endif%}>Bhutan</option>
+          	<option value="BO"{% if billing_info.country == 'BO' %} selected{%endif%}>Bolivia, Plurinational State of</option>
+          	<option value="BQ"{% if billing_info.country == 'BQ' %} selected{%endif%}>Bonaire, Sint Eustatius and Saba</option>
+          	<option value="BA"{% if billing_info.country == 'BA' %} selected{%endif%}>Bosnia and Herzegovina</option>
+          	<option value="BW"{% if billing_info.country == 'BW' %} selected{%endif%}>Botswana</option>
+          	<option value="BV"{% if billing_info.country == 'BV' %} selected{%endif%}>Bouvet Island</option>
+          	<option value="BR"{% if billing_info.country == 'BR' %} selected{%endif%}>Brazil</option>
+          	<option value="IO"{% if billing_info.country == 'IO' %} selected{%endif%}>British Indian Ocean Territory</option>
+          	<option value="BN"{% if billing_info.country == 'BN' %} selected{%endif%}>Brunei Darussalam</option>
+          	<option value="BG"{% if billing_info.country == 'BG' %} selected{%endif%}>Bulgaria</option>
+          	<option value="BF"{% if billing_info.country == 'BF' %} selected{%endif%}>Burkina Faso</option>
+          	<option value="BI"{% if billing_info.country == 'BI' %} selected{%endif%}>Burundi</option>
+          	<option value="KH"{% if billing_info.country == 'KH' %} selected{%endif%}>Cambodia</option>
+          	<option value="CM"{% if billing_info.country == 'CM' %} selected{%endif%}>Cameroon</option>
+          	<option value="CA"{% if billing_info.country == 'CA' %} selected{%endif%}>Canada</option>
+          	<option value="CV"{% if billing_info.country == 'CV' %} selected{%endif%}>Cape Verde</option>
+          	<option value="KY"{% if billing_info.country == 'KY' %} selected{%endif%}>Cayman Islands</option>
+          	<option value="CF"{% if billing_info.country == 'CF' %} selected{%endif%}>Central African Republic</option>
+          	<option value="TD"{% if billing_info.country == 'TD' %} selected{%endif%}>Chad</option>
+          	<option value="CL"{% if billing_info.country == 'CL' %} selected{%endif%}>Chile</option>
+          	<option value="CN"{% if billing_info.country == 'CN' %} selected{%endif%}>China</option>
+          	<option value="CX"{% if billing_info.country == 'CX' %} selected{%endif%}>Christmas Island</option>
+          	<option value="CC"{% if billing_info.country == 'CC' %} selected{%endif%}>Cocos (Keeling) Islands</option>
+          	<option value="CO"{% if billing_info.country == 'CO' %} selected{%endif%}>Colombia</option>
+          	<option value="KM"{% if billing_info.country == 'KM' %} selected{%endif%}>Comoros</option>
+          	<option value="CG"{% if billing_info.country == 'CG' %} selected{%endif%}>Congo</option>
+          	<option value="CD"{% if billing_info.country == 'CD' %} selected{%endif%}>Congo, the Democratic Republic of the</option>
+          	<option value="CK"{% if billing_info.country == 'CK' %} selected{%endif%}>Cook Islands</option>
+          	<option value="CR"{% if billing_info.country == 'CR' %} selected{%endif%}>Costa Rica</option>
+          	<option value="CI"{% if billing_info.country == 'CI' %} selected{%endif%}>Côte d'Ivoire</option>
+          	<option value="HR"{% if billing_info.country == 'HR' %} selected{%endif%}>Croatia</option>
+          	<option value="CU"{% if billing_info.country == 'CU' %} selected{%endif%}>Cuba</option>
+          	<option value="CW"{% if billing_info.country == 'CW' %} selected{%endif%}>Curaçao</option>
+          	<option value="CY"{% if billing_info.country == 'CY' %} selected{%endif%}>Cyprus</option>
+          	<option value="CZ"{% if billing_info.country == 'CZ' %} selected{%endif%}>Czech Republic</option>
+          	<option value="DK"{% if billing_info.country == 'DK' %} selected{%endif%}>Denmark</option>
+          	<option value="DJ"{% if billing_info.country == 'DJ' %} selected{%endif%}>Djibouti</option>
+          	<option value="DM"{% if billing_info.country == 'DM' %} selected{%endif%}>Dominica</option>
+          	<option value="DO"{% if billing_info.country == 'DO' %} selected{%endif%}>Dominican Republic</option>
+          	<option value="EC"{% if billing_info.country == 'EC' %} selected{%endif%}>Ecuador</option>
+          	<option value="EG"{% if billing_info.country == 'EG' %} selected{%endif%}>Egypt</option>
+          	<option value="SV"{% if billing_info.country == 'SV' %} selected{%endif%}>El Salvador</option>
+          	<option value="GQ"{% if billing_info.country == 'GQ' %} selected{%endif%}>Equatorial Guinea</option>
+          	<option value="ER"{% if billing_info.country == 'ER' %} selected{%endif%}>Eritrea</option>
+          	<option value="EE"{% if billing_info.country == 'EE' %} selected{%endif%}>Estonia</option>
+          	<option value="ET"{% if billing_info.country == 'ET' %} selected{%endif%}>Ethiopia</option>
+          	<option value="FK"{% if billing_info.country == 'FK' %} selected{%endif%}>Falkland Islands (Malvinas)</option>
+          	<option value="FO"{% if billing_info.country == 'FO' %} selected{%endif%}>Faroe Islands</option>
+          	<option value="FJ"{% if billing_info.country == 'FJ' %} selected{%endif%}>Fiji</option>
+          	<option value="FI"{% if billing_info.country == 'FI' %} selected{%endif%}>Finland</option>
+          	<option value="FR"{% if billing_info.country == 'FR' %} selected{%endif%}>France</option>
+          	<option value="GF"{% if billing_info.country == 'GF' %} selected{%endif%}>French Guiana</option>
+          	<option value="PF"{% if billing_info.country == 'PF' %} selected{%endif%}>French Polynesia</option>
+          	<option value="TF"{% if billing_info.country == 'TF' %} selected{%endif%}>French Southern Territories</option>
+          	<option value="GA"{% if billing_info.country == 'GA' %} selected{%endif%}>Gabon</option>
+          	<option value="GM"{% if billing_info.country == 'GM' %} selected{%endif%}>Gambia</option>
+          	<option value="GE"{% if billing_info.country == 'GE' %} selected{%endif%}>Georgia</option>
+          	<option value="DE"{% if billing_info.country == 'DE' %} selected{%endif%}>Germany</option>
+          	<option value="GH"{% if billing_info.country == 'GH' %} selected{%endif%}>Ghana</option>
+          	<option value="GI"{% if billing_info.country == 'GI' %} selected{%endif%}>Gibraltar</option>
+          	<option value="GR"{% if billing_info.country == 'GR' %} selected{%endif%}>Greece</option>
+          	<option value="GL"{% if billing_info.country == 'GL' %} selected{%endif%}>Greenland</option>
+          	<option value="GD"{% if billing_info.country == 'GD' %} selected{%endif%}>Grenada</option>
+          	<option value="GP"{% if billing_info.country == 'GP' %} selected{%endif%}>Guadeloupe</option>
+          	<option value="GU"{% if billing_info.country == 'GU' %} selected{%endif%}>Guam</option>
+          	<option value="GT"{% if billing_info.country == 'GT' %} selected{%endif%}>Guatemala</option>
+          	<option value="GG"{% if billing_info.country == 'GG' %} selected{%endif%}>Guernsey</option>
+          	<option value="GN"{% if billing_info.country == 'GN' %} selected{%endif%}>Guinea</option>
+          	<option value="GW"{% if billing_info.country == 'GW' %} selected{%endif%}>Guinea-Bissau</option>
+          	<option value="GY"{% if billing_info.country == 'GY' %} selected{%endif%}>Guyana</option>
+          	<option value="HT"{% if billing_info.country == 'HT' %} selected{%endif%}>Haiti</option>
+          	<option value="HM"{% if billing_info.country == 'HM' %} selected{%endif%}>Heard Island and McDonald Islands</option>
+          	<option value="VA"{% if billing_info.country == 'VA' %} selected{%endif%}>Holy See (Vatican City State)</option>
+          	<option value="HN"{% if billing_info.country == 'HN' %} selected{%endif%}>Honduras</option>
+          	<option value="HK"{% if billing_info.country == 'HK' %} selected{%endif%}>Hong Kong</option>
+          	<option value="HU"{% if billing_info.country == 'HU' %} selected{%endif%}>Hungary</option>
+          	<option value="IS"{% if billing_info.country == 'IS' %} selected{%endif%}>Iceland</option>
+          	<option value="IN"{% if billing_info.country == 'IN' %} selected{%endif%}>India</option>
+          	<option value="ID"{% if billing_info.country == 'ID' %} selected{%endif%}>Indonesia</option>
+          	<option value="IR"{% if billing_info.country == 'IR' %} selected{%endif%}>Iran, Islamic Republic of</option>
+          	<option value="IQ"{% if billing_info.country == 'IQ' %} selected{%endif%}>Iraq</option>
+          	<option value="IE"{% if billing_info.country == 'IE' %} selected{%endif%}>Ireland</option>
+          	<option value="IM"{% if billing_info.country == 'IM' %} selected{%endif%}>Isle of Man</option>
+          	<option value="IL"{% if billing_info.country == 'IL' %} selected{%endif%}>Israel</option>
+          	<option value="IT"{% if billing_info.country == 'IT' %} selected{%endif%}>Italy</option>
+          	<option value="JM"{% if billing_info.country == 'JM' %} selected{%endif%}>Jamaica</option>
+          	<option value="JP"{% if billing_info.country == 'JP' %} selected{%endif%}>Japan</option>
+          	<option value="JE"{% if billing_info.country == 'JE' %} selected{%endif%}>Jersey</option>
+          	<option value="JO"{% if billing_info.country == 'JO' %} selected{%endif%}>Jordan</option>
+          	<option value="KZ"{% if billing_info.country == 'KZ' %} selected{%endif%}>Kazakhstan</option>
+          	<option value="KE"{% if billing_info.country == 'KE' %} selected{%endif%}>Kenya</option>
+          	<option value="KI"{% if billing_info.country == 'KI' %} selected{%endif%}>Kiribati</option>
+          	<option value="KP"{% if billing_info.country == 'KP' %} selected{%endif%}>Korea, Democratic People's Republic of</option>
+          	<option value="KR"{% if billing_info.country == 'KR' %} selected{%endif%}>Korea, Republic of</option>
+          	<option value="KW"{% if billing_info.country == 'KW' %} selected{%endif%}>Kuwait</option>
+          	<option value="KG"{% if billing_info.country == 'KG' %} selected{%endif%}>Kyrgyzstan</option>
+          	<option value="LA"{% if billing_info.country == 'LA' %} selected{%endif%}>Lao People's Democratic Republic</option>
+          	<option value="LV"{% if billing_info.country == 'LV' %} selected{%endif%}>Latvia</option>
+          	<option value="LB"{% if billing_info.country == 'LB' %} selected{%endif%}>Lebanon</option>
+          	<option value="LS"{% if billing_info.country == 'LS' %} selected{%endif%}>Lesotho</option>
+          	<option value="LR"{% if billing_info.country == 'LR' %} selected{%endif%}>Liberia</option>
+          	<option value="LY"{% if billing_info.country == 'LY' %} selected{%endif%}>Libya</option>
+          	<option value="LI"{% if billing_info.country == 'LI' %} selected{%endif%}>Liechtenstein</option>
+          	<option value="LT"{% if billing_info.country == 'LT' %} selected{%endif%}>Lithuania</option>
+          	<option value="LU"{% if billing_info.country == 'LU' %} selected{%endif%}>Luxembourg</option>
+          	<option value="MO"{% if billing_info.country == 'MO' %} selected{%endif%}>Macao</option>
+          	<option value="MK"{% if billing_info.country == 'MK' %} selected{%endif%}>Macedonia, the former Yugoslav Republic of</option>
+          	<option value="MG"{% if billing_info.country == 'MG' %} selected{%endif%}>Madagascar</option>
+          	<option value="MW"{% if billing_info.country == 'MW' %} selected{%endif%}>Malawi</option>
+          	<option value="MY"{% if billing_info.country == 'MY' %} selected{%endif%}>Malaysia</option>
+          	<option value="MV"{% if billing_info.country == 'MV' %} selected{%endif%}>Maldives</option>
+          	<option value="ML"{% if billing_info.country == 'ML' %} selected{%endif%}>Mali</option>
+          	<option value="MT"{% if billing_info.country == 'MT' %} selected{%endif%}>Malta</option>
+          	<option value="MH"{% if billing_info.country == 'MH' %} selected{%endif%}>Marshall Islands</option>
+          	<option value="MQ"{% if billing_info.country == 'MQ' %} selected{%endif%}>Martinique</option>
+          	<option value="MR"{% if billing_info.country == 'MR' %} selected{%endif%}>Mauritania</option>
+          	<option value="MU"{% if billing_info.country == 'MU' %} selected{%endif%}>Mauritius</option>
+          	<option value="YT"{% if billing_info.country == 'YT' %} selected{%endif%}>Mayotte</option>
+          	<option value="MX"{% if billing_info.country == 'MX' %} selected{%endif%}>Mexico</option>
+          	<option value="FM"{% if billing_info.country == 'FM' %} selected{%endif%}>Micronesia, Federated States of</option>
+          	<option value="MD"{% if billing_info.country == 'MD' %} selected{%endif%}>Moldova, Republic of</option>
+          	<option value="MC"{% if billing_info.country == 'MC' %} selected{%endif%}>Monaco</option>
+          	<option value="MN"{% if billing_info.country == 'MN' %} selected{%endif%}>Mongolia</option>
+          	<option value="ME"{% if billing_info.country == 'ME' %} selected{%endif%}>Montenegro</option>
+          	<option value="MS"{% if billing_info.country == 'MS' %} selected{%endif%}>Montserrat</option>
+          	<option value="MA"{% if billing_info.country == 'MA' %} selected{%endif%}>Morocco</option>
+          	<option value="MZ"{% if billing_info.country == 'MZ' %} selected{%endif%}>Mozambique</option>
+          	<option value="MM"{% if billing_info.country == 'MM' %} selected{%endif%}>Myanmar</option>
+          	<option value="NA"{% if billing_info.country == 'NA' %} selected{%endif%}>Namibia</option>
+          	<option value="NR"{% if billing_info.country == 'NR' %} selected{%endif%}>Nauru</option>
+          	<option value="NP"{% if billing_info.country == 'NP' %} selected{%endif%}>Nepal</option>
+          	<option value="NL"{% if billing_info.country == 'NL' %} selected{%endif%}>Netherlands</option>
+          	<option value="NC"{% if billing_info.country == 'NC' %} selected{%endif%}>New Caledonia</option>
+          	<option value="NZ"{% if billing_info.country == 'NZ' %} selected{%endif%}>New Zealand</option>
+          	<option value="NI"{% if billing_info.country == 'NI' %} selected{%endif%}>Nicaragua</option>
+          	<option value="NE"{% if billing_info.country == 'NE' %} selected{%endif%}>Niger</option>
+          	<option value="NG"{% if billing_info.country == 'NG' %} selected{%endif%}>Nigeria</option>
+          	<option value="NU"{% if billing_info.country == 'NU' %} selected{%endif%}>Niue</option>
+          	<option value="NF"{% if billing_info.country == 'NF' %} selected{%endif%}>Norfolk Island</option>
+          	<option value="MP"{% if billing_info.country == 'MP' %} selected{%endif%}>Northern Mariana Islands</option>
+          	<option value="NO"{% if billing_info.country == 'NO' %} selected{%endif%}>Norway</option>
+          	<option value="OM"{% if billing_info.country == 'OM' %} selected{%endif%}>Oman</option>
+          	<option value="PK"{% if billing_info.country == 'PK' %} selected{%endif%}>Pakistan</option>
+          	<option value="PW"{% if billing_info.country == 'PW' %} selected{%endif%}>Palau</option>
+          	<option value="PS"{% if billing_info.country == 'PS' %} selected{%endif%}>Palestinian Territory, Occupied</option>
+          	<option value="PA"{% if billing_info.country == 'PA' %} selected{%endif%}>Panama</option>
+          	<option value="PG"{% if billing_info.country == 'PG' %} selected{%endif%}>Papua New Guinea</option>
+          	<option value="PY"{% if billing_info.country == 'PY' %} selected{%endif%}>Paraguay</option>
+          	<option value="PE"{% if billing_info.country == 'PE' %} selected{%endif%}>Peru</option>
+          	<option value="PH"{% if billing_info.country == 'PH' %} selected{%endif%}>Philippines</option>
+          	<option value="PN"{% if billing_info.country == 'PN' %} selected{%endif%}>Pitcairn</option>
+          	<option value="PL"{% if billing_info.country == 'PL' %} selected{%endif%}>Poland</option>
+          	<option value="PT"{% if billing_info.country == 'PT' %} selected{%endif%}>Portugal</option>
+          	<option value="PR"{% if billing_info.country == 'PR' %} selected{%endif%}>Puerto Rico</option>
+          	<option value="QA"{% if billing_info.country == 'QA' %} selected{%endif%}>Qatar</option>
+          	<option value="RE"{% if billing_info.country == 'RE' %} selected{%endif%}>Réunion</option>
+          	<option value="RO"{% if billing_info.country == 'RO' %} selected{%endif%}>Romania</option>
+          	<option value="RU"{% if billing_info.country == 'RU' %} selected{%endif%}>Russian Federation</option>
+          	<option value="RW"{% if billing_info.country == 'RW' %} selected{%endif%}>Rwanda</option>
+          	<option value="BL"{% if billing_info.country == 'BL' %} selected{%endif%}>Saint Barthélemy</option>
+          	<option value="SH"{% if billing_info.country == 'SH' %} selected{%endif%}>Saint Helena, Ascension and Tristan da Cunha</option
+          	<option value="KN"{% if billing_info.country == 'KN' %} selected{%endif%}>Saint Kitts and Nevis</option>
+          	<option value="LC"{% if billing_info.country == 'LC' %} selected{%endif%}>Saint Lucia</option>
+          	<option value="MF"{% if billing_info.country == 'MF' %} selected{%endif%}>Saint Martin (French part)</option>
+          	<option value="PM"{% if billing_info.country == 'PM' %} selected{%endif%}>Saint Pierre and Miquelon</option>
+          	<option value="VC"{% if billing_info.country == 'VC' %} selected{%endif%}>Saint Vincent and the Grenadines</option>
+          	<option value="WS"{% if billing_info.country == 'WS' %} selected{%endif%}>Samoa</option>
+          	<option value="SM"{% if billing_info.country == 'SM' %} selected{%endif%}>San Marino</option>
+          	<option value="ST"{% if billing_info.country == 'ST' %} selected{%endif%}>Sao Tome and Principe</option>
+          	<option value="SA"{% if billing_info.country == 'SA' %} selected{%endif%}>Saudi Arabia</option>
+          	<option value="SN"{% if billing_info.country == 'SN' %} selected{%endif%}>Senegal</option>
+          	<option value="RS"{% if billing_info.country == 'RS' %} selected{%endif%}>Serbia</option>
+          	<option value="SC"{% if billing_info.country == 'SC' %} selected{%endif%}>Seychelles</option>
+          	<option value="SL"{% if billing_info.country == 'SL' %} selected{%endif%}>Sierra Leone</option>
+          	<option value="SG"{% if billing_info.country == 'SG' %} selected{%endif%}>Singapore</option>
+          	<option value="SX"{% if billing_info.country == 'SX' %} selected{%endif%}>Sint Maarten (Dutch part)</option>
+          	<option value="SK"{% if billing_info.country == 'SK' %} selected{%endif%}>Slovakia</option>
+          	<option value="SI"{% if billing_info.country == 'SI' %} selected{%endif%}>Slovenia</option>
+          	<option value="SB"{% if billing_info.country == 'SB' %} selected{%endif%}>Solomon Islands</option>
+          	<option value="SO"{% if billing_info.country == 'SO' %} selected{%endif%}>Somalia</option>
+          	<option value="ZA"{% if billing_info.country == 'ZA' %} selected{%endif%}>South Africa</option>
+          	<option value="GS"{% if billing_info.country == 'GS' %} selected{%endif%}>South Georgia and the South Sandwich Islands</option>
+          	<option value="SS"{% if billing_info.country == 'SS' %} selected{%endif%}>South Sudan</option>
+          	<option value="ES"{% if billing_info.country == 'ES' %} selected{%endif%}>Spain</option>
+          	<option value="LK"{% if billing_info.country == 'LK' %} selected{%endif%}>Sri Lanka</option>
+          	<option value="SD"{% if billing_info.country == 'SD' %} selected{%endif%}>Sudan</option>
+          	<option value="SR"{% if billing_info.country == 'SR' %} selected{%endif%}>Suriname</option>
+          	<option value="SJ"{% if billing_info.country == 'SJ' %} selected{%endif%}>Svalbard and Jan Mayen</option>
+          	<option value="SZ"{% if billing_info.country == 'SZ' %} selected{%endif%}>Swaziland</option>
+          	<option value="SE"{% if billing_info.country == 'SE' %} selected{%endif%}>Sweden</option>
+          	<option value="CH"{% if billing_info.country == 'CH' %} selected{%endif%}>Switzerland</option>
+          	<option value="SY"{% if billing_info.country == 'SY' %} selected{%endif%}>Syrian Arab Republic</option>
+          	<option value="TW"{% if billing_info.country == 'TW' %} selected{%endif%}>Taiwan, Province of China</option>
+          	<option value="TJ"{% if billing_info.country == 'TJ' %} selected{%endif%}>Tajikistan</option>
+          	<option value="TZ"{% if billing_info.country == 'TZ' %} selected{%endif%}>Tanzania, United Republic of</option>
+          	<option value="TH"{% if billing_info.country == 'TH' %} selected{%endif%}>Thailand</option>
+          	<option value="TL"{% if billing_info.country == 'TL' %} selected{%endif%}>Timor-Leste</option>
+          	<option value="TG"{% if billing_info.country == 'TG' %} selected{%endif%}>Togo</option>
+          	<option value="TK"{% if billing_info.country == 'TK' %} selected{%endif%}>Tokelau</option>
+          	<option value="TO"{% if billing_info.country == 'TO' %} selected{%endif%}>Tonga</option>
+          	<option value="TT"{% if billing_info.country == 'TT' %} selected{%endif%}>Trinidad and Tobago</option>
+          	<option value="TN"{% if billing_info.country == 'TN' %} selected{%endif%}>Tunisia</option>
+          	<option value="TR"{% if billing_info.country == 'TR' %} selected{%endif%}>Turkey</option>
+          	<option value="TM"{% if billing_info.country == 'TM' %} selected{%endif%}>Turkmenistan</option>
+          	<option value="TC"{% if billing_info.country == 'TC' %} selected{%endif%}>Turks and Caicos Islands</option>
+          	<option value="TV"{% if billing_info.country == 'TV' %} selected{%endif%}>Tuvalu</option>
+          	<option value="UG"{% if billing_info.country == 'UG' %} selected{%endif%}>Uganda</option>
+          	<option value="UA"{% if billing_info.country == 'UA' %} selected{%endif%}>Ukraine</option>
+          	<option value="AE"{% if billing_info.country == 'AE' %} selected{%endif%}>United Arab Emirates</option>
+          	<option value="GB"{% if billing_info.country == 'GB' %} selected{%endif%}>United Kingdom</option>
+          	<option value="US"{% if billing_info.country == 'US' %} selected{%endif%}>United States</option>
+          	<option value="UM"{% if billing_info.country == 'UM' %} selected{%endif%}>United States Minor Outlying Islands</option>
+          	<option value="UY"{% if billing_info.country == 'UY' %} selected{%endif%}>Uruguay</option>
+          	<option value="UZ"{% if billing_info.country == 'UZ' %} selected{%endif%}>Uzbekistan</option>
+          	<option value="VU"{% if billing_info.country == 'VU' %} selected{%endif%}>Vanuatu</option>
+          	<option value="VE"{% if billing_info.country == 'VE' %} selected{%endif%}>Venezuela, Bolivarian Republic of</option>
+          	<option value="VN"{% if billing_info.country == 'VN' %} selected{%endif%}>Viet Nam</option>
+          	<option value="VG"{% if billing_info.country == 'VG' %} selected{%endif%}>Virgin Islands, British</option>
+          	<option value="VI"{% if billing_info.country == 'VI' %} selected{%endif%}>Virgin Islands, U.S.</option>
+          	<option value="WF"{% if billing_info.country == 'WF' %} selected{%endif%}>Wallis and Futuna</option>
+          	<option value="EH"{% if billing_info.country == 'EH' %} selected{%endif%}>Western Sahara</option>
+          	<option value="YE"{% if billing_info.country == 'YE' %} selected{%endif%}>Yemen</option>
+          	<option value="ZM"{% if billing_info.country == 'ZM' %} selected{%endif%}>Zambia</option>
+          	<option value="ZW"{% if billing_info.country == 'ZW' %} selected{%endif%}>Zimbabwe</option>
+          </select>
+        </span>
+      </div>
+      <div>
+        <span class="my_profile_label">Zip Code</span>
+        <span><input type="text" name="zipcode" value="{{billing_info.zipcode}}"></span>
+      </div>
     </div>
     <br>
     <div class="myprofile"><button type="submit" id="btnUpdateProfile">Update Profile</button></div>

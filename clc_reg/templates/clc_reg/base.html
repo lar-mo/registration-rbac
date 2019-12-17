@@ -64,8 +64,13 @@
         align-items: center;
         padding: 15px
       }
-      .purchase_form {
-        width: 500px;
+      .purchase_form, .myprofile_form {
+        display: flex;
+        flex-direction: column;
+        justify-content: right;
+        /* align-items: right; */
+        padding: 10px;
+        width: 550px;
         background-color: lightblue;
         box-shadow:           3px 3px 5px 0 rgba(25,25,25,0.4);
         -moz-box-shadow:      3px 3px 5px 0 rgba(25,25,25,0.4);
@@ -79,18 +84,11 @@
         -moz-box-shadow:      3px 3px 5px 0 rgba(25,25,25,0.4);
         -webkit-box-shadow:   3px 3px 5px 0 rgba(25,25,25,0.4);
       }
-      .purchase_form {
-        display: flex;
-        flex-direction: column;
-        justify-content: right;
-        /* align-items: right; */
-        padding: 10px;
-      }
-      .purchase_form > * {
+      .purchase_form > *, .myprofile_form > * {
         padding: 8px;
         /* border: 1px solid black; */
-        align-self: center;
-        width: 68%;
+        align-self: left;
+        /* width: 100%; */
       }
       .form_title {
         font-size: 1.5em;
@@ -102,9 +100,9 @@
         font-weight: bold;
         width: 100%;
       }
-      .field_title {
+      /* .field_title {
         font-weight: bold;
-      }
+      } */
       .field_title_newaddr {
         font-style: italic;
       }
@@ -139,9 +137,9 @@
         border-collapse: collapse;
         padding: 3px;
       }
-      .my_profile_label {
+      .my_profile_label, .field_title {
         float: left;
-        width: 100px;
+        width: 130px;
         text-align: right;
         padding: 0 10px 0 0;
         font-weight: bold;
