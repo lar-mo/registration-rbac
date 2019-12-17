@@ -281,8 +281,8 @@ def purchase_membership(request):
     isexpired = request.user.membership_isexpired()
 
     # Redirect to index page if user already has active Premium membership (***Plus members can upgrade***)
-    # if level == "Premium" and not isexpired and isconfirmed:
-    #     return HttpResponseRedirect(reverse('clc_reg:premium')+'?message=valid_membership')
+    if level == "Premium" and not isexpired and isconfirmed:
+        return HttpResponseRedirect(reverse('clc_reg:premium')+'?message=valid_membership')
 
     # Redirect to Inactive page
     if not isactive:
