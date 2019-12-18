@@ -461,13 +461,20 @@ def purchases(request):
 def my_profile(request):
     message = request.GET.get('message', '')
     user_info = request.user
-    billing_info = BillingInformation.objects.get(purchaser_id=request.user.id)
-    context = {
-    'message': message,
-    'user_info': user_info,
-    'billing_info': billing_info,
-    }
-    return render(request, 'clc_reg/my_profile.html', context)
+    try:
+        billing_info = BillingInformation.objects.get(purchaser_id=request.user.id)
+        context = {
+        'message': message,
+        'user_info': user_info,
+        'billing_info': billing_info,
+        }
+        return render(request, 'clc_reg/my_profile.html', context)
+    except:
+        context = {
+        'message': message,
+        'user_info': user_info,
+        }
+        return render(request, 'clc_reg/my_profile.html', context)
 
 @login_required
 def save_profile(request):

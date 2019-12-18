@@ -112,6 +112,7 @@
             <span class="field_title">Country:</span>
             <span>
               <select id="country" name="country" required>
+                <option value="---" disabled selected>---</option>
                 <option value="AF"{% if billing_exists and country == 'AF' %} selected{%endif%}>Afghanistan</option>
               	<option value="AX"{% if billing_exists and country == 'AX' %} selected{%endif%}>Åland Islands</option>
               	<option value="AL"{% if billing_exists and country == 'AL' %} selected{%endif%}>Albania</option>
@@ -365,8 +366,8 @@
             </span>
           </div>
           <div>
-            <span class="field_title">Zip Code:</span>
-            <span><input type="text" name="zipcode" id="zipcode" placeholder="" required value="{% if billing_exists %}{{zipcode}}{%endif%}"/></span>
+            <span class="field_title">Postal Code:</span>
+            <span><input type="text" name="zipcode" id="zipcode" placeholder="" maxlength="10" required value="{% if billing_exists %}{{zipcode}}{%endif%}"/></span>
           </div>
         </div>
         <br>
