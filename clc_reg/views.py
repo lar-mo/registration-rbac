@@ -492,7 +492,7 @@ def save_profile(request):
     ### Check for existing record
     try:
         billing_info = BillingInformation.objects.get(purchaser_id=request.user.id)
-        
+
         address1 = request.POST['address1'].strip()
         address2 = request.POST['address2'].strip()
         city = request.POST['city'].strip()
@@ -508,14 +508,5 @@ def save_profile(request):
         billing_info.country=country                        #
         billing_info.save()                                 # save to the database
     except:
-        # billing_info = BillingInformation(                  # build an new object from following values
-        #     address1=address1,                              # set values from FORM values
-        #     address2=address2,                              #
-        #     city=city,                                      #
-        #     state=state,                                    #
-        #     zipcode=zipcode,                                #
-        #     country=country,                                #
-        #     purchaser_id=request.user.id)                   #
-        # billing_info.save()                                 # save to the database
         pass
     return HttpResponseRedirect(reverse('clc_reg:my_profile')+'?message=profile_updated')

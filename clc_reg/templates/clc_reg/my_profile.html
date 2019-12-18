@@ -370,6 +370,9 @@
     {% if billing_exists %}
     <p><a href="{% url 'clc_reg:purchases' %}">My Purchases</a></p>
     {% endif %}
+    {% if not user.membership_level == 'Basic' %}
+    <p>You have a <b>{{user.membership_level}}</b> membership which expires on <b>{{user.membership_expiry|date:'M d, Y'}}</b>.</p>
+    {% endif %}
   </div>
 </div>
 
