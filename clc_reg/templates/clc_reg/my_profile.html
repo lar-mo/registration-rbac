@@ -29,6 +29,7 @@
         <span class="my_profile_label">Last Name</span>
         <span><input type="text" name="lastname" value="{{user_info.last_name}}"></span>
       </div>
+      {% if billing_exists %}
       <div>
         <span class="my_profile_label">Address 1</span>
         <span><input type="text" name="address1" value="{{billing_info.address1}}"></span>
@@ -361,11 +362,14 @@
         <span class="my_profile_label">Postal Code</span>
         <span><input type="text" name="zipcode" maxlength="10" value="{{billing_info.zipcode}}"></span>
       </div>
+      {% endif %}
     </div>
     <br>
     <div class="myprofile"><button type="submit" id="btnUpdateProfile">Update Profile</button></div>
   </form>
+    {% if billing_exists %}
     <p><a href="{% url 'clc_reg:purchases' %}">My Purchases</a></p>
+    {% endif %}
   </div>
 </div>
 

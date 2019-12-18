@@ -467,12 +467,14 @@ def my_profile(request):
         'message': message,
         'user_info': user_info,
         'billing_info': billing_info,
+        'billing_exists': True,
         }
         return render(request, 'clc_reg/my_profile.html', context)
     except:
         context = {
         'message': message,
         'user_info': user_info,
+        'billing_exists': False,
         }
         return render(request, 'clc_reg/my_profile.html', context)
 
