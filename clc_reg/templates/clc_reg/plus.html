@@ -1,19 +1,27 @@
 {% extends 'clc_reg/base.html' %}
 
+{% block messages %}
+
+  {% if message == "membership_upgraded" %}
+    <div style="background-color:green;color:white;">You have successfully upgraded to Plus.</div>
+  {% elif message == "redir_from_premium" %}
+  <div style="background-color:orange;color:#333;">
+    Are you're looking for the <b>Premium</b> page? <a href="{% url 'clc_reg:upsell' %}">Click here</a> to upgrade.
+  </div>
+  {% endif %}
+
+{% endblock %}
+
 {% block content %}
 
-{% if message == "membership_upgraded" %}
+<!-- {% if message == "membership_upgraded" %}
   <div style="background-color:green;color:white;">You have successfully upgraded to Plus.</div>
 {% elif message == "redir_from_premium" %}
 <div style="background-color:orange;color:#333;">
   Are you're looking for the <b>Premium</b> page? <a href="{% url 'clc_reg:upsell' %}">Click here</a> to upgrade.
 </div>
-{% endif %}
+{% endif %} -->
 
-<div class="two_column">
-  <div class="page_image">
-    <img src="https://lar-mo.com/images/pigs_all_three1-plus_color.png"/>
-  </div>
   <div class="page_content">
     <h1>Plus page</h1>
     <h2>Hello <a href="{% url 'clc_reg:my_profile' %}">{% if user.first_name %}{{ user.first_name }}{% else %}{{ user.username }}{% endif %}</a>,</h2>
@@ -22,6 +30,5 @@
     <h3>Go to: <a href="{% url 'clc_reg:premium' %}">Premium</a></h3>
     {% endif %}
   </div>
-</div>
 
 {% endblock %}

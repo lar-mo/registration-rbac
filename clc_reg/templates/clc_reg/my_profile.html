@@ -6,16 +6,6 @@
   <div style="background-color:green;color:white;">Your profile was successfully updated.</div>
 {% endif %}
 
-<div class="two_column">
-  <div class="page_image">
-    {% if user.membership_level == "Basic" %}
-      <img src="https://lar-mo.com/images/pigs_all_three0-basic_color.png"/>
-    {% elif user.membership_level == "Plus" %}
-      <img src="https://lar-mo.com/images/pigs_all_three1-plus_color.png"/>
-    {% elif user.membership_level == "Premium" %}
-      <img src="https://lar-mo.com/images/pigs_all_three2-premium_color.png"/>
-    {% endif %}
-  </div>
   <div class="page_content">
     <div class="page_title">My Profile</div>
     <form id="formMyProfile" action="{% url 'clc_reg:save_profile' %}" method="post">
@@ -370,10 +360,6 @@
     {% if billing_exists %}
     <p><a href="{% url 'clc_reg:purchases' %}">My Purchases</a></p>
     {% endif %}
-    {% if not user.membership_level == 'Basic' %}
-    <p>You have a <b>{{user.membership_level}}</b> membership which expires on <b>{{user.membership_expiry|date:'M d, Y'}}</b>.</p>
-    {% endif %}
   </div>
-</div>
 
 {% endblock %}

@@ -1,21 +1,20 @@
 {% extends 'clc_reg/base.html' %}
 
+{% block messages %}
+
+  {% if message == "membership_upgraded" %}
+    <div style="background-color:green;color:white;">You have successfully upgraded to Premium.</div>
+  {% endif %}
+
+{% endblock %}
+
 {% block content %}
 
-{% if message == "membership_upgraded" %}
-  <div style="background-color:green;color:white;">You have successfully upgraded to Premium.</div>
-{% endif %}
-
-<div class="two_column">
-  <div class="page_image">
-    <img src="https://lar-mo.com/images/pigs_all_three2-premium_color.png"/>
-  </div>
   <div class="page_content">
     <h1>Premium page</h1>
     <h2>Hello <a href="{% url 'clc_reg:my_profile' %}">{% if user.first_name %}{{ user.first_name }}{% else %}{{ user.username }}{% endif %}</a>,</h2>
     <h3>You have a {{ user.membership_level }} membership.<br>Valid until <span id="expiry_date"></span></h3>
     <h3>Go to: <a href="{% url 'clc_reg:plus' %}">Plus</a></h3>
   </div>
-</div>
 
 {% endblock %}

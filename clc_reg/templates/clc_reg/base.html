@@ -21,26 +21,25 @@
       }
       #container_reg {
         background-color:#FFF;
-        width: 70%;
+        width: 75%;
         display: flex;
         flex-direction: row;
-        /* justify-content: center; */
-        /* align-self: center; */
+        align-items: center;
         padding: 10px;
-        margin: 20px 30% 20px 15%;
+        margin: 20px;
         box-shadow:           3px 3px 5px 0 rgba(25,25,25,0.4);
         -moz-box-shadow:      3px 3px 5px 0 rgba(25,25,25,0.4);
         -webkit-box-shadow:   3px 3px 5px 0 rgba(25,25,25,0.4);
       }
       #container_purchase {
         background-color:#FFF;
-        width: 70%;
+        width: 100%;
         display: flex;
         flex-direction: column;
         /* justify-content: center; */
         align-items: center;
         padding: 10px;
-        margin: 20px 30% 20px 15%;
+        margin: 20px 0 20px 0;
       }
       h1, h2, h3, h4, h5, p {
         padding: 2px 20px;
@@ -144,6 +143,10 @@
         padding: 0 10px 0 0;
         font-weight: bold;
       }
+      .placeholder {
+        float:left;
+        width:210px;
+      }
     </style>
   </head>
     <body>
@@ -164,7 +167,37 @@
           {% endif %}
         </div>
 
-        {% block content %}{% endblock %}
+        {% block messages %}{% endblock %}
+
+        <div class="two_column">
+          <div class="page_image">
+            {% url 'clc_reg:special_page' as sp_url %}
+            {% url 'clc_reg:special_page2' as sp2_url %}
+            {% url 'clc_reg:upsell' as up_url %}
+            {% url 'clc_reg:register_login' as reg_url %}
+            {% if request.path != sp_url and request.path != sp2_url and request.path != reg_url %}
+              {% if user.is_authenticated %}
+                {% if request.path == up_url %}
+                  <img src="https://lar-mo.com/images/pigs_all_three.png"/>
+                {% elif user.membership_level == "Basic" %}
+                  <img src="https://lar-mo.com/images/pigs_all_three0-basic_color.png"/>
+                {% elif user.membership_level == "Plus" %}
+                  <img src="https://lar-mo.com/images/pigs_all_three1-plus_color.png"/>
+                  <p>You have a <b>{{user.membership_level}}</b> membership which expires on <b>{{user.membership_expiry|date:'M d, Y'}}</b>.</p>
+                {% elif user.membership_level == "Premium" %}
+                  <img src="https://lar-mo.com/images/pigs_all_three2-premium_color.png"/>
+                  <p>You have a <b>{{user.membership_level}}</b> membership which expires on <b>{{user.membership_expiry|date:'M d, Y'}}</b>.</p>
+                {% endif %}
+              {% else %}
+              <img src="https://lar-mo.com/images/pigs_all_three-anonymous.png"/>
+              {% endif %}
+            {% else %}
+            <span class="placeholder"></span>
+            {% endif %}
+          </div>
+          {% block content %}{% endblock %}
+        </div>
+
 
         <div class="blurb">
           <div>
