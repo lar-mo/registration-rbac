@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 from django.utils import timezone
+import datetime
 
 def is_confirmed(user):
     confirmed = user.isConfirmed.get()
@@ -9,22 +10,22 @@ def is_confirmed(user):
 User.add_to_class('is_confirmed', is_confirmed)
 
 def membership_isactive(user):
-    isactive = user.MembershipLevel.get()
+    isactive = user.Membership.get()
     return isactive.is_active
 User.add_to_class('membership_isactive', membership_isactive)
 
 def membership_level(user):
-    level = user.MembershipLevel.get()
+    level = user.Membership.get()
     return level.membership_type.name
 User.add_to_class('membership_level', membership_level)
 
 def membership_expiry(user):
-    expiry = user.MembershipLevel.get()
+    expiry = user.Membership.get()
     return expiry.expiration
 User.add_to_class('membership_expiry', membership_expiry)
 
 def membership_isexpired(user):
-    expiry = user.MembershipLevel.get()
+    expiry = user.Membership.get()
     if expiry.expiration <= timezone.now():
         return True
     return False
@@ -49,7 +50,7 @@ class Membership(models.Model):
     membership_type = models.ForeignKey(MembershipType, on_delete=models.PROTECT)
     is_active       = models.BooleanField()
     expiration      = models.DateTimeField()
-    user            = models.ForeignKey(User, on_delete=models.PROTECT, related_name='MembershipLevel')
+    user            = models.ForeignKey(User, on_delete=models.PROTECT, related_name='Membership')
 
     def __str__(self):
         return self.user.username + ': ' + self.membership_type.name
