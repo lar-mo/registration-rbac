@@ -235,7 +235,7 @@
       {% endif %}
 
       <script type="text/javascript">
-        console.log("username: {{ user.username }}")
+        console.log("user: {{ user.username }} ({{ user.id }})")
         console.log("isConfirmed? {{ user.is_confirmed }}")
         console.log("isActive? {{ user.membership_isactive }}")
         console.log("Level: {{ user.membership_level }}")
