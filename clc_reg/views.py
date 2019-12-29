@@ -99,9 +99,7 @@ def register_user(request):
         page = 'send_new_key'
         clc_code = bignumber
         host = request.META['HTTP_HOST']
-        level = ''
-        expiration = ''
-        send_notification(request, subject, page, clc_code, host, level, expiration)
+        send_notification(request, subject, page=page, clc_code=clc_code, host=host)
 
         if next != '':
             return HttpResponseRedirect(next)
@@ -131,9 +129,7 @@ def send_new_key(request):
     page = 'send_new_key'
     clc_code = bignumber
     host = request.META['HTTP_HOST']
-    level = ''
-    expiration = ''
-    send_notification(request, subject, page, clc_code, host, level, expiration)
+    send_notification(request, subject, page=page, clc_code=clc_code, host=host)
 
     return HttpResponseRedirect(reverse('clc_reg:index')+'?message=resent')
 
@@ -152,16 +148,12 @@ def logout_user(request):
     logout(request)
     return HttpResponseRedirect(reverse('clc_reg:index')+'?message=logout')
 
-# Can clc_code, host, level, expiration be optional?
-# The problem seems to be with render_to_string (see lines 167, 168).
-# Possible solution:
-# https://stackoverflow.com/questions/9539921/how-do-i-create-a-python-function-with-optional-arguments
-def send_notification(request, subject, page, clc_code, host, level, expiration):
-    username = request.user.username
-    msg_plain = render_to_string('clc_reg/email.txt', {'username': username, 'page': page, 'clc_code': clc_code, 'host': host, 'level': level, 'expiration': expiration})
+def send_notification(request, subject, **kwargs):
+    kwargs['username'] = request.user.username
+    msg_plain = render_to_string('clc_reg/email.txt', kwargs)
     sender = 'Postmaster <postmaster@community-lending-library.org>'
     recipient = [request.user.email]
-    msg_html = render_to_string('clc_reg/email.html', {'username': username, 'page': page, 'clc_code': clc_code, 'host': host, 'level': level, 'expiration': expiration})
+    msg_html = render_to_string('clc_reg/email.html', kwargs)
     try:
         send_mail(subject, msg_plain, sender, recipient, fail_silently=False, html_message=msg_html)
     except:
@@ -195,11 +187,8 @@ def confirmation(request):
         # and, send confirmation success email
         subject = 'Account confirmed'
         page = 'confirmed'
-        clc_code = ''
         host = request.META['HTTP_HOST']
-        level = ''
-        expiration = ''
-        send_notification(request, subject, page, clc_code, host, level, expiration)
+        send_notification(request, subject, page=page, host=host)
 
         # then, redirect back to index and tell user account is now confirmed
         return HttpResponseRedirect(reverse('clc_reg:index')+'?message=confirmed')
@@ -423,9 +412,7 @@ def create_membership(request):
         page = 'purchase'
         level = type
         expiration = one_year_term
-        clc_code = ''
-        host = ''
-        send_notification(request, subject, page, clc_code, host, level, expiration)
+        send_notification(request, subject, page=page, level=level, expiration=expiration)
 
         if next != '':
             return HttpResponseRedirect(next)
