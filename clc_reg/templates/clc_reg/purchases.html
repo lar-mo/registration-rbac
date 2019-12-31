@@ -1,10 +1,14 @@
 {% extends 'clc_reg/base.html' %}
 
-{% block content %}
+{% block messages %}
 
-{% if message == "fubar" %}
-  <div style="background-color:green;color:white;">FUBAR</div>
-{% endif %}
+  {% if message == "fubar" %}
+    <div style="background-color:green;color:white;">FUBAR</div>
+  {% endif %}
+
+{% endblock %}
+
+{% block content %}
 
   <div class="page_content">
     <h1>Purchase History</h1>
