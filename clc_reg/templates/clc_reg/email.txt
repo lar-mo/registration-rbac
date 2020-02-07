@@ -24,4 +24,7 @@
   Hello {{username|title}},
   You have successfully purchased a {{level}} membership.
   It is valid for one year and expires on {{expiration|date:"M d, Y"}}.
+{% elif page == 'update_profile' %}
+  Hello {{username|title}},
+  You have successfully updated your profile.
 {% endif %}

@@ -476,6 +476,11 @@ def save_profile(request):
     user_info.last_name = lastname                      # set new last name
     user_info.save()                                    # save to the database
 
+    # Send Profile Updated email
+    subject = 'Profile Updated'
+    page = 'update_profile'
+    send_notification(request, subject, page=page)
+
     ### Check for existing record
     try:
         billing_info = BillingInformation.objects.get(purchaser_id=request.user.id)

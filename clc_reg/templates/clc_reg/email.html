@@ -23,9 +23,11 @@
     </pre>
       <h4>You have a Basic membership. For additional features, upgrade to <a href="http://{{host}}/purchase_membership/">Plus or Premium.</a></h4>
   </span>
-
 {% elif page == 'purchase' %}
   <h2>Hello {{username|title}},</h2>
   <h3>You have successfully purchased a {{level}} membership.</h3>
   <h4>It is valid for one year and expires on {{expiration|date:"M d, Y"}}.</h4>
+{% elif page == 'update_profile' %}
+  <h2>Hello {{username|title}},</h2>
+  <h3>You have successfully updated your profile.</h3>
 {% endif %}
