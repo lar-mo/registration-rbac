@@ -236,12 +236,6 @@ The functionality is built around `send_mail` from `django.core.mail` and `rende
 5. fail_silently=False
 6. html_message=msg_html (string)
 
-***I would like to make these four optional: clc_code, host, level, expiration
-The issue is here: render_to_string() and the dictionary, the template’s context for rendering.
-Lookup:*** `**args` and `**kwargs`
-
-***Currently, an empty string is passed when value is not needed, as a workaround.***
-
 ### Confirmation ###
 
 ```
