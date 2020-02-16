@@ -1,5 +1,3 @@
-https://www.registration-rbac.com/
-
 # Registration & Membership project
 
 ## Project Overview
@@ -237,6 +235,8 @@ The functionality is built around `send_mail` from `django.core.mail` and `rende
 4. recipient
 5. fail_silently=False
 6. html_message=msg_html (string)
+
+***These four options are optional: clc_code, host, level, expiration ('**kwargs`)
 
 ### Confirmation ###
 
