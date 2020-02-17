@@ -151,7 +151,7 @@ def logout_user(request):
 def send_notification(request, subject, **kwargs):
     kwargs['username'] = request.user.username
     msg_plain = render_to_string('clc_reg/email.txt', kwargs)
-    sender = 'Postmaster <postmaster@community-lending-library.org>'
+    sender = 'Postmaster <postmaster@registration-rbac.com>'
     recipient = [request.user.email]
     msg_html = render_to_string('clc_reg/email.html', kwargs)
     try:
