@@ -117,7 +117,7 @@ def create_key(request):
     return bignumber                                        # pass the 32-digit number back to calling function
 
 def send_new_key(request):
-    # delete previous key
+    # delete previous key (-) no history of keys issued, (+) simplifies query a lot
     old_key = VerifyRegistration.objects.get(user_id=request.user.id)
     old_key.delete()
 
@@ -200,7 +200,7 @@ def confirmation(request):
 def check_membership(request):
     try:
         level = Membership.objects.get(user_id=request.user.id) # lookup Membership by user.id
-        if level.expiration <= timezone.now():                  # check if expiration date is in future
+        if level.expiration <= timezone.now():                  # check if expiration is in the past
             type = MembershipType.objects.get(name='Basic')     # get Basic object from MembershipType
             level.membership_type = type                        # set value of membership_type to Basic
             level.expiration = '2099-12-31 00:00:00-00'         # set expiration far in the future
@@ -225,7 +225,7 @@ def plus(request):
         return HttpResponseRedirect(reverse('clc_reg:index')+'?message=pending')
 
     level = check_membership(request)
-    if level in ['Plus', 'Premium']:                            # check if membership type is Plus
+    if level in ['Plus', 'Premium']:                            # check if membership type is Plus (or Premium)
         return render(request, 'clc_reg/plus.html', context)    # then proceed to Plus page
     elif level == 'Basic':                                      # or, redir to Upsell page
         return HttpResponseRedirect(reverse('clc_reg:upsell')+'?message=redir_from_plus')
