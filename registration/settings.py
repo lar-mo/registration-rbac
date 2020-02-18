@@ -8,6 +8,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+# EMAIL_HOST_PASSWORD = os.environ['DH_EMAIL_HOST_PASSWORD']
 # SECRET_KEY = ')+3$bvzw&^5v1q@u#!#)qi1x^ip7!g%@y(-1a(ex!z4@p(l(n4'
 with open('/home/larmo/keys/reg-rbac/sekrit_key.txt') as f:
     SECRET_KEY = f.read().strip()
@@ -128,8 +129,8 @@ LOGIN_URL = '/'
 EMAIL_HOST = 'smtp.dreamhost.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'postmaster@community-lending-library.org'
+EMAIL_HOST_USER = 'postmaster@registration-rbac.com'
 # EMAIL_HOST_PASSWORD = os.environ['DH_EMAIL_HOST_PASSWORD']
 with open('/home/larmo/keys/reg-rbac/dh_email_key.txt') as f:
     EMAIL_HOST_PASSWORD = f.read().strip()
-DEFAULT_FROM_EMAIL = 'Librarian <postmaster@community-lending-library.org>'
+DEFAULT_FROM_EMAIL = 'Librarian <postmaster@registration-rbac.com>'
