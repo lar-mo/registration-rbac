@@ -4,7 +4,7 @@
 
 **Two-Step Registration and Three-Tier Membership (RBAC)**
 
-After experimenting with the `django-registation` (https://django-registration.readthedocs.io/en/3.0.1/), I wanted to create my own solution. My intention is implement a two-step registration process to my Community Lending Library app.
+After experimenting with the `django-registration` (https://django-registration.readthedocs.io/en/3.0.1/), I wanted to create my own solution. My intention is implement a two-step registration process to my Community Lending Library app.
 
 Once the original concept was coded and working, I set out to add a Membership system. I naively thought I could convert the simple "confirmed" Boolean to an integer denoting different "levels". It became a much more involved undertaking with several new Views, tables (models), new Member pages, error handling, and a purchase form.
 
