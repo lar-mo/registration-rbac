@@ -74,11 +74,13 @@ WSGI_APPLICATION = 'registration.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'clc_reg',
-        'USER': 'clc_user',
+        # 'NAME': 'clc_reg',
+        # 'USER': 'clc_user',
         # 'PASSWORD': '1RXuS5X?',
         # 'HOST': '127.0.0.1',
         # 'PORT': '5432',
+        'NAME': 'clc_app',
+        'USER': 'clc_user',
         'PASSWORD': 'M&lx7QHV',
         'HOST': 'larmo-1490.postgres.pythonanywhere-services.com',
         'PORT': '11490',
