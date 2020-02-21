@@ -14,8 +14,24 @@
             <div>
               <span>
                 <span class="field_title">Membership:</span>
-                <span><input type="radio" name="membership_type" required value="Plus"{% if user.membership_level == "Plus" %}disabled{% endif %}/> Plus</span>
-                <span><input type="radio" name="membership_type" required value="Premium" {% if user.membership_level == "Plus" %}checked{% endif %}/> Premium</span>
+                <span>
+                  <input type="radio" name="membership_type" required value="Plus"
+                    {% if user.membership_level == "Plus" %}
+                      disabled
+                    {% endif %}
+                    {% if type == "plus" %}
+                      checked
+                    {% endif %}/> Plus
+                </span>
+                <span>
+                  <input type="radio" name="membership_type" required value="Premium"
+                    {% if user.membership_level == "Plus" %}
+                      checked
+                    {% endif %}
+                    {% if type == "prem" %}
+                      checked
+                    {% endif %}/> Premium
+                </span>
               </span>
             </div>
             {% if billing_exists %}

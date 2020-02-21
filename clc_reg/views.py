@@ -268,6 +268,7 @@ def purchase_membership(request):
     level = request.user.membership_level()
     isactive = request.user.membership_isactive()
     isexpired = request.user.membership_isexpired()
+    type = request.GET.get('type', '')
 
     # Redirect to index page if user already has active Premium membership (***Plus members can upgrade***)
     if level == "Premium" and not isexpired and isconfirmed:
@@ -292,10 +293,11 @@ def purchase_membership(request):
                 'zipcode': existing_billing_info.zipcode,
                 'country': existing_billing_info.country,
                 'billing_exists': True,
+                'type': type,
             }
             return render(request, 'clc_reg/purchase_membership.html', context)
         except:
-            context = {'billing_exists': False}
+            context = {'billing_exists': False, 'type': type}
             return render(request, 'clc_reg/purchase_membership.html', context)
 
 def validate_credit_card(cc_number):            #
@@ -431,7 +433,11 @@ def account_error(request):
 
 @login_required
 def upsell(request):
-    return render(request, 'clc_reg/upsell.html')
+    message = request.GET.get('message', '')
+    context = {
+        'message': message,
+    }
+    return render(request, 'clc_reg/upsell.html', context)
 
 def about(request):
     return render(request, 'clc_reg/about.html')
