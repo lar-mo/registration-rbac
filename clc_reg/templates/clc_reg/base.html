@@ -131,6 +131,9 @@
       .page_image {
         padding: 15px;
       }
+      .memberlevel {
+        text-align: center;
+      }
       .special_page_img {
         width: 250px;
       }
@@ -184,6 +187,7 @@
                   <img src="https://lar-mo.com/images/pigs_all_three.png"/>
                 {% elif user.membership_level == "Basic" %}
                   <img src="https://lar-mo.com/images/pigs_all_three0-basic_color.png"/>
+                  <p class="memberlevel">You have a <b>{{user.membership_level}}</b> membership.</p>
                 {% elif user.membership_level == "Plus" %}
                   <img src="https://lar-mo.com/images/pigs_all_three1-plus_color.png"/>
                   <p>You have a <b>{{user.membership_level}}</b> membership which expires on <b>{{user.membership_expiry|date:'M d, Y'}}</b>.</p>
@@ -245,5 +249,6 @@
         console.log("Expiry: {{ user.membership_expiry }}")
         console.log("isExpired? {{ user.membership_isexpired }}")
       </script>
+
     </body>
   </html>
