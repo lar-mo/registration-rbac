@@ -201,6 +201,7 @@ def check_membership(request):
     try:
         level = Membership.objects.get(user_id=request.user.id) # lookup Membership by user.id
         if level.expiration <= timezone.now():                  # check if expiration is in the past
+                                                                # opt: and level.membership_type.name != 'Basic'
             type = MembershipType.objects.get(name='Basic')     # get Basic object from MembershipType
             level.membership_type = type                        # set value of membership_type to Basic
             level.expiration = '2099-12-31 00:00:00-00'         # set expiration far in the future
