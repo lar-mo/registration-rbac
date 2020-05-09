@@ -194,6 +194,9 @@
                 {% elif user.membership_level == "Premium" %}
                   <img src="https://lar-mo.com/images/pigs_all_three2-premium_color.png"/>
                   <p>You have a <b>{{user.membership_level}}</b> membership which expires on <b>{{user.membership_expiry|date:'M d, Y'}}</b>.</p>
+                <!-- {% else %} -->
+                  <!-- do something -->
+                  <!-- PNG images don't load if the Basic membership is not created. -->
                 {% endif %}
               {% else %}
               <img src="https://lar-mo.com/images/pigs_all_three-anonymous.png"/>
@@ -248,6 +251,10 @@
         console.log("Level: {{ user.membership_level }}")
         console.log("Expiry: {{ user.membership_expiry }}")
         console.log("isExpired? {{ user.membership_isexpired }}")
+        // {% url 'clc_reg:index' as index %}
+        // {% if user.id != None and user.is_confirmed == False and request.path == index %}
+        //   alert("You need to confirm your account.")
+        // {% endif %}
       </script>
 
     </body>
