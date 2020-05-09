@@ -21,7 +21,7 @@
       </div>
       <div>
         <span class="my_profile_label">Last Name</span>
-        <span><input type="text" name="lastname" value="{{user_info.last_name}}" required></span>
+        <span><input type="text" name="lastname" value="{{user_info.last_name}}" {% if billing_exists %}required{% endif %}></span>
       </div>
       {% if billing_exists %}
       <div>
