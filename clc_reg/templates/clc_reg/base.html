@@ -194,7 +194,7 @@
                 {% elif user.membership_level == "Premium" %}
                   <img src="https://lar-mo.com/images/pigs_all_three2-premium_color.png"/>
                   <p>You have a <b>{{user.membership_level}}</b> membership which expires on <b>{{user.membership_expiry|date:'M d, Y'}}</b>.</p>
-                <!-- {% else %} -->
+                {% else %}
                   <!-- do something -->
                   <!-- PNG images don't load if the Basic membership is not created. -->
                 {% endif %}
