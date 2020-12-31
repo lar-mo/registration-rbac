@@ -12,20 +12,20 @@
 
   <div class="page_content">
     <h1>Purchase History</h1>
-    <table>
-      <tr>
-        <th>ID</th>
-        <th>Date of Purchase</th>
-        <th>Item Purchased</th>
-      </tr>
+    <div class="purchase_history">
+      <div>
+        <span class="purchase_history_label" id="purchase_history_label1">ID</span>
+        <span class="purchase_history_label">Date of Purchase</span>
+        <span class="purchase_history_label">Item Purchased</span>
+      </div>
       {% for purchase in purchases|dictsortreversed:"transaction_date" %}
-      <tr>
-        <td>{{purchase.id}}</td>
-        <td>{{purchase.transaction_date}}</td>
-        <td>{{purchase.item_purchased}}</td>
-      </tr>
+      <div>
+        <span class="purchase_history_value" id="purchase_history_label1">{{purchase.id}}</span>
+        <span class="purchase_history_value">{{purchase.transaction_date}}</span>
+        <span class="purchase_history_value">{{purchase.item_purchased}}</span>
+      </div>
       {% endfor %}
-    </table>
+    </div>
     <p>&nbsp;</p>
   </div>
 
