@@ -168,6 +168,12 @@ def confirmation(request):
     # lookup all code associated with user_id
     valid_code = VerifyRegistration.objects.get(user_id=request.user.id)
 
+    # currently there is no handling for:
+    # user tries to use another user's confirmation code
+    #   and their account is already verified
+    # a. if account is unverified, the "error" message is shown
+    # b. if account is verified, the "verified" message is shown
+
     # if confirmed=True, ...
     if valid_code.confirmed:
         # ... redirect to home page and tell user account is already verified
