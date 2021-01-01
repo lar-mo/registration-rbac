@@ -61,7 +61,7 @@ class Transaction(models.Model):
      purchaser          = models.ForeignKey(User, on_delete=models.PROTECT, related_name='PurchaseHistory')
 
      def __str__(self):
-         return self.purchaser.username
+         return self.purchaser.username + ': ' + self.item_purchased
 
 class BillingInformation(models.Model):
      address1           = models.CharField(max_length=200)
