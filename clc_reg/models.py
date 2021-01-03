@@ -3,12 +3,17 @@ from django.contrib.auth.models import User
 
 from django.utils import timezone
 import datetime
-import django
+import django, sys
 
 def get_django_version(user):
     django_version = django.get_version()
     return django_version
 User.add_to_class('get_django_version', get_django_version)
+
+def get_python_version(user):
+    python_version = str(sys.version_info.major) + "." + str(sys.version_info.minor) + "." + str(sys.version_info.micro)
+    return python_version
+User.add_to_class('get_python_version', get_python_version)
 
 def is_confirmed(user):
     confirmed = user.isConfirmed.get()

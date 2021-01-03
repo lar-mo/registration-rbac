@@ -269,6 +269,7 @@
       {% endif %}
 
       <script type="text/javascript">
+        console.log("Python version: {{ user.get_python_version }}")
         console.log("Django version: {{ user.get_django_version }}")
         console.log("user: {{ user.username }} ({{ user.id }})")
         console.log("isConfirmed? {{ user.is_confirmed }}")
