@@ -5,15 +5,15 @@ from django.utils import timezone
 import datetime
 import django, platform
 
-def get_django_version(user):
+def django_version(user):
     django_version = django.get_version()
     return django_version
-User.add_to_class('get_django_version', get_django_version)
+User.add_to_class('django_version', django_version)
 
-def get_python_version(user):
+def python_version(user):
     python_version = platform.python_version()
     return python_version
-User.add_to_class('get_python_version', get_python_version)
+User.add_to_class('python_version', python_version)
 
 def is_confirmed(user):
     confirmed = user.isConfirmed.get()

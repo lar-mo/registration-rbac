@@ -269,8 +269,8 @@
       {% endif %}
 
       <script type="text/javascript">
-        console.log("python version: {{ user.get_python_version }}")
-        console.log("django version: {{ user.get_django_version }}")
+        console.log("python version: {{ user.python_version }}")
+        console.log("django version: {{ user.django_version }}")
         console.log("user: {{ user.username }} ({{ user.id }})")
         console.log("isConfirmed? {{ user.is_confirmed }}")
         console.log("isActive? {{ user.membership_isactive }}")
