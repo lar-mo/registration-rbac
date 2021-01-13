@@ -214,10 +214,10 @@
                   <p class="memberlevel">You have a <b>{{user.membership_level}}</b> membership.</p>
                 {% elif user.membership_level == "Plus" %}
                   <img src="https://lar-mo.com/images/pigs_all_three1-plus_color.png"/>
-                  <p>You have a <b>{{user.membership_level}}</b> membership which expires on <b>{{user.membership_expiry|date:'M d, Y'}}</b>.</p>
+                  <p class="memberlevel">You have a <b>{{user.membership_level}}</b> membership which expires on <b>{{user.membership_expiry|date:'M d, Y'}}</b>.</p>
                 {% elif user.membership_level == "Premium" %}
                   <img src="https://lar-mo.com/images/pigs_all_three2-premium_color.png"/>
-                  <p>You have a <b>{{user.membership_level}}</b> membership which expires on <b>{{user.membership_expiry|date:'M d, Y'}}</b>.</p>
+                  <p class="memberlevel">You have a <b>{{user.membership_level}}</b> membership which expires on <b>{{user.membership_expiry|date:'M d, Y'}}</b>.</p>
                 {% else %}
                   <!-- do something -->
                   <!-- PNG images don't load if the Basic membership is not created. -->
