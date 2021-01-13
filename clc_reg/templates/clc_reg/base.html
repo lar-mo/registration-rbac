@@ -256,8 +256,8 @@
           let expiry_date = document.querySelector('#expiry_date')
           window.onload = convertExpiryToLocal
           function convertExpiryToLocal() {
-            let utcDate = "{{ user.membership_expiry|date:'Y-m-d H:i:s' }}" // Format stored Membership Expiry date
-            let mytime_utc = new Date(utcDate)                              // Create new Date object from Expiry
+            let utcDate = "{{ user.membership_expiry|date:'Y/m/d H:i:s' }}" // Format stored Membership Expiry date
+            let mytime_utc = new Date(utcDate)     // Create new Date object from Expiry
             let mytime_unix = mytime_utc.getTime()                          // Convert to Epoch time (milliseconds)
             let dt = new Date()                                             // Create new Date object
             let tz = dt.getTimezoneOffset() * 60000                         // Calculate tz offset (milliseconds)
