@@ -5,9 +5,9 @@ describe('Login as Basic User', () => {
   })
 
   it('Login as Basic user', () => {
-    // verifies 'www' is added (301) & http-https redirect (302) (done by Flask app)
-    // verifies url is for Login & Register page
-    // verifies destination (next) page is homepage "/"
+    // Verify 'www' is added (301) & http-https redirect (302) (done by Flask app)
+    // Verify url is for Login & Register page
+    // Verify destination (next) page is homepage "/"
     cy.url()
       .should('contain', 'https://www')
       .should('contain', '/register_login/')
@@ -18,10 +18,10 @@ describe('Login as Basic User', () => {
     cy.get('[action="/login_user/"] > [type="password"]').type('7*0Ri?s!Bn2X%c2X').should('have.value', '7*0Ri?s!Bn2X%c2X')
     cy.get('[action="/login_user/"] > .status_block > button').click()
 
-    // verify url is homepage
+    // Verify url is homepage
     cy.url().should('eq', 'https://www.registration-rbac.com/')
 
-    // verify all page elements; add check Logout link
+    // Verify all page elements; add check Logout link
     cy.get('.page_content > h1').should('contain', 'Unsecured page, anonymous ok')
     cy.get('.page_content > h2').should('contain', 'Hello Dan')
     cy.get('.page_content > h3').should('contain', 'Secured Page version 1')
