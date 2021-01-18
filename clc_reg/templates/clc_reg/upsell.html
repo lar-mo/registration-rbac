@@ -5,7 +5,7 @@
   <div class="page_content">
     <h1>Upsell page</h1>
     <h2>Hello {% if user.first_name %}{{ user.first_name }}{% else %}{{ user.username }}{% endif %},</h2>
-    <h3><a href="{% url 'clc_reg:purchase_membership' %}{% if message == 'redir_from_plus' %}?type=plus{% else %}?type=prem{% endif %}">Purchase a membership</a></h3>
+    <h3><a href="{% url 'clc_reg:purchase_membership' %}{% if message == 'redir_from_plus' %}?type=plus{% else %}?type=premium{% endif %}">Purchase a membership</a></h3>
   </div>
 
 {% endblock %}
