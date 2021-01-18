@@ -8,6 +8,8 @@
       <div style="background-color:red;color:white;">Your username and password did not match.</div>
     {% elif message == "reg_error" %}
       <div style="background-color:red;color:white;">That username is already in-use. Try again.</div>
+    {% elif message == "login_required" %}
+      <div style="background-color:blue;color:white;">You must be logged in.</div>    
     {% endif %}
 
 {% endblock %}
