@@ -182,16 +182,17 @@
     <body>
       <main>
         <div class="navbar">
+          {% url 'clc_reg:index' as hp_url %}
+          {% url 'clc_reg:register_login' as reg_url %}
           {% if user.is_authenticated %}
-            {% url 'clc_reg:index' as hp_url %}
             {% if request.path != hp_url %}
             <a href="{% url 'clc_reg:index' %}">Homepage</a>&nbsp;|&nbsp;
             {% endif %}
             <a href="{% url 'clc_reg:logout_user' %}">Logout</a>
           {% else %}
-            {% url 'clc_reg:register_login' as reg_url %}
             {% if request.path != hp_url %}
-              <a href="{% url 'clc_reg:index' %}">Homepage</a>&nbsp;|&nbsp;
+              <a href="{% url 'clc_reg:index' %}">Homepage</a>
+            {% endif %}
             {% if request.path != reg_url %}
               <a href="{% url 'clc_reg:register_login' %}?next=/">Register or Login</a>
             {% endif %}
