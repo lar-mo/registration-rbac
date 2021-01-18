@@ -190,9 +190,8 @@
             <a href="{% url 'clc_reg:logout_user' %}">Logout</a>
           {% else %}
             {% url 'clc_reg:register_login' as reg_url %}
-              <a href="{% url 'clc_reg:index' %}">Homepage</a>
             {% if request.path != reg_url %}
-              &nbsp;|&nbsp;<a href="{% url 'clc_reg:register_login' %}?next=/">Register or Login</a>
+              <a href="{% url 'clc_reg:register_login' %}?next=/">Register or Login</a>
             {% endif %}
           {% endif %}
         </div>
