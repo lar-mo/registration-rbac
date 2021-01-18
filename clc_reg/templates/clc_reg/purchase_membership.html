@@ -66,7 +66,7 @@
             <div>
               <span class="field_title">State:</span>
               <span><select name="state" required id="state">
-                <option value="---" disabled selected>---</option>
+                <option disabled selected></option>
                 <option value="AL"{% if billing_exists and state == 'AL' %} selected{%endif%}>Alabama</option>
               	<option value="AK"{% if billing_exists and state == 'AK' %} selected{%endif%}>Alaska</option>
               	<option value="AZ"{% if billing_exists and state == 'AZ' %} selected{%endif%}>Arizona</option>
@@ -124,7 +124,7 @@
               <span class="field_title">Country:</span>
               <span>
                 <select id="country" name="country" required>
-                  <option value="---" disabled selected>---</option>
+                  <option disabled selected></option>
                   <option value="AF"{% if billing_exists and country == 'AF' %} selected{%endif%}>Afghanistan</option>
                 	<option value="AX"{% if billing_exists and country == 'AX' %} selected{%endif%}>Åland Islands</option>
                 	<option value="AL"{% if billing_exists and country == 'AL' %} selected{%endif%}>Albania</option>
