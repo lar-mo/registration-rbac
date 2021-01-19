@@ -1,5 +1,13 @@
 {% extends 'clc_reg/base.html' %}
 
+{% block messages %}
+
+  {% if message == "expired" %}
+    <div style="background-color:orange;color:black;">Your membership has expired.</div>
+  {% endif %}
+
+{% endblock %}
+
 {% block content %}
 
   <div class="page_content">
