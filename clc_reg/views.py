@@ -238,8 +238,8 @@ def plus(request):
         return HttpResponseRedirect(reverse('clc_reg:upsell')+'?message=redir_from_plus')
     elif level == 'Expired':                                    # else go to upsell?message=expired
         return HttpResponseRedirect(reverse('clc_reg:upsell')+'?message=expired')
-    elif level == 'Inactive':                                   # else go to upsell?message=inactive
-        return HttpResponseRedirect(reverse('clc_reg:inactive')+'?message=inactive')
+    elif level == 'Inactive':                                   # else go to inactive
+        return HttpResponseRedirect(reverse('clc_reg:inactive'))
     else:                                                       # else go to upsell?message=error
         return HttpResponseRedirect(reverse('clc_reg:account_error')+'?message=error')
 
@@ -264,8 +264,8 @@ def premium(request):
         return HttpResponseRedirect(reverse('clc_reg:upsell')+'?message=redir_from_premium')
     elif level == 'Expired':                                    # else go to upsell?message=expired
         return HttpResponseRedirect(reverse('clc_reg:upsell')+'?message=expired')
-    elif level == 'Inactive':                                   # else go to upsell?message=inactive
-        return HttpResponseRedirect(reverse('clc_reg:inactive')+'?message=inactive')
+    elif level == 'Inactive':                                   # else go to inactive
+        return HttpResponseRedirect(reverse('clc_reg:inactive'))
     else:                                                       # else go to upsell?message=error
         return HttpResponseRedirect(reverse('clc_reg:account_error')+'?message=error')
 
