@@ -9,7 +9,7 @@
     {% elif message == "reg_error" %}
       <div style="background-color:red;color:white;">That username is already in-use. Try again.</div>
     {% elif message == "login_required" %}
-      <div style="background-color:blue;color:white;">You must be logged in.</div>    
+      <div style="background-color:blue;color:white;">You must be logged in.</div>
     {% endif %}
 
 {% endblock %}
@@ -47,7 +47,7 @@
 
     bt_register.onclick = function(evt) {
       if (input_password.value != input_password2.value) {
-        alert('those passwords do not match')
+        alert('Those passwords do not match')
         evt.preventDefault()
       }
     }
