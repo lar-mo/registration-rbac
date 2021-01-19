@@ -3,13 +3,13 @@
 {% block messages %}
 
     {% if user.is_authenticated %}
-      <div class="logged_in">You're already logged in.</div>
+      <div class="blue_white_banner">You're already logged in.</div>
     {% elif message == "error" %}
-      <div class="login_error">Your username and password did not match.</div>
+      <div class="red_white_banner">Your username and password did not match.</div>
     {% elif message == "reg_error" %}
-      <div class="reg_error">That username is already in-use. Try again.</div>
+      <div class="red_white_banner">That username is already in-use. Try again.</div>
     {% elif message == "login_required" %}
-      <div class="login_required">You must be logged in.</div>
+      <div class="blue_white_banner">You must be logged in.</div>
     {% endif %}
 
 {% endblock %}

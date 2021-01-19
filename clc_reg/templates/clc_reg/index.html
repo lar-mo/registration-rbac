@@ -3,19 +3,19 @@
 {% block messages %}
 
   {% if message == "pending" %}
-    <div style="background-color:orange;color:black;">You need to confirm your account. <a href="{% url 'clc_reg:send_new_key' %}">Send new key</a></div>
+    <div class="orange_black_banner">You need to confirm your account. <a href="{% url 'clc_reg:send_new_key' %}">Send new key</a></div>
   {% elif message == "confirmed" %}
-    <div style="background-color:green;color:white;">Your account is confirmed.</div>
+    <div class="green_white_banner">Your account is confirmed.</div>
   {% elif message == "expired" %}
-    <div style="background-color:red;color:white;">Your confirmation code is expired. <a href="{% url 'clc_reg:send_new_key' %}">Send new key</a></div>
+    <div class="red_white_banner">Your confirmation code is expired. <a href="{% url 'clc_reg:send_new_key' %}">Send new key</a></div>
   {% elif message == "error" %}
-    <div style="background-color:red;color:white;">There was a problem confirming your account. <a href="{% url 'clc_reg:send_new_key' %}">Send new key</a></div>
+    <div class="red_white_banner">There was a problem confirming your account. <a href="{% url 'clc_reg:send_new_key' %}">Send new key</a></div>
   {% elif message == "verified" %}
-    <div style="background-color:blue;color:white;">Your account is already verified.</div>
+    <div class="blue_white_banner">Your account is already verified.</div>
   {% elif message == "resent" %}
-    <div style="background-color:blue;color:white;">Your new code was sent.</div>
+    <div class="blue_white_banner">Your new code was sent.</div>
   {% elif message == "logout" %}
-    <div style="background-color:blue;color:white;">You've been logged out.</div>
+    <div class="blue_white_banner">You've been logged out.</div>
   {% endif %}
 
 {% endblock %}

@@ -3,9 +3,9 @@
 {% block messages %}
 
   {% if message == "membership_upgraded" %}
-    <div style="background-color:green;color:white;">You have successfully upgraded to <b>Premium</b>.</div>
+    <div class="green_white_banner">You have successfully upgraded to <b>Premium</b>.</div>
   {% elif message == "valid_membership" %}
-    <div style="background-color:blue;color:white;">You already have a valid membership.</div>
+    <div class="blue_white_banner">You already have a valid membership.</div>
   {% endif %}
 
 {% endblock %}
