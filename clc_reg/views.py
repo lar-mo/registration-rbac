@@ -16,7 +16,6 @@ import secrets
 def index(request):
     message = request.GET.get('message', '')
     next = request.GET.get('next', '')
-
     context = {
         'message': message,
         'next': next
@@ -45,7 +44,7 @@ def login_user(request):
             login(request, user)
             if next != '':
                 return HttpResponseRedirect(next)
-            return HttpResponseRedirect(reverse('clc_reg:special_page'))
+            return HttpResponseRedirect(reverse('clc_reg:index'))
     else:
         if next != '':
             return HttpResponseRedirect(reverse('clc_reg:register_login')+'?message=error&next='+next)
