@@ -3,7 +3,7 @@
 {% block messages %}
 
   {% if message == "pending" %}
-    <div style="background-color:orange;color:white;">You need to confirm your account. <a href="{% url 'clc_reg:send_new_key' %}">Send new key</a></div>
+    <div style="background-color:orange;color:black;">You need to confirm your account. <a href="{% url 'clc_reg:send_new_key' %}">Send new key</a></div>
   {% elif message == "confirmed" %}
     <div style="background-color:green;color:white;">Your account is confirmed.</div>
   {% elif message == "expired" %}
