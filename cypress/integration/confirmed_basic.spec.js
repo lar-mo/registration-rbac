@@ -149,7 +149,7 @@ describe('Basic/confirmed', () => {
       .should('contain', 'Unsecured Page')
       .should('have.attr', 'href', '/')
 
-    // h3: Go to: Secured Page version 2 (/special_page2/)
+    // h3: Go to: Secured Page version 1 (/special_page/)
     cy.get('.page_content > :nth-child(4)').should('contain', 'Go to: Secured Page version 1')
       .find('a')
       .should('contain', 'Secured Page')
@@ -170,7 +170,7 @@ describe('Basic/confirmed', () => {
 
     cy.visit(domain_under_test + 'premium/')
 
-    // redirect to upsell?message=redir_from_plus
+    // redirect to upsell?message=redir_from_premium
     cy.url().should('contain', 'upsell/?message=redir_from_premium')
 
   })
