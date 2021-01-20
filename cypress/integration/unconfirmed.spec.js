@@ -8,8 +8,6 @@
 
 // const domain_under_test = 'https://www.registration-rbac.com/' // PRODUCTION
 const domain_under_test = 'http://localhost:8000/'                // DEV
-const random_number = Math.floor(Math.random() * 100);
-const random_username = "user" + random_number
 
 describe('Basic/Unconfirmed', () => {
 
