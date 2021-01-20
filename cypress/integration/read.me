@@ -106,3 +106,37 @@
         clc_reg/membership, (types: Basic, Plus, Premium; isActive: False)
           clc_reg/transactions,
             clc_reg/billinginformation
+
+************************************************************
+***** my_profile.spec.js ***********************************
+************************************************************
+
+  users: profile_blank, profile_name_only, profile_name_billing
+  password: tes01
+  tables:
+    auth/user, (First Name, Last Name)
+      clc_reg/verifyregistration,
+        clc_reg/membership, (types: Basic, Plus)
+          clc_reg/transactions,
+            clc_reg/billinginformation (Address 1, Address 2, City, State, Country, Postal Code)
+
+  [profile_blank]
+    Type: Unconfirmed/Basic
+
+  [profile_name_only]
+    Type: Confirmed/Basic
+    Default:
+      First Name: Dan
+      Last Name: Soder
+
+  [profile_name_billing]
+    Type: Confirmed/Plus
+    Default:
+      First Name: Big Jay
+      Last Name: Oakerson
+      Address 1: 123 NE Street
+      Address 2: Apt 101
+      City: New York City
+      State: NY
+      Country: USA
+      Postal Code: 10002
