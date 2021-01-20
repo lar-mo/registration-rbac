@@ -60,6 +60,24 @@ describe('Login', () => {
 
   }) // end of 'Username already in-use'
 
+  it('Password mismatch', () => {
+
+    // try to register with existing username
+    cy.get('[action="/register_user/"] > [name="username"]').type('unique_user').should('have.value', 'unique_user')
+    cy.get('[action="/register_user/"] > [name="email"]').type('lmoiola@gmail.com').should('have.value', 'lmoiola@gmail.com')
+    cy.get('#input_password').type('foo').should('have.value', 'foo')
+    cy.get('#input_password2').type('bar').should('have.value', 'bar')
+
+    // show error message
+    const stub = cy.stub()
+    cy.on('window:alert', stub)
+    cy.get('#bt_register').click()
+      .then(() => {
+        expect(stub.getCall(0)).to.be.calledWith('Those passwords do not match.')
+      })
+
+  }) // end of 'Password mismatch'
+
   it('Plus', () => {
 
     cy.visit(domain_under_test + 'plus/')
