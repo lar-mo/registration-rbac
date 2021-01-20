@@ -27,7 +27,10 @@ describe('Expired Membership', () => {
       .type('test01').should('have.value', 'test01')
     cy.get('[action="/login_user/"] > .status_block > button').click()
 
-    // Only Plus and Premium enforce membership (i.e. downgrade to Basic/Expire in 2099)
+    // visiting the homepage (?next=/) does not downgrade to Basic/Expire in 2099
+    cy.get('.memberlevel').should('contain', 'You have a Plus membership')
+
+    // only Plus and Premium enforce membership (i.e. downgrade to Basic/Expire in 2099)
     cy.visit(domain_under_test + 'plus/')
 
     // check url after redirect to Upsell
@@ -41,14 +44,17 @@ describe('Expired Membership', () => {
   it('Premium page', () => {
 
     // login with expired Plus member
-    cy.visit(domain_under_test + 'register_login/?next=/')
+    cy.visit(domain_under_test + 'register_login/?next=/my_profile/')
     cy.get('[action="/login_user/"] > [type="text"]')
       .type('expired_premium').should('have.value', 'expired_premium')
     cy.get('[action="/login_user/"] > [type="password"]')
       .type('test01').should('have.value', 'test01')
     cy.get('[action="/login_user/"] > .status_block > button').click()
 
-    // Only Plus and Premium enforce membership (i.e. downgrade to Basic/Expire in 2099)
+    // visiting the my_profile (?next=/my_profile/) does not downgrade to Basic/Expire in 2099
+    cy.get('.memberlevel').should('contain', 'You have a Premium membership')
+
+    // only Plus and Premium enforce membership (i.e. downgrade to Basic/Expire in 2099)
     cy.visit(domain_under_test + 'premium/')
 
     // check url after redirect to Upsell
