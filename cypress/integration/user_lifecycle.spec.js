@@ -1,3 +1,11 @@
+//////////////////////////////////////
+//
+// Author: Larry Moiola
+// Date: Jan 19, 2021
+// Filename: user_lifecycle.spec.js
+//
+//////////////////////////////////////
+
 // const domain_under_test = 'https://www.registration-rbac.com/' // PRODUCTION
 const domain_under_test = 'http://localhost:8000/'                // DEV
 const random_number = Math.floor(Math.random() * 100);
