@@ -148,82 +148,82 @@ describe('Purchase Flow', () => {
 
     // Member Information
     cy.get('.page_title').should('contain', 'Purchase Membership')
-    cy.get(':nth-child(3) > .form_title').should('contain', 'Member Information:')
-    cy.get(':nth-child(1) > .field_title').should('contain', 'Membership:')
+    cy.get(':nth-child(3) > .form_title').should('contain', 'Member Information')
+    cy.get(':nth-child(1) > .field_title').should('contain', 'Membership')
     cy.get(':nth-child(1) > :nth-child(2) > input').should('have.attr', 'checked')
     cy.get(':nth-child(3) > .fine_print').should('contain', 'Note: This information is retrieved from the database.')
 
     // Purchaser Information
     // First Name
     cy.get(':nth-child(3) > :nth-child(4) > .field_title')
-      .should('contain', 'First Name:')
+      .should('contain', 'First Name')
     cy.get('#firstname')
       .should('have.value', '')
       .type('John').should('have.value', 'John')
 
     // Last Name
     cy.get(':nth-child(3) > :nth-child(5) > .field_title')
-      .should('contain', 'Last Name:')
+      .should('contain', 'Last Name')
     cy.get('#lastname')
       .should('have.value', '')
       .type('Smith').should('have.value', 'Smith')
 
     // Address 1
     cy.get(':nth-child(6) > .field_title')
-      .should('contain', 'Address 1:')
+      .should('contain', 'Address 1')
     cy.get('#address1')
       .should('have.value', '')
       .type('123 Any Street').should('have.value', '123 Any Street')
 
     // Address 2
     cy.get(':nth-child(7) > .field_title')
-      .should('contain', 'Address 2:')
+      .should('contain', 'Address 2')
     cy.get('#address2')
       .should('have.value', '')
 
     // City
     cy.get(':nth-child(8) > .field_title')
-      .should('contain', 'City:')
+      .should('contain', 'City')
     cy.get('#city')
       .should('have.value', '')
       .type('Springfield').should('have.value', 'Springfield')
 
     // State
     cy.get(':nth-child(9) > .field_title')
-      .should('contain', 'State:')
+      .should('contain', 'State')
     cy.get('#state')
       .should('have.value', null)
       .select('OR')
 
     // Country
     cy.get(':nth-child(10) > .field_title')
-      .should('contain', 'Country:')
+      .should('contain', 'Country')
     cy.get('#country')
       .should('have.value', null)
       .select('US')
 
     // Postal/Zip code
     cy.get(':nth-child(11) > .field_title')
-      .should('contain', 'Postal Code:')
+      .should('contain', 'Postal Code')
     cy.get('#zipcode')
       .should('have.value', '')
       .type('97475').should('have.value', '97475')
 
     // Billing Information
-    cy.get(':nth-child(5) > .form_title').should('contain', 'Payment Information:')
+    cy.get(':nth-child(5) > .form_title').should('contain', 'Payment Information')
     cy.get(':nth-child(5) > .fine_print').should('contain', 'Note: This information is not stored, it\'s hardcoded in the HTML for testing.')
 
     // Card Number
-    cy.get(':nth-child(3) > .field_title').should('contain', 'Card Number:')
+    cy.get(':nth-child(3) > .field_title').should('contain', 'Card Number')
     cy.get(':nth-child(3) > :nth-child(2) > input').should('have.value', '5105105105105100')
 
     // Expiration
-    cy.get(':nth-child(5) > :nth-child(4) > .field_title').should('contain', 'Expiration:')
+    cy.get(':nth-child(5) > :nth-child(4) > .field_title').should('contain', 'Expiration')
     cy.get('#exp_month').should('have.value', '10')
     cy.get('#exp_year').should('have.value', '2022')
 
     // CVV
-    cy.get(':nth-child(5) > :nth-child(5) > .field_title').should('contain', 'CVV:')
+    cy.get(':nth-child(5) > :nth-child(5) > .field_title').should('contain', 'CVV')
     cy.get(':nth-child(5) > :nth-child(5) > :nth-child(2) > input').should('have.value', '567')
 
     // Click Submit button
