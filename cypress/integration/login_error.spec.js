@@ -67,14 +67,13 @@ describe('Login', () => {
     cy.get('[action="/register_user/"] > [name="email"]').type('lmoiola@gmail.com').should('have.value', 'lmoiola@gmail.com')
     cy.get('#input_password').type('foo').should('have.value', 'foo')
     cy.get('#input_password2').type('bar').should('have.value', 'bar')
+    cy.get('#bt_register').click()
 
     // show error message
-    const stub = cy.stub()
-    cy.on('window:alert', stub)
-    cy.get('#bt_register').click()
-      .then(() => {
-        expect(stub.getCall(0)).to.be.calledWith('Those passwords do not match.')
-      })
+    // credit: https://stackoverflow.com/a/54891955
+    cy.on('window:alert', (str) => {
+      expect(str).to.equal('Those passwords do not match.')
+    })
 
   }) // end of 'Password mismatch'
 
