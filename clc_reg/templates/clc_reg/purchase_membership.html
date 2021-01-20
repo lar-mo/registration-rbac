@@ -465,6 +465,7 @@
       let address2 = document.querySelector('#address2')
       let city = document.querySelector('#city')
       let state = document.querySelector('#state')
+      let country = document.querySelector('#country')
       let zipcode = document.querySelector('#zipcode')
       btnResetForm.onclick = function(event) {
         firstname.value = ''
@@ -472,7 +473,8 @@
         address1.value = ''
         address2.value = ''
         city.value = ''
-        state.value = '---'
+        state.value = ''
+        country.value = ''
         zipcode.value = ''
         event.preventDefault()
       }
