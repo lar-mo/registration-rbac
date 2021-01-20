@@ -1,0 +1,108 @@
+###
+### Test Prerequisites
+###
+
+************************************************************
+***** anonymous.spec.js ************************************
+************************************************************
+
+  None
+
+************************************************************
+***** unconfirmed.spec.js **********************************
+************************************************************
+
+  user: unconfirmed_user
+  password: test01
+  tables:
+    auth/user,
+      clc_reg/verifyregistration, (confirmed: False)
+        clc_reg/membership (type: Basic)
+
+************************************************************
+***** confirmed_basic.spec.js ******************************
+************************************************************
+
+  user: confirmed_user
+  password: test01
+  tables:
+    auth/user,
+      clc_reg/verifyregistration, (confirmed: True)
+        clc_reg/membership (type: Basic)
+
+************************************************************
+***** purchase_flow.spec.js ********************************
+************************************************************
+
+  user: purchase_path_user
+  password: test01
+  tables:
+    auth/user,
+      clc_reg/verifyregistration, (confirmed: True)
+        clc_reg/membership, (type: Basic -> Plus -> Premium)
+          clc_reg/transactions,
+            clc_reg/billinginformation
+
+  Update: auth/user/purchase_path_user/first_name => ''
+  Update: auth/user/purchase_path_user/last_name => ''
+  Delete: clc_reg/billinginformation/purchase_path_user/*
+  Update: clc_reg/membership/purchase_path_user/type => Basic
+
+************************************************************
+***** plus.spec.js *****************************************
+************************************************************
+
+  user: plus_user
+  password: test01
+  tables:
+    auth/user,
+      clc_reg/verifyregistration, (confirmed: True)
+        clc_reg/membership, (type: Plus)
+          clc_reg/transactions,
+            clc_reg/billinginformation
+
+************************************************************
+***** premium.spec.js **************************************
+************************************************************
+
+  user: premium_user
+  password: test01
+  tables:
+    auth/user,
+      clc_reg/verifyregistration, (confirmed: True)
+        clc_reg/membership, (type: Premium)
+          clc_reg/transactions,
+            clc_reg/billinginformation
+
+************************************************************
+***** expired_membership.spec.js ***************************
+************************************************************
+
+  users: expired_plus, expired_premium
+  password: tes01
+  tables:
+    auth/user,
+      clc_reg/verifyregistration, (confirmed: True)
+        clc_reg/membership, (type: Basic -> Plus -> Premium; Expiration: <before Today>)
+          clc_reg/transactions,
+            clc_reg/billinginformation
+
+  Update: clc_reg/membership/expired_plus/type => 'Plus'
+  Update: clc_reg/membership/expired_plus/expiration => '<any date in past>'
+  Update: clc_reg/membership/expired_premium/type => 'Premium'
+  Update: clc_reg/membership/expired_premium/expiration => '<any date in past>'
+
+************************************************************
+***** inactive_membership.spec.js **************************
+************************************************************
+
+  // Note: Not tested - Expired/Inactive membership
+
+  users: inactive_basic, inactive_plus, inactive_premium
+  password: tes01
+  tables:
+    auth/user,
+      clc_reg/verifyregistration, (confirmed: True)
+        clc_reg/membership, (types: Basic, Plus, Premium; isActive: False)
+          clc_reg/transactions,
+            clc_reg/billinginformation
