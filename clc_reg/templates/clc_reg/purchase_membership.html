@@ -10,10 +10,10 @@
           {% csrf_token %}
           <input type="hidden" name="next" value="{{next}}"/>
           <div class="purchase_form">
-            <span class="form_title">Member Information:</span>
+            <span class="form_title">Member Information</span>
             <div>
               <span>
-                <span class="field_title">Membership:</span>
+                <span class="field_title">Membership</span>
                 <span>
                   <input type="radio" name="membership_type" required value="Plus"
                     {% if user.membership_level == "Plus" %}
@@ -44,27 +44,27 @@
             {% endif %}
             <div class="fine_print"><u>Note</u>: This information is retrieved from the database.</div>
             <div>
-              <span class="field_title">First Name:</span>
+              <span class="field_title">First Name</span>
               <span><input type="text" name="firstname" id="firstname" placeholder="" required value="{{request.user.first_name}}"/></span>
             </div>
             <div>
-              <span class="field_title">Last Name:</span>
+              <span class="field_title">Last Name</span>
               <span><input type="text" name="lastname" id="lastname" placeholder="" required value="{{request.user.last_name}}"/></span>
             </div>
             <div>
-              <span class="field_title">Address 1:</span>
+              <span class="field_title">Address 1</span>
               <span><input type="text" name="address1" id="address1" placeholder="" required value="{% if billing_exists %}{{address1}}{%endif%}"/></span>
             </div>
             <div>
-              <span class="field_title">Address 2:</span>
+              <span class="field_title">Address 2</span>
               <span><input type="text" name="address2" id="address2" placeholder="" value="{% if billing_exists %}{{address2}}{%endif%}"/></span>
             </div>
             <div>
-              <span class="field_title">City:</span>
+              <span class="field_title">City</span>
               <span><input type="text" name="city" id="city" placeholder="" required value="{% if billing_exists %}{{city}}{%endif%}"/></span>
             </div>
             <div>
-              <span class="field_title">State:</span>
+              <span class="field_title">State</span>
               <span><select name="state" required id="state">
                 <option disabled selected></option>
                 <option value="AL"{% if billing_exists and state == 'AL' %} selected{%endif%}>Alabama</option>
@@ -121,7 +121,7 @@
             </select></span>
             </div>
             <div>
-              <span class="field_title">Country:</span>
+              <span class="field_title">Country</span>
               <span>
                 <select id="country" name="country" required>
                   <option disabled selected></option>
@@ -378,22 +378,22 @@
               </span>
             </div>
             <div>
-              <span class="field_title">Postal Code:</span>
+              <span class="field_title">Postal Code</span>
               <span><input type="text" name="zipcode" id="zipcode" placeholder="" maxlength="10" required value="{% if billing_exists %}{{zipcode}}{%endif%}"/></span>
             </div>
           </div>
           <br>
           <div class="purchase_form">
-            <span class="form_title">Payment Information:</span>
+            <span class="form_title">Payment Information</span>
             <div class="fine_print"><u>Note</u>: This information is not stored, it's hardcoded in the HTML for testing.</div>
             <div>
-              <span class="field_title">Card Number:</span>
+              <span class="field_title">Card Number</span>
               <span>
                 <input type="text" name="creditcard" placeholder="" required pattern="^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$" title="Invalid Card Number" value="5105105105105100"/>
               </span>
             </div>
             <div>
-              <span class="field_title">Expiration:</span>
+              <span class="field_title">Expiration</span>
               <span><select name="expiration_month" id="exp_month" required>
                   <option value="---" disabled !selected>---</option>
                   <option value="01">01</option>
@@ -422,7 +422,7 @@
               </span>
             </div>
             <div>
-              <span class="field_title">CVV:</span>
+              <span class="field_title">CVV</span>
               <span>
                 <!-- the REGEX pattern does not work.-->
                 <!-- Tried changing input type=number but <3, >4 is still accepted -->
