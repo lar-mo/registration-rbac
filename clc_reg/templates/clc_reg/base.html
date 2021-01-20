@@ -229,13 +229,13 @@
                   <img src="https://lar-mo.com/images/pigs_all_three.png"/>
                 {% elif user.membership_level == "Basic" %}
                   <img src="https://lar-mo.com/images/pigs_all_three0-basic_color.png"/>
-                  <p class="memberlevel">You have a <b>{{user.membership_level}}</b> membership.</p>
+                  <p class="memberlevel">You have a <b>Basic</b> membership.</p>
                 {% elif user.membership_level == "Plus" %}
                   <img src="https://lar-mo.com/images/pigs_all_three1-plus_color.png"/>
-                  <p class="memberlevel">You have a <b>{{user.membership_level}}</b> membership which expires on <b>{{user.membership_expiry|date:'M d, Y'}}</b>.</p>
+                  <p class="memberlevel">You have a <b>Plus</b> membership which expires on <b>{{user.membership_expiry|date:'M d, Y'}}</b>.</p>
                 {% elif user.membership_level == "Premium" %}
                   <img src="https://lar-mo.com/images/pigs_all_three2-premium_color.png"/>
-                  <p class="memberlevel">You have a <b>{{user.membership_level}}</b> membership which expires on <b>{{user.membership_expiry|date:'M d, Y'}}</b>.</p>
+                  <p class="memberlevel">You have a <b>Premium</b> membership which expires on <b>{{user.membership_expiry|date:'M d, Y'}}</b>.</p>
                 {% else %}
                   <!-- do something -->
                   <!-- PNG images don't load if the Basic membership is not created. -->
@@ -275,7 +275,7 @@
           window.onload = convertExpiryToLocal
           function convertExpiryToLocal() {
             let utcDate = "{{ user.membership_expiry|date:'Y/m/d H:i:s' }}" // Format stored Membership Expiry date
-            let mytime_utc = new Date(utcDate)     // Create new Date object from Expiry
+            let mytime_utc = new Date(utcDate)                              // Create new Date object from Expiry
             let mytime_unix = mytime_utc.getTime()                          // Convert to Epoch time (milliseconds)
             let dt = new Date()                                             // Create new Date object
             let tz = dt.getTimezoneOffset() * 60000                         // Calculate tz offset (milliseconds)
