@@ -4,6 +4,12 @@
 // Date: Jan 19, 2021
 // Filename: purchase_flow.spec.js
 //
+// Prerequisites for the test:
+// Update: auth/user/purchase_path_user/first_name => ''
+// Update: auth/user/purchase_path_user/last_name => ''
+// Delete: clc_reg/billinginformation/purchase_path_user/*
+// Update: clc_reg/membership/purchase_path_user/type => Basic
+//
 //////////////////////////////////////
 
 // const domain_under_test = 'https://www.registration-rbac.com/' // PRODUCTION
@@ -15,7 +21,7 @@ describe('Purchase Flow', () => {
 
     cy.visit(domain_under_test + 'register_login/?next=')
     cy.get('[action="/login_user/"] > [type="text"]')
-      .type('new_user1').should('have.value', 'new_user1')
+      .type('purchase_path_user').should('have.value', 'purchase_path_user')
     cy.get('[action="/login_user/"] > [type="password"]')
       .type('test01').should('have.value', 'test01')
     cy.get('[action="/login_user/"] > .status_block > button').click()
@@ -49,7 +55,7 @@ describe('Purchase Flow', () => {
     cy.get('.page_content > h1').should('contain', 'Upsell page')
 
     // h2: Hello confirmed_user
-    cy.get('.page_content > h2').should('contain', 'Hello new_user1')
+    cy.get('.page_content > h2').should('contain', 'Hello purchase_path_user')
 
     // h3: Purchase a membership (/purchase_membership/?type=premium)
     cy.get('.page_content > :nth-child(3)').should('contain', 'Purchase a membership')
