@@ -17,24 +17,24 @@
     <div class="myprofile_form">
       <div>
         <span class="my_profile_label">First Name</span>
-        <span><input type="text" name="firstname" value="{{user_info.first_name}}" required></span>
+        <span><input type="text" name="firstname" id="firstname" value="{{user_info.first_name}}" required></span>
       </div>
       <div>
         <span class="my_profile_label">Last Name</span>
-        <span><input type="text" name="lastname" value="{{user_info.last_name}}" {% if billing_exists %}required{% endif %}></span>
+        <span><input type="text" name="lastname" id="lastname" value="{{user_info.last_name}}" {% if billing_exists %}required{% endif %}></span>
       </div>
       {% if billing_exists %}
       <div>
         <span class="my_profile_label">Address 1</span>
-        <span><input type="text" name="address1" value="{{billing_info.address1}}"></span>
+        <span><input type="text" name="address1" id="address1" value="{{billing_info.address1}}"></span>
       </div>
       <div>
         <span class="my_profile_label">Address 2</span>
-        <span><input type="text" name="address2" value="{{billing_info.address2}}"></span>
+        <span><input type="text" name="address2" id="address2" value="{{billing_info.address2}}"></span>
       </div>
       <div>
         <span class="my_profile_label">City</span>
-        <span><input type="text" name="city" value="{{billing_info.city}}"></span>
+        <span><input type="text" name="city" id="city" value="{{billing_info.city}}"></span>
       </div>
       <div>
         <span class="my_profile_label">State</span>
@@ -98,7 +98,7 @@
       <div>
         <span class="my_profile_label">Country</span>
         <span>
-          <select id="country" name="country" required>
+          <select id="country" name="country" required id="country">
             <option disabled selected></option>
             <option value="AF"{% if billing_info.country == 'AF' %} selected{%endif%}>Afghanistan</option>
           	<option value="AX"{% if billing_info.country == 'AX' %} selected{%endif%}>Åland Islands</option>
@@ -354,7 +354,7 @@
       </div>
       <div>
         <span class="my_profile_label">Postal Code</span>
-        <span><input type="text" name="zipcode" maxlength="10" value="{{billing_info.zipcode}}"></span>
+        <span><input type="text" name="zipcode" id="zipcode" maxlength="10" value="{{billing_info.zipcode}}"></span>
       </div>
       {% endif %}
     </div>
