@@ -8,13 +8,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# EMAIL_HOST_PASSWORD = os.environ['DH_EMAIL_HOST_PASSWORD']
-# SECRET_KEY = ')+3$bvzw&^5v1q@u#!#)qi1x^ip7!g%@y(-1a(ex!z4@p(l(n4'
-with open('/home/larmo/keys/reg-rbac/sekrit_key.txt') as f:
-    SECRET_KEY = f.read().strip()
+# SECRET_KEY = os.environ['SEKRIT_KEY']
+SECRET_KEY = ')+3$bvzw&^5v1q@u#!#)qi1x^ip7!g%@y(-1a(ex!z4@p(l(n4'
+# with open('/home/larmo/keys/reg-rbac/sekrit_key.txt') as f:
+#     SECRET_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['0.0.0.0','localhost','127.0.0.1','poochie','registration-rbac.com','www.registration-rbac.com']
 
@@ -65,27 +65,27 @@ WSGI_APPLICATION = 'registration.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        # 'NAME': 'clc_reg',
-        # 'USER': 'clc_user',
-        # 'PASSWORD': '1RXuS5X?',
-        # 'HOST': '127.0.0.1',
-        # 'PORT': '5432',
-        'NAME': 'clc_app',
-        'USER': 'clc_user',
-        'PASSWORD': 'M&lx7QHV',
-        'HOST': 'larmo-1490.postgres.pythonanywhere-services.com',
-        'PORT': '11490',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         # 'NAME': 'clc_app',
+#         # 'USER': 'clc_user',             # docker
+#         # 'PASSWORD': '5LfYEGbJ',         # clc_user:docker
+#         # 'HOST': '127.0.0.1',            # docker
+#         'NAME': 'clc_reg',            # AWS
+#         'USER': 'awsuser',            # AWS
+#         'PASSWORD': 'Mu6Yx7Hk',       # awsuser:AWS
+#         'HOST': 'mydbinstance.c89twqehrakl.us-west-2.rds.amazonaws.com', # AWS
+#         'PORT': '5432',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -124,8 +124,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),] # new
 
-LOGIN_URL = '/'
+LOGIN_URL = '/register_login/?message=login_required'
 
 # Dreamhost Settings
 EMAIL_HOST = 'smtp.dreamhost.com'
@@ -133,6 +134,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'postmaster@registration-rbac.com'
 # EMAIL_HOST_PASSWORD = os.environ['DH_EMAIL_HOST_PASSWORD']
-with open('/home/larmo/keys/reg-rbac/dh_email_key.txt') as f:
-    EMAIL_HOST_PASSWORD = f.read().strip()
+EMAIL_HOST_PASSWORD = '*ftpz6V6'
+# with open('/home/larmo/keys/reg-rbac/dh_email_key.txt') as f:
+#     EMAIL_HOST_PASSWORD = f.read().strip()
 DEFAULT_FROM_EMAIL = 'Librarian <postmaster@registration-rbac.com>'
