@@ -14,7 +14,7 @@
 //  [profile_name_billing - Confirmed/Plus]
 //    Type: Plus
 //    Default values:
-//      First Name: Big Jay (auth/user.profile_name_billing)
+//      First Name: Jason (auth/user.profile_name_billing)
 //      Last Name: Oakerson
 //      Address 1: 123 NE Street (billinginformation.profile_name_billing)
 //      Address 2: Apt 101
@@ -122,7 +122,7 @@ describe('My Profile', () => {
     // Check that there are all input boxes & selects are populated (see: profile_name_billing)
     cy.get(':nth-child(1) > .my_profile_label').should('contain', 'First Name')
     cy.get('#firstname')
-      .should('have.value', 'Big Jay')
+      .should('have.value', 'Jason')
       .clear()
       .type('Howard').should('have.value', 'Howard')
     cy.get(':nth-child(2) > .my_profile_label').should('contain', 'Last Name')
