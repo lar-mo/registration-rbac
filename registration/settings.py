@@ -9,8 +9,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = os.environ['SEKRIT_KEY']
-SECRET_KEY = ')+3$bvzw&^5v1q@u#!#)qi1x^ip7!g%@y(-1a(ex!z4@p(l(n4'
-# with open('/home/larmo/keys/reg-rbac/sekrit_key.txt') as f:
+# with open('~/keys/reg-rbac/sekrit_key.txt') as f:
 #     SECRET_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -72,21 +71,6 @@ DATABASES = {
     }
 }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         # 'NAME': 'clc_app',
-#         # 'USER': 'clc_user',             # docker
-#         # 'PASSWORD': '5LfYEGbJ',         # clc_user:docker
-#         # 'HOST': '127.0.0.1',            # docker
-#         'NAME': 'clc_reg',            # AWS
-#         'USER': 'awsuser',            # AWS
-#         'PASSWORD': 'Mu6Yx7Hk',       # awsuser:AWS
-#         'HOST': 'mydbinstance.c89twqehrakl.us-west-2.rds.amazonaws.com', # AWS
-#         'PORT': '5432',
-#     }
-# }
-
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
@@ -134,7 +118,6 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'postmaster@registration-rbac.com'
 # EMAIL_HOST_PASSWORD = os.environ['DH_EMAIL_HOST_PASSWORD']
-EMAIL_HOST_PASSWORD = '*ftpz6V6'
-# with open('/home/larmo/keys/reg-rbac/dh_email_key.txt') as f:
+# with open('~/keys/reg-rbac/dh_email_key.txt') as f:
 #     EMAIL_HOST_PASSWORD = f.read().strip()
 DEFAULT_FROM_EMAIL = 'Librarian <postmaster@registration-rbac.com>'
