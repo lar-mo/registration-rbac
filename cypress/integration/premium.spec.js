@@ -20,7 +20,7 @@ describe('Premium', () => {
       .type('test01').should('have.value', 'test01')
     cy.get('[action="/login_user/"] > .status_block > button').click()
 
-  })
+  }) // end of 'beforeEach'
 
   it('Premium page', () => {
 
@@ -61,6 +61,6 @@ describe('Premium', () => {
     cy.get('.page_content > h3').should('contain', 'Valid until')
     // date: 9/29/2021, 4:00:00 PM. (check: format, in the future-check year first, then month, then day)
 
-  })
+  }) // end of 'Premium page'
 
-})
+}) // end of 'describe'

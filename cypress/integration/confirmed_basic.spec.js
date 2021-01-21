@@ -112,7 +112,7 @@ describe('Basic/confirmed', () => {
       .should('contain', 'Secured Page')
       .should('have.attr', 'href', '/special_page2/')
 
-  })
+  }) // end of 'Special page 1'
 
   it('Special page 2', () => {
 
@@ -155,7 +155,7 @@ describe('Basic/confirmed', () => {
       .should('contain', 'Secured Page')
       .should('have.attr', 'href', '/special_page/')
 
-  })
+  }) // end of 'Special page 2'
 
   it('Plus', () => {
 
@@ -164,7 +164,7 @@ describe('Basic/confirmed', () => {
     // redirect to upsell?message=redir_from_plus
     cy.url().should('contain', 'upsell/?message=redir_from_plus')
 
-  })
+  }) // end of 'Plus'
 
   it('Premium', () => {
 
@@ -173,6 +173,6 @@ describe('Basic/confirmed', () => {
     // redirect to upsell?message=redir_from_premium
     cy.url().should('contain', 'upsell/?message=redir_from_premium')
 
-  })
+  }) // end of 'Premium'
 
-})
+}) // end of 'Describe'

@@ -66,7 +66,7 @@ describe('Inactive Membership', () => {
       .should('have.attr', 'href')
       .should('contain', 'mailto:lmoiola@gmail.com')
 
-  })
+  }) // end of 'Basic page'
 
   it('Plus page', () => {
 
@@ -87,7 +87,7 @@ describe('Inactive Membership', () => {
     // check url after redirect to Inactive
     cy.url().should('contain', '/inactive/')
 
-  })
+  }) // end of 'Plus page'
 
   it('Premium page', () => {
 
@@ -108,6 +108,6 @@ describe('Inactive Membership', () => {
     // check url after redirect to Inactive
     cy.url().should('contain', '/inactive/')
 
-  })
+  }) // end of 'Premium page'
 
-})
+}) // end of 'Describe'

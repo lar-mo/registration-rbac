@@ -20,7 +20,7 @@ describe('Plus', () => {
       .type('test01').should('have.value', 'test01')
     cy.get('[action="/login_user/"] > .status_block > button').click()
 
-  })
+  }) // end of 'beforeEach'
 
   it('Plus page', () => {
 
@@ -61,7 +61,7 @@ describe('Plus', () => {
     cy.get('.page_content > h3').should('contain', 'Valid until')
     // date: 9/29/2021, 4:00:00 PM. (check: format, in the future-check year first, then month, then day)
 
-  })
+  }) // end of 'Plus page'
 
   it('Premium page', () => {
 
@@ -74,6 +74,6 @@ describe('Plus', () => {
       .should('have.attr', 'href')
       .should('contain', '/upsell/')
 
-  })
+  }) // end of 'Premium page'
 
-})
+}) // end of 'describe'

@@ -39,7 +39,7 @@ describe('Expired Membership', () => {
     // check banner
     cy.get('.orange_black_banner').should('contain', 'Your membership has expired.')
 
-  })
+  }) // end of 'Plus page'
 
   it('Premium page', () => {
 
@@ -63,6 +63,6 @@ describe('Expired Membership', () => {
     // check banner
     cy.get('.orange_black_banner').should('contain', 'Your membership has expired.')
 
-  })
+  }) // end of 'Premium page'
 
-})
+}) // end of 'Describe'

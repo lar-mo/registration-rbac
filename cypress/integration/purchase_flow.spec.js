@@ -76,7 +76,7 @@ describe('Purchase Flow', () => {
       .should('have.attr', 'href')
       .should('eq', '/purchase_membership/?type=premium')
 
-  })
+  }) // end of Upsell
 
   it('Purchase - Radio button logic', () => {
 
@@ -119,7 +119,7 @@ describe('Purchase Flow', () => {
     // Verify no radio button is pre-selected
     // do something (no easy way to check that a radio button is NOT checked; tag param is just checked='')
 
-  })
+  }) // end of 'Purchase - Radio button logic'
 
   it('Purchase - Basic to Plus/Premium', () => {
 
@@ -233,7 +233,7 @@ describe('Purchase Flow', () => {
     cy.url().should('contain', '/plus/?message=membership_upgraded')
     cy.get('.green_white_banner').should('contain', 'You have successfully upgraded to Plus.')
 
-  })
+  }) // end of 'Purchase - Basic to Plus/Premium'
 
   it('Purchase - Plus to Premium', () => {
 
@@ -271,6 +271,6 @@ describe('Purchase Flow', () => {
     cy.url().should('contain', '/premium/?message=membership_upgraded')
     cy.get('.green_white_banner').should('contain', 'You have successfully upgraded to Premium.')
 
-  })
+  }) // end of 'Purchase - Plus to Premium'
 
-})
+}) // end of 'describe'
