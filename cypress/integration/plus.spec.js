@@ -67,7 +67,7 @@ describe('Plus', () => {
 
     cy.visit(domain_under_test + 'premium/')
 
-    // Message banner when redirecte back to Plus page
+    // Message banner when redirected back to Plus page
     cy.url().should('contain', '/plus/?message=redir_from_premium')
     cy.get('.orange_black_banner').should('contain', 'Are you looking for the Premium page? Click here to upgrade.')
     cy.get('.orange_black_banner > a')
