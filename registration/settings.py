@@ -74,16 +74,11 @@ WSGI_APPLICATION = 'registration.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        # 'NAME': 'clc_reg',
-        # 'USER': 'clc_user',
-        # 'PASSWORD': '1RXuS5X?',
-        # 'HOST': '127.0.0.1',
-        # 'PORT': '5432',
-        'NAME': 'clc_app',
-        'USER': 'clc_user',
-        'PASSWORD': 'M&lx7QHV',
-        'HOST': 'larmo-1490.postgres.pythonanywhere-services.com',
-        'PORT': '11490',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '',
     }
 }
 
@@ -133,6 +128,6 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'postmaster@registration-rbac.com'
 # EMAIL_HOST_PASSWORD = os.environ['DH_EMAIL_HOST_PASSWORD']
-with open('/home/larmo/keys/reg-rbac/dh_email_key.txt') as f:
+with open('~/keys/reg-rbac/dh_email_key.txt') as f:
     EMAIL_HOST_PASSWORD = f.read().strip()
 DEFAULT_FROM_EMAIL = 'Librarian <postmaster@registration-rbac.com>'
