@@ -265,8 +265,8 @@ def premium(request):
         return HttpResponseRedirect(reverse('clc_reg:upsell')+'?message=expired')
     elif level == 'Inactive':                                   # else go to inactive
         return HttpResponseRedirect(reverse('clc_reg:inactive'))
-    else:                                                       # else go to upsell?message=error
-        return HttpResponseRedirect(reverse('clc_reg:account_error')+'?message=error')
+    else:                                                       # else go to account_error
+        return HttpResponseRedirect(reverse('clc_reg:account_error'))
 
 @login_required
 def purchase_membership(request):
