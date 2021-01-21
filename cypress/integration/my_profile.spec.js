@@ -23,8 +23,6 @@
 //      Country: USA
 //      Postal Code: 10002
 //
-// Note: Tests for link to My Purchases are covered in my_purchases.spec.js
-//
 //////////////////////////////////////
 
 // const domain_under_test = 'https://www.registration-rbac.com/' // PRODUCTION
@@ -58,6 +56,8 @@ describe('My Profile', () => {
     cy.get('.my_profile_label').find('contain', 'Address 1').should('not.exist')
     cy.get('#address1').should('not.exist')
 
+    // The rest of the form fields are tested below
+
   }) // end of 'Blank'
 
   it('Name Only', () => {
@@ -74,6 +74,11 @@ describe('My Profile', () => {
     // check that the input boxes are populated
     cy.get('#firstname').should('have.value', 'Dan')
     cy.get('#lastname').should('have.value', 'Soder')
+
+    // Verify My Purchases link does not exists
+    cy.get('p > a').should('not.exist')
+
+    // The rest of the form fields are tested below
 
   }) // end of 'Name Only'
 
@@ -105,6 +110,11 @@ describe('My Profile', () => {
       .should('contain', 'pigs_all_three1-plus_color.png')
     cy.get('.memberlevel').should('contain', 'You have a Plus membership which expires on')
     // date: Sep 30, 2021. (check: format, in the future-check year first, then month, then day)
+
+    // Check that My Purchases link exists
+    cy.get('p > a').should('contain', 'My Purchases')
+      .should('have.attr', 'href')
+      .should('contain', '/purchases/')
 
     // h1: My Profile
     cy.get('.page_title').should('contain', 'My Profile')
