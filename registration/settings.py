@@ -73,15 +73,10 @@ DATABASES = {
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
-#         # 'NAME': 'clc_app',
-#         # 'USER': 'clc_user',             # docker
-#         # 'PASSWORD': '5LfYEGbJ',         # clc_user:docker
-#         # 'HOST': '127.0.0.1',            # docker
-#         'NAME': 'clc_reg',            # AWS
-#         'USER': 'awsuser',            # AWS
-#         'PASSWORD': 'Mu6Yx7Hk',       # awsuser:AWS
-#         'HOST': 'mydbinstance.c89twqehrakl.us-west-2.rds.amazonaws.com', # AWS
-#         'PORT': '5432',
+#         # 'NAME': '',
+#         # 'USER': '',             # docker
+#         # 'PASSWORD': '',         # clc_user:docker
+#         # 'HOST': '',             # docker
 #     }
 # }
 
