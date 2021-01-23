@@ -209,6 +209,9 @@
             {% if request.path != hp_url %}
               <a href="{% url 'clc_reg:index' %}">Homepage</a>
             {% endif %}
+            {% if request.path != hp_url and request.path != reg_url %}
+              &nbsp;|&nbsp;
+            {% endif %}
             {% if request.path != reg_url %}
               <a href="{% url 'clc_reg:register_login' %}?next={{next}}">Register or Login</a>
             {% endif %}
