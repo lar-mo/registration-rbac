@@ -16,7 +16,7 @@ describe('Anonymous', () => {
   // Verify 'www' is added (301) & http-https redirect (302) occurs; (done by Flask app)
   if (domain_under_test == 'https://www.registration-rbac.com/') {
 
-    it('Naked domain redirect + SSL', () => {
+    it('Naked domain + SSL redirect', () => {
       cy.visit(naked_domain)
       cy.url().should('contain', 'https://www')
     })
