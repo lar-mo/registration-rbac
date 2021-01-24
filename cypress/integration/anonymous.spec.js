@@ -6,21 +6,26 @@
 //
 //////////////////////////////////////
 
+const naked_domain = "http://registration-rbac.com/"
 // const domain_under_test = 'https://www.registration-rbac.com/' // PRODUCTION
 const domain_under_test = 'http://localhost:8000/'                // DEV
 
 describe('Anonymous', () => {
-  // beforeEach(() => {
-  //   cy.visit('http://registration-rbac.com')
-  // })
+
+  // Production only
+  // Verify 'www' is added (301) & http-https redirect (302) occurs; (done by Flask app)
+  if (domain_under_test == 'https://www.registration-rbac.com/') {
+
+    it('Naked domain redirect + SSL', () => {
+      cy.visit(naked_domain)
+      cy.url().should('contain', 'https://www')
+    })
+
+  }
 
   it('Homepage', () => {
 
     cy.visit(domain_under_test)
-
-    // *** ONLY UNCOMMENT THESE LINES WITH PRODUCTION "domain_under_test"
-    // Verify 'www' is added (301) & http-https redirect (302) (done by Flask app)
-    // cy.url().should('contain', 'https://www')
 
     // Verify all page elements; add check Logout link
     cy.get('.navbar > a').should('contain', 'Register or Login')
