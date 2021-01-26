@@ -101,7 +101,7 @@ describe('User Lifecycle', () => {
   // Logout
 
   it('Confirmation link', () => {
-
+    // Source: https://stackoverflow.com/questions/64083677/sample-database-connection-to-sqlite-database-in-cypress
     const query='SELECT * FROM clc_reg_verifyregistration INNER JOIN auth_user ON clc_reg_verifyregistration.user_id = auth_user.id WHERE clc_reg_verifyregistration.user_id = (SELECT id FROM auth_user WHERE username = "'+random_username+'")';
     cy.task('queryDb', query).then((rows) => {
       expect(rows).to.have.lengthOf(1);
