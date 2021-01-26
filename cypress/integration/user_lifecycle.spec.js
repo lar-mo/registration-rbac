@@ -87,6 +87,36 @@ describe('User Lifecycle', () => {
       .should('have.attr', 'src')
       .should('eq', 'https://lar-mo.com/images/special_page_pending.png')
 
+    cy.get('[href="/logout_user/"]').should('contain', 'Logout').click()
+    cy.url().should('contain', '?message=logout')
+    cy.get('.blue_white_banner').should('contain', 'You\'ve been logged out.')
+
   }) // end of 'Special Pages'
+
+  // Verify Registration
+  // TBD
+
+  // Go to Plus
+  // Upsell
+  // Upgrade to Plus
+
+  // Go to Premium
+  // Upsell
+  // Upgrade to Premium
+
+  // Check My Profile
+  // Check My Purchases
+
+  // Logout
+
+  it('Database Cnx', () => {
+    const query='select * from clc_reg_verifyregistration';
+    cy.task('queryDb', query).then((rows) => {
+      //expect(rows).to.have.lengthOf(4);
+      for(var i=0; i<rows.length; i++) {
+        cy.log(rows[i].user_id + " "+ rows[i].confirmation_code)
+      }
+    })
+  }) // end of 'Database Cnx'
 
 }) // end of 'describe'
