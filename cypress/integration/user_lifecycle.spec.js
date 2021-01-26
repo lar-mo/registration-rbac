@@ -12,17 +12,10 @@ const random_number = Math.floor(Math.random() * 100);
 const random_username = "user" + random_number
 
 describe('User Lifecycle', () => {
-  // beforeEach(() => {
-  //   cy.visit('http://registration-rbac.com')
-  // })
 
   it('Homepage', () => {
 
     cy.visit(domain_under_test)
-
-    // *** ONLY UNCOMMENT THESE LINES WITH PRODUCTION "domain_under_test"
-    // Verify 'www' is added (301) & http-https redirect (302) (done by Flask app)
-    // cy.url().should('contain', 'https://www')
 
     // Verify all page elements; add check Logout link
     cy.get('.navbar > a').should('contain', 'Register or Login')
@@ -108,14 +101,15 @@ describe('User Lifecycle', () => {
   // Logout
 
   it('Confirmation link', () => {
-
-    const query='SELECT * FROM clc_reg_verifyregistration INNER JOIN auth_user ON clc_reg_verifyregistration.user_id = auth_user.id WHERE clc_reg_verifyregistration.user_id = (SELECT id FROM auth_user WHERE username = "' + random_username + '")';
+    // Source: https://stackoverflow.com/questions/64083677/sample-database-connection-to-sqlite-database-in-cypress
+    const query='SELECT * FROM clc_reg_verifyregistration INNER JOIN auth_user ON clc_reg_verifyregistration.user_id = auth_user.id WHERE clc_reg_verifyregistration.user_id = (SELECT id FROM auth_user WHERE username = "'+random_username+'")';
     cy.task('queryDb', query).then((rows) => {
-      //expect(rows).to.have.lengthOf(4);
-      for(var i=0; i<rows.length; i++) {
-        const ccode = rows[i].confirmation_code
-        cy.wrap(ccode).as('ccode');
-      }
+      expect(rows).to.have.lengthOf(1);
+      cy.wrap(rows[0].confirmation_code).as('ccode');
+      // for(var i=0; i<rows.length; i++) {
+      //   const ccode = rows[i].confirmation_code
+      //   cy.wrap(ccode).as('ccode');
+      // }
     })
 
     cy.get('@ccode').then(ccode => {
