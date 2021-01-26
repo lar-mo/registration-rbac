@@ -56,10 +56,12 @@ describe('User Lifecycle', () => {
 
   it('Special Pages', () => {
 
+    cy.log(random_username)
+
     cy.visit(domain_under_test + 'register_login/?next=/special_page/')
 
     // Login with unconfirmed account
-    cy.get('[action="/login_user/"] > [type="text"]').type('unconfirmed_user').should('have.value', 'unconfirmed_user')
+    cy.get('[action="/login_user/"] > [type="text"]').type(random_username).should('have.value', random_username)
     cy.get('[action="/login_user/"] > [type="password"]').type('test01').should('have.value', 'test01')
     cy.get('[action="/login_user/"] > .status_block > button').click()
 
@@ -74,7 +76,7 @@ describe('User Lifecycle', () => {
 
     cy.visit(domain_under_test + 'special_page2/')
     cy.get('h1').should('contain', 'Secured page version 2, verified account required')
-    cy.get('.page_content > h2').should('contain', 'Hello unconfirmed_user')
+    cy.get('.page_content > h2').should('contain', `Hello ${random_username}`)
     cy.get('.page_content > :nth-child(3)').should('contain', 'Your account is not confirmed. Send new key')
     cy.get('.page_content > :nth-child(3) > a')
       .should('have.attr', 'href')
@@ -86,10 +88,6 @@ describe('User Lifecycle', () => {
     cy.get('.special_page_img')
       .should('have.attr', 'src')
       .should('eq', 'https://lar-mo.com/images/special_page_pending.png')
-
-    cy.get('[href="/logout_user/"]').should('contain', 'Logout').click()
-    cy.url().should('contain', '?message=logout')
-    cy.get('.blue_white_banner').should('contain', 'You\'ve been logged out.')
 
   }) // end of 'Special Pages'
 
@@ -109,14 +107,35 @@ describe('User Lifecycle', () => {
 
   // Logout
 
-  it('Database Cnx', () => {
-    const query='select * from clc_reg_verifyregistration';
+  it('Confirmation link', () => {
+
+    const query='SELECT * FROM clc_reg_verifyregistration INNER JOIN auth_user ON clc_reg_verifyregistration.user_id = auth_user.id WHERE clc_reg_verifyregistration.user_id = (SELECT id FROM auth_user WHERE username = "' + random_username + '")';
     cy.task('queryDb', query).then((rows) => {
       //expect(rows).to.have.lengthOf(4);
       for(var i=0; i<rows.length; i++) {
-        cy.log(rows[i].user_id + " "+ rows[i].confirmation_code)
+        const ccode = rows[i].confirmation_code
+        cy.wrap(ccode).as('ccode');
       }
     })
-  }) // end of 'Database Cnx'
+
+    cy.get('@ccode').then(ccode => {
+      cy.visit(domain_under_test + 'confirmation/?clc_code=' + ccode)
+    });
+
+    // Login with unconfirmed account
+    cy.get('[action="/login_user/"] > [type="text"]').type(random_username).should('have.value', random_username)
+    cy.get('[action="/login_user/"] > [type="password"]').type('test01').should('have.value', 'test01')
+    cy.get('[action="/login_user/"] > .status_block > button').click()
+
+    cy.get('.navbar > a').should('contain', 'Logout')
+      .should('have.attr', 'href')
+      .should('eq', '/logout_user/')
+    cy.get('.green_white_banner').should('contain', 'Your account is confirmed.')
+
+    cy.get('[href="/logout_user/"]').should('contain', 'Logout').click()
+    cy.url().should('contain', '?message=logout')
+    cy.get('.blue_white_banner').should('contain', 'You\'ve been logged out.')
+
+  }) // end of 'Confirmation link'
 
 }) // end of 'describe'
