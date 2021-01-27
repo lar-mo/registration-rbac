@@ -20,6 +20,11 @@
 //   // `config` is the resolved Cypress config
 // }
 
+// SOURCES:
+// https://stackoverflow.com/questions/64083677/sample-database-connection-to-sqlite-database-in-cypress
+// MacOS specific: https://github.com/cypress-io/cypress/issues/9078
+//            and: https://docs.cypress.io/guides/references/configuration.html#Node-version (cypress.json)
+
 const sqlite3 = require('sqlite3').verbose();
 module.exports = (on, _config) => {
     on('task', {
