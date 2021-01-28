@@ -77,9 +77,9 @@ DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
 #         # 'NAME': '',
-#         # 'USER': '',             # docker
-#         # 'PASSWORD': '',         # clc_user:docker
-#         # 'HOST': '',             # docker
+#         # 'USER': '',
+#         # 'PASSWORD': '',
+#         # 'HOST': '',
 #     }
 # }
 
