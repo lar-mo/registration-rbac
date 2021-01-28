@@ -31,6 +31,9 @@ describe('Basic/confirmed', () => {
     // Note: Homepage not shown by design)
     // Logout: /logout_user/
     cy.get('.navbar > a').should('contain', 'Logout')
+      .should('have.attr', 'href')
+      .should('eq', '/logout_user/')
+
 
     // BODY
     // image: pigs_all_three0-basic_color.png

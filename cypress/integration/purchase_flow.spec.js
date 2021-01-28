@@ -124,7 +124,7 @@ describe('Purchase Flow', () => {
   it('Purchase - Basic to Plus/Premium', () => {
 
     //
-    // Simulate redirect from Plus Upsell page
+    // Simulate click from Plus Upsell page
     //
     cy.visit(domain_under_test + 'purchase_membership/?type=plus')
 
@@ -238,7 +238,7 @@ describe('Purchase Flow', () => {
   it('Purchase - Plus to Premium', () => {
 
     //
-    // Simulate redirect from Plus Upsell page
+    // Simulate click from Premium Upsell page
     //
     cy.visit(domain_under_test + 'purchase_membership/?type=premium')
 
