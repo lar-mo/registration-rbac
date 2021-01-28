@@ -48,7 +48,7 @@ describe('User Lifecycle - Anonymous & Register', () => {
 
   }) // end of 'Register'
 
-}) // end of 'describe - Anonymous & Register'
+}) // end of 'User Lifecycle - Anonymous & Register'
 
 describe('User Lifecycle - Registered User', () => {
 
@@ -163,6 +163,8 @@ describe('User Lifecycle - Registered User', () => {
   }) // end of 'Confirmation link'
 
   it('Upgrade to Plus', () => {
+
+    // cy.debug()
 
     cy.visit(domain_under_test + 'plus/')
 
@@ -362,10 +364,12 @@ describe('User Lifecycle - Registered User', () => {
   // Check My Profile
   // Check My Purchases
 
+  // // https://stackoverflow.com/questions/51821789/...
+  // // ...how-will-we-call-a-function-written-in-a-separate-file-from-a-cypress-test/51844336
   // it('Custom Command test', () => {
   // cy
   //   .subValues(15, 8)
   //   .should('eq', 7) // true
   // });
 
-}) // end of 'describe - registered user'
+}) // end of 'User Lifecycle - Registered User'
