@@ -7,8 +7,7 @@
 //////////////////////////////////////
 
 const naked_domain = "http://registration-rbac.com/"
-// const domain_under_test = 'https://www.registration-rbac.com/' // PRODUCTION
-const domain_under_test = 'http://localhost:8000/'                // DEV
+const domain_under_test = Cypress.env('host')
 
 describe('Anonymous', () => {
 

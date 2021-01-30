@@ -6,8 +6,8 @@
 //
 //////////////////////////////////////
 
-// const domain_under_test = 'https://www.registration-rbac.com/' // PRODUCTION
-const domain_under_test = 'http://localhost:8000/'                // DEV
+const domain_under_test = Cypress.env('host')
+
 const random_number = Math.floor(Math.random() * 100);
 const random_username = "user" + random_number
 
