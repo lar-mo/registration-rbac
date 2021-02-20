@@ -13,8 +13,8 @@
 //
 //////////////////////////////////////
 
-// const domain_under_test = 'https://www.registration-rbac.com/' // PRODUCTION
-const domain_under_test = 'http://localhost:8000/'                // DEV
+const domain_under_test = Cypress.env('host')
+
 const valid_code = '16fe74d9f9b318900ae7091f8dff84d2'
 const invalid_code = '1a2b3c4d5e6f7g8h9i0j9k8l7m6n5o4p'
 const expired_code = '82a8e94db003952d538fe813baf271d9'
