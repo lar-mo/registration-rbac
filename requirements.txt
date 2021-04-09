@@ -1,5 +1,9 @@
 asgiref==3.3.1
+<<<<<<< HEAD
 Django==3.2
+=======
+Django==3.1.6
+>>>>>>> c3cbd6912b8ebf4515bf4d04c3c822114360c4f8
 psycopg2-binary==2.8.6
 pytz==2020.5
 sqlparse==0.4.1
