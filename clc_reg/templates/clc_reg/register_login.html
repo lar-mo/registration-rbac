@@ -50,6 +50,10 @@
         alert('Those passwords do not match.')
         evt.preventDefault()
       }
+      var human = prompt("Are you a human?");
+      if (human == null || human == "") {
+        evt.preventDefault()
+      }
     }
   </script>
 
