@@ -53,6 +53,10 @@
         alert('Those passwords do not match.')
         evt.preventDefault()
       }
+      let human = prompt("Are you a human? Type yes");
+      if (human != "yes") {
+        evt.preventDefault()
+      }
     }
   </script>
 
