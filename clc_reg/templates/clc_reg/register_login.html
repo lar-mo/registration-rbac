@@ -22,7 +22,7 @@
     <div id="container_reg">
       <h3>Login</h3>
       <form action="{% url 'clc_reg:login_user' %}" method="post">
-        {% !csrf_token %}
+        \{% \csrf_token %\}
         <input type="hidden" name="next" value="{{next}}"/>
         <input type="text" name="username" placeholder="username" required/>
         <input type="password" name="password" placeholder="password" required autocomplete="off"/>
