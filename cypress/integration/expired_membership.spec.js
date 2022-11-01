@@ -1,7 +1,6 @@
 //////////////////////////////////////
 //
 // Author: Larry Moiola
-// Date: Jan 19, 2021
 // Filename: expired_membership.spec.js
 //
 // Prerequisites for the test:

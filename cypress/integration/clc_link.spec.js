@@ -1,7 +1,6 @@
 //////////////////////////////////////
 //
 // Author: Larry Moiola
-// Date: Jan 21, 2021
 // Filename: clc_link.spec.js
 //
 // Valid Code: 16fe74d9f9b318900ae7091f8dff84d2, exp 2023-01-24 (user: valid_clc)

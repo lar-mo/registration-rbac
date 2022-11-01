@@ -1,7 +1,6 @@
 //////////////////////////////////////
 //
 // Author: Larry Moiola
-// Date: Jan 20, 2021
 // Filename: inactive_membership.spec.js
 //
 // Note: Expiration is checked for Active/Inactive

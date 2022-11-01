@@ -1,3 +1,10 @@
+//////////////////////////////////////
+//
+// Author: Larry Moiola
+// Filename: naked_domain_redir.spec.js
+//
+//////////////////////////////////////
+
 const naked_domain = "http://registration-rbac.com/"
 const domain_under_test = Cypress.env('host')
 
@@ -13,5 +20,5 @@ describe('Naked Domain Redirect', () => {
     })
 
   }
-  
+
 }) // end of 'describe - Naked Domain Redirect'

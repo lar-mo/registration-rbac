@@ -1,7 +1,6 @@
 //////////////////////////////////////
 //
 // Author: Larry Moiola
-// Date: Jan 20, 2021
 // Filename: my_profile.spec.js
 //
 // Prerequisites for the test:
