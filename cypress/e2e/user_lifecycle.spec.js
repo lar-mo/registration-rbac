@@ -300,7 +300,7 @@ describe('User Lifecycle - Registered User', () => {
     // Expiration
     cy.get(':nth-child(5) > :nth-child(4) > .field_title').should('contain', 'Expiration')
     cy.get('#exp_month').should('have.value', '10')
-    cy.get('#exp_year').should('have.value', '2022')
+    cy.get('#exp_year').should('have.value', '2024')
 
     // CVV
     cy.get(':nth-child(5) > :nth-child(5) > .field_title').should('contain', 'CVV')

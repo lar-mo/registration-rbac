@@ -25,29 +25,29 @@
 // MacOS specific: https://github.com/cypress-io/cypress/issues/9078
 //            and: https://docs.cypress.io/guides/references/configuration.html#Node-version (cypress.json)
 
-// const sqlite3 = require('sqlite3').verbose();
-// module.exports = (on, _config) => {
-//     on('task', {
-//          queryDb: queryTestDb,
-//          //wait: timeout,
-//     });
-// };
-//
-// const path='/Users/larrymoiola/software_dev/GitHub/django_projects/registration-rbac/db.sqlite3'
-// function queryTestDb(sql) {
-//     let db = new sqlite3.Database(path);
-//     return new Promise((resolve, reject) => {
-//         db.all(sql, [], (err, rows) => {
-//         if(err)
-//             reject(err);
-//
-//         else  {
-//           db.close();
-//           console.log(rows)
-//           return resolve(rows);
-//         }//End else
-//
-//       });//End db.run
-//
-//     });
-// }
+const sqlite3 = require('sqlite3').verbose();
+module.exports = (on, _config) => {
+    on('task', {
+         queryDb: queryTestDb,
+         //wait: timeout,
+    });
+};
+
+const path='/Users/larrymoiola/software_dev/GitHub/django_projects/registration-rbac/db.sqlite3'
+function queryTestDb(sql) {
+    let db = new sqlite3.Database(path);
+    return new Promise((resolve, reject) => {
+        db.all(sql, [], (err, rows) => {
+        if(err)
+            reject(err);
+
+        else  {
+          db.close();
+          console.log(rows)
+          return resolve(rows);
+        }//End else
+
+      });//End db.run
+
+    });
+}
