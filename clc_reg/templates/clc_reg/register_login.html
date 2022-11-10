@@ -31,13 +31,15 @@
 
       <h3>Register</h3>
       <form action="{% url 'clc_reg:register_user' %}" method="post" id="reg-form">
+        {% csrf_token %}
         <input type="hidden" name="next" value="{{next}}"/>
         <input type="text" name="username" placeholder="username" required pattern="\w{3,30}" title="username must be between 3 and 30 characters, all lowercase"/>
         <input type="text" name="email" placeholder="email" required pattern="\w+@\w+\.\w+" title="please enter a properly formatted email address"/>
         <input type="password" id="input_password" name="password" placeholder="password" required autocomplete="off" !pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})" !title="password must include: one lowercase letter, one uppercase letter, one number, and one special character and be at least 8 chars long"/>
         <input type="password" id="input_password2" name="password2" placeholder="retype password" required autocomplete="off"/>
         <input type="text" id="url" name="url"/>
-        <div class="status_block"><button type="submit" id="bt_register" class="g-recaptcha" data-sitekey="6Le7xvMfAAAAAOcrdx1vRTdvVAeHPa5GMQIJAnLz" data-callback='onSubmit' data-action='submit'>Register</button></div>
+        <div class="g-recaptcha" data-sitekey="6LfUG_AfAAAAANvkcJ_VW_RdCi3YsadVIPIRfcm-"></div>
+        <div class="status_block"><input type="submit" id="bt_register">Register</input></div>
       </form>
     </div> <!-- end of 'container'-->
   </div> <!-- end of 'page_content' -->
