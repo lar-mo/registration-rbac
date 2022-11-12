@@ -17,13 +17,14 @@ with open(home+'/.keys/reg-rbac/sekrit_key.txt') as f:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['0.0.0.0','localhost','127.0.0.1','poochie','registration-rbac.com','www.registration-rbac.com']
+ALLOWED_HOSTS = ['0.0.0.0','localhost','registration-rbac.com','www.registration-rbac.com']
 
 
 # Application definition
 
 INSTALLED_APPS = [
     'clc_reg',
+    'captcha',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

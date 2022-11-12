@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.utils import timezone
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
+from captcha.fields import CaptchaField
 
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
@@ -10,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import check_password
 
 from .models import VerifyRegistration, Membership, MembershipType, Transaction, BillingInformation
-
+from .forms import RegisterForm
 import secrets
 
 def index(request):
@@ -26,12 +27,17 @@ def register_login(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect(reverse('clc_reg:index'))
     else:
+        captcha = CaptchaField()
+        form = RegisterForm()
         message = request.GET.get('message', '')
         next = request.GET.get('next', '')
         context = {
             'message': message,
-            'next': next
+            'next': next,
+            'captcha': captcha,
+            'form': form
         }
+
     return render(request, 'clc_reg/register_login.html', context)
 
 def login_user(request):
@@ -70,43 +76,43 @@ def register_user(request):
     email = request.POST['email']
     password = request.POST['password']
     next = request.POST['next']
-    url = request.POST['url']
+    form = RegisterForm(request.POST)
 
-    # if URL is populated, reject as bot submission
-    if len(url) > 0:
-        return HttpResponseRedirect(reverse('clc_reg:register_login')+'?message=bot_error')
     # check if this username already exists in the system
     if User.objects.filter(username=username).exists():
         return HttpResponseRedirect(reverse('clc_reg:register_login')+'?message=reg_error')
     else:
-        # create user account
-        user = User.objects.create_user(username, email, password)
-        login(request, user)
+        if form.is_valid():
+            # create user account
+            user = User.objects.create_user(username, email, password)
+            login(request, user)
 
-        # create new key
-        bignumber = create_key(request)
+            # create new key
+            bignumber = create_key(request)
 
-        # create Basic membership
-        type = MembershipType.objects.get(name='Basic')     # get Basic object from MembershipType
-        basic_membership_type = type                        # set value of membership_type to Basic
-        expiration = '2099-12-31 00:00:00-00'               # set expiration far in the future
-        create_basic_membership = Membership(               # create the record to be saved
-            membership_type=basic_membership_type,          #
-            expiration=expiration,                          #
-            is_active=True,                                 #
-            user_id=request.user.id)                        #
-        create_basic_membership.save()                      # save to the database
+            # create Basic membership
+            type = MembershipType.objects.get(name='Basic')     # get Basic object from MembershipType
+            basic_membership_type = type                        # set value of membership_type to Basic
+            expiration = '2099-12-31 00:00:00-00'               # set expiration far in the future
+            create_basic_membership = Membership(               # create the record to be saved
+                membership_type=basic_membership_type,          #
+                expiration=expiration,                          #
+                is_active=True,                                 #
+                user_id=request.user.id)                        #
+            create_basic_membership.save()                      # save to the database
 
-        # send email with clc_link
-        subject = 'Confirm your account'
-        page = 'send_new_key'
-        clc_code = bignumber
-        host = request.META['HTTP_HOST']
-        send_notification(request, subject, page=page, clc_code=clc_code, host=host)
+            # send email with clc_link
+            subject = 'Confirm your account'
+            page = 'send_new_key'
+            clc_code = bignumber
+            host = request.META['HTTP_HOST']
+            send_notification(request, subject, page=page, clc_code=clc_code, host=host)
 
-        if next != '':
-            return HttpResponseRedirect(next)
-        return HttpResponseRedirect(reverse('clc_reg:index'))
+            if next != '':
+                return HttpResponseRedirect(next)
+            return HttpResponseRedirect(reverse('clc_reg:index'))
+        else:
+            return HttpResponseRedirect(reverse('clc_reg:register_login')+'?message=captcha_error')
 
 def create_key(request):
     expiry = timezone.now() + timezone.timedelta(days=3)    # calculate expiry 3 days in the future

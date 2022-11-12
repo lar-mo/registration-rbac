@@ -8,4 +8,5 @@ handler404 = views.handler404
 urlpatterns = [
     path('', include('clc_reg.urls')),
     path('admin/', admin.site.urls),
+    path(r'captcha/', include('captcha.urls'))
 ]
