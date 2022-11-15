@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from captcha.fields import CaptchaField
+from ipware.ip import get_client_ip
 
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
@@ -107,6 +108,8 @@ def register_user(request):
             clc_code = bignumber
             host = request.META['HTTP_HOST']
             send_notification(request, subject, page=page, clc_code=clc_code, host=host)
+
+            print("form submitted by: {}".format(get_client_ip(request)[0]))
 
             if next != '':
                 return HttpResponseRedirect(next)
