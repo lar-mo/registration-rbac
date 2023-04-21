@@ -4,4 +4,4 @@ django-ipware==4.0.2
 django-ranged-response==0.2.0
 django-simple-captcha==0.5.17
 Pillow==9.3.0
-sqlparse==0.4.3
+sqlparse==0.4.4
