@@ -69,6 +69,7 @@ urlpatterns = [
     # Handles My Profile updates
     path('save_profile/', views.save_profile, name='save_profile'),
 
-    path("robots.txt",TemplateView.as_view(template_name="clc_reg/robots.txt", content_type="text/plain")),  #add the robots.txt file
+    # Add the robots.txt file
+    # path("robots.txt",TemplateView.as_view(template_name="clc_reg/robots.txt", content_type="text/plain")),
 
 ]

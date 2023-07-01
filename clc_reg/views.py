@@ -10,6 +10,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import check_password
+# from django.views.decorators.http import require_GET
 
 from .models import VerifyRegistration, Membership, MembershipType, Transaction, BillingInformation
 from .forms import RegisterForm
@@ -527,3 +528,7 @@ def save_profile(request):
     except:
         pass
     return HttpResponseRedirect(reverse('clc_reg:my_profile')+'?message=profile_updated')
+
+# @require_GET
+# def robots.txt(request):
+    # return render(request, 'clc_reg/robots.html')
