@@ -1,5 +1,5 @@
 from django import forms
-from captcha.fields import CaptchaField
+from turnstile.fields import TurnstileField
 
 class RegisterForm(forms.Form):
-    captcha = CaptchaField()
+    turnstile = TurnstileField()

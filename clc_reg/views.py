@@ -3,8 +3,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.utils import timezone
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
-from captcha.fields import CaptchaField
+from django.conf import settings
 from ipware.ip import get_client_ip
+import time
 
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
@@ -29,15 +30,15 @@ def register_login(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect(reverse('clc_reg:index'))
     else:
-        captcha = CaptchaField()
         form = RegisterForm()
         message = request.GET.get('message', '')
         next = request.GET.get('next', '')
+        form_time = str(int(time.time()))  # Timestamp for honeypot
         context = {
             'message': message,
             'next': next,
-            'captcha': captcha,
-            'form': form
+            'form': form,
+            'form_time': form_time
         }
 
     return render(request, 'clc_reg/register_login.html', context)
@@ -80,6 +81,19 @@ def register_user(request):
     next = request.POST['next']
     form = RegisterForm(request.POST)
 
+    # Time-based honeypot check: reject if form submitted too quickly
+    form_time = request.POST.get('form_time', '0')
+    try:
+        elapsed = int(time.time()) - int(form_time)
+        min_time = getattr(settings, 'HONEYPOT_MIN_TIME', 3)
+        if elapsed < min_time:
+            print("Bot detected (too fast): {} from {}".format(username, get_client_ip(request)[0]))
+            return HttpResponseRedirect(reverse('clc_reg:register_login')+'?message=bot_error')
+    except (ValueError, TypeError):
+        # Invalid form_time - likely a bot
+        print("Bot detected (invalid form_time): {} from {}".format(username, get_client_ip(request)[0]))
+        return HttpResponseRedirect(reverse('clc_reg:register_login')+'?message=bot_error')
+
     # check if this username already exists in the system
     if User.objects.filter(username=username).exists():
         return HttpResponseRedirect(reverse('clc_reg:register_login')+'?message=reg_error')
@@ -116,7 +130,7 @@ def register_user(request):
                 return HttpResponseRedirect(next)
             return HttpResponseRedirect(reverse('clc_reg:index'))
         else:
-            return HttpResponseRedirect(reverse('clc_reg:register_login')+'?message=captcha_error')
+            return HttpResponseRedirect(reverse('clc_reg:register_login')+'?message=turnstile_error')
 
 def create_key(request):
     expiry = timezone.now() + timezone.timedelta(days=3)    # calculate expiry 3 days in the future

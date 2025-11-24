@@ -15,9 +15,9 @@ with open(home+'/.keys/reg-rbac/sekrit_key.txt') as f:
     SECRET_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0','localhost','registration-rbac.com','www.registration-rbac.com']
+ALLOWED_HOSTS = ['0.0.0.0','localhost','registration-rbac.com','www.registration-rbac.com','127.0.0.1']
 
 
 # Application definition
@@ -25,6 +25,7 @@ ALLOWED_HOSTS = ['0.0.0.0','localhost','registration-rbac.com','www.registration
 INSTALLED_APPS = [
     'clc_reg',
     'captcha',
+    'turnstile',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -133,3 +134,12 @@ EMAIL_HOST_USER = 'postmaster@registration-rbac.com'
 with open(home+'/.keys/reg-rbac/dh_email_key.txt') as f:
     EMAIL_HOST_PASSWORD = f.read().strip()
 DEFAULT_FROM_EMAIL = 'Librarian <postmaster@registration-rbac.com>'
+
+# Cloudflare Turnstile settings
+with open(home+'/.keys/reg-rbac/turnstile_sitekey.txt') as f:
+    TURNSTILE_SITEKEY = f.read().strip()
+with open(home+'/.keys/reg-rbac/turnstile_secret.txt') as f:
+    TURNSTILE_SECRET = f.read().strip()
+
+# Time-based honeypot settings (minimum seconds before form submission)
+HONEYPOT_MIN_TIME = 3

@@ -8,8 +8,8 @@
       <div class="red_white_banner">Your username and password did not match.</div>
     {% elif message == "reg_error" %}
       <div class="red_white_banner">That username is already in-use. Try again.</div>
-    {% elif message == "captcha_error" %}
-      <div class="red_white_banner">Invalid captcha code. Try again.</div>
+    {% elif message == "captcha_error" or message == "turnstile_error" %}
+      <div class="red_white_banner">Verification failed. Please try again.</div>
     {% elif message == "bot_error" %}
       <div class="red_white_banner">Unauthorized activity.</div>
     {% elif message == "login_required" %}
@@ -35,6 +35,8 @@
       <form action="{% url 'clc_reg:register_user' %}" method="POST" id="reg-form">
         {% csrf_token %}
         <input type="hidden" name="next" value="{{next}}"/>
+        <!-- Time-based honeypot: record when form was loaded -->
+        <input type="hidden" name="form_time" value="{{ form_time }}"/>
         <input type="text" name="username" placeholder="username" required pattern="\w{3,30}" title="username must be between 3 and 30 characters, all lowercase"/>
         <input type="text" name="email" placeholder="email" required pattern="\w+@\w+\.\w+" title="please enter a properly formatted email address"/>
         <input type="password" id="input_password" name="password" placeholder="password" required autocomplete="off" !pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})" !title="password must include: one lowercase letter, one uppercase letter, one number, and one special character and be at least 8 chars long"/>
@@ -59,18 +61,7 @@
     }
   </script>
 
-  <script>
-    function onSubmit(token) {
-      document.getElementById("reg-form").submit();
-    }
 
-    $('.captcha').click(function () {
-      $.getJSON("/captcha/refresh/?"+Math.random(), function (result) {
-          $('.captcha').attr('src', result['image_url']);
-          $('#id_captcha_0').val(result['key'])
-      });
-    });
-  </script>
 
 
 {% endblock %}
