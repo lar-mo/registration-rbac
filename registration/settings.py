@@ -24,7 +24,6 @@ ALLOWED_HOSTS = ['0.0.0.0','localhost','registration-rbac.com','www.registration
 
 INSTALLED_APPS = [
     'clc_reg',
-    'captcha',
     'turnstile',
     'django.contrib.admin',
     'django.contrib.auth',
