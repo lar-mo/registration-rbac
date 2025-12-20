@@ -21,7 +21,7 @@ with open(home+'/.keys/reg-rbac/sekrit_key.txt') as f:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = not IS_PRODUCTION
 
-ALLOWED_HOSTS = ['0.0.0.0','localhost','registration-rbac.com','www.registration-rbac.com','127.0.0.1']
+ALLOWED_HOSTS = ['0.0.0.0','localhost','registration-rbac.com','www.registration-rbac.com','127.0.0.1','larmo.pythonanywhere.com']
 
 
 # Application definition
