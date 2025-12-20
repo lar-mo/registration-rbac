@@ -5,6 +5,10 @@ home = str(Path.home())
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# Environment detection
+# Set DJANGO_ENV=production on PythonAnywhere to use production settings
+ENVIRONMENT = os.environ.get('DJANGO_ENV', 'development')
+IS_PRODUCTION = ENVIRONMENT == 'production'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -15,7 +19,7 @@ with open(home+'/.keys/reg-rbac/sekrit_key.txt') as f:
     SECRET_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = not IS_PRODUCTION
 
 ALLOWED_HOSTS = ['0.0.0.0','localhost','registration-rbac.com','www.registration-rbac.com','127.0.0.1']
 
@@ -35,13 +39,20 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+]
+
+# Add WhiteNoise in production for static file serving
+if IS_PRODUCTION:
+    MIDDLEWARE.append('whitenoise.middleware.WhiteNoiseMiddleware')
+
+MIDDLEWARE.extend([
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
+])
 
 ROOT_URLCONF = 'registration.urls'
 
@@ -121,7 +132,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),] # new
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
+
+# Production static files configuration
+if IS_PRODUCTION:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 LOGIN_URL = '/register_login/?message=login_required'
 
