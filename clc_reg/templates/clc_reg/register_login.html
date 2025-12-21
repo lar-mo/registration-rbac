@@ -43,20 +43,22 @@
         <input type="password" id="input_password2" name="password2" placeholder="retype password" required autocomplete="off"/>
         <br>
         {{ form }}
-        <div class="status_block"><input type="submit" value="Submit"></div>
+        <div class="status_block"><input type="submit" id="bt_register" value="Submit"></div>
       </form>
     </div> <!-- end of 'container'-->
   </div> <!-- end of 'page_content' -->
 
   <script type="text/javascript">
-    bt_register = document.querySelector('#bt_register')
-    input_password = document.querySelector('#input_password')
-    input_password2 = document.querySelector('#input_password2')
+    const bt_register = document.querySelector('#bt_register')
+    const input_password = document.querySelector('#input_password')
+    const input_password2 = document.querySelector('#input_password2')
 
-    bt_register.onclick = function(evt) {
-      if (input_password.value != input_password2.value) {
-        alert('Those passwords do not match.')
-        evt.preventDefault()
+    if (bt_register && input_password && input_password2) {
+      bt_register.onclick = function(evt) {
+        if (input_password.value != input_password2.value) {
+          alert('Those passwords do not match.')
+          evt.preventDefault()
+        }
       }
     }
   </script>
