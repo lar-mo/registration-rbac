@@ -2,9 +2,12 @@ const { defineConfig } = require('cypress')
 
 module.exports = defineConfig({
   projectId: 'szy1dm',
-  nodeVersion: 'system',
   e2e: {
     baseUrl: 'http://localhost:8000',
+    supportFile: false,
+    env: {
+      host: 'http://localhost:8000/'
+    },
     // We've imported your old cypress plugins here.
     // You may want to clean this up later by importing these.
     setupNodeEvents(on, config) {

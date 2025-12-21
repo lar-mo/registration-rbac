@@ -35,6 +35,10 @@ describe('User Lifecycle - Anonymous & Register', () => {
     cy.get('[action="/register_user/"] > [name="email"]').type('lmoiola@gmail.com').should('have.value', 'lmoiola@gmail.com')
     cy.get('#input_password').type('test01').should('have.value', 'test01')
     cy.get('#input_password2').type('test01').should('have.value', 'test01')
+    
+    // Wait for honeypot (HONEYPOT_MIN_TIME = 3 seconds)
+    cy.wait(3100)
+    
     cy.get('#bt_register').click()
     cy.get('.navbar').should('contain', 'Logout')
     cy.get('.page_content > h1').should('contain', 'Unsecured page, anonymous ok')
@@ -300,7 +304,7 @@ describe('User Lifecycle - Registered User', () => {
     // Expiration
     cy.get(':nth-child(5) > :nth-child(4) > .field_title').should('contain', 'Expiration')
     cy.get('#exp_month').should('have.value', '10')
-    cy.get('#exp_year').should('have.value', '2024')
+    cy.get('#exp_year').should('have.value', new Date().getFullYear().toString())
 
     // CVV
     cy.get(':nth-child(5) > :nth-child(5) > .field_title').should('contain', 'CVV')

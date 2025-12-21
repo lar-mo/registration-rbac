@@ -43,11 +43,19 @@ describe('Login', () => {
 
   it('Username already in-use', () => {
 
+    // Logout first (session from previous test)
+    cy.visit(domain_under_test + 'logout_user/')
+    cy.visit(domain_under_test + 'register_login/')
+
     // try to register with existing username
     cy.get('[action="/register_user/"] > [name="username"]').type('confirmed_user').should('have.value', 'confirmed_user')
     cy.get('[action="/register_user/"] > [name="email"]').type('lmoiola@gmail.com').should('have.value', 'lmoiola@gmail.com')
     cy.get('#input_password').type('test01').should('have.value', 'test01')
     cy.get('#input_password2').type('test01').should('have.value', 'test01')
+    
+    // Wait for honeypot (HONEYPOT_MIN_TIME = 3 seconds)
+    cy.wait(3100)
+    
     cy.get('#bt_register').click()
 
     // show error message

@@ -82,6 +82,10 @@ describe('My Profile', () => {
 
   it('Name & Billing', () => {
 
+    // Reset profile_name_billing user data before test
+    cy.task('queryDb', "UPDATE auth_user SET first_name='Jason', last_name='Oakerson' WHERE username='profile_name_billing'")
+    cy.task('queryDb', "UPDATE clc_reg_billinginformation SET address1='123 NE Street', address2='Apt 101', city='New York City', state='NY', country='US', zipcode='10002' WHERE purchaser_id=(SELECT id FROM auth_user WHERE username='profile_name_billing')")
+
     // Login as user with user with no profile
     cy.get('[action="/login_user/"] > [type="text"]').type('profile_name_billing').should('have.value', 'profile_name_billing')
     cy.get('[action="/login_user/"] > [type="password"]').type('test01').should('have.value', 'test01')

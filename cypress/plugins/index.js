@@ -33,7 +33,7 @@ module.exports = (on, _config) => {
     });
 };
 
-const path='/Users/larrymoiola/software_dev/GitHub/django_projects/registration-rbac/db.sqlite3'
+const path='/Users/larrymoiola/Code/GitHub/registration-rbac/db.sqlite3'
 function queryTestDb(sql) {
     let db = new sqlite3.Database(path);
     return new Promise((resolve, reject) => {
